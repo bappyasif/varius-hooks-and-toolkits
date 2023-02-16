@@ -1,11 +1,17 @@
 import React, { useReducer } from 'react'
 
+// this way of defining actions beforehand makes dispatch and reducfer function to carefully perform its operations without have to worrying about any typo kind of mistakes or any future lingo changes may rquired then it can be done easily in just one place instead of in reducer and dispatch calls
+const ACTIONS = {
+    INCREMENT: "Increment",
+    DECREMENT: "Decrement"
+}
+
 // this way of updating state is very reliable as this is only place where state is changed and not from any place else, thus makinhg state changes very centralised and informed
 const reducer = (state, action) => {
     switch (action.type) {
-        case "increment":
+        case ACTIONS.INCREMENT:
             return { count: state.count + 1 }
-        case "decrement":
+        case ACTIONS.DECREMENT:
             return { count: state.count - 1 }
         default:
             state
@@ -15,9 +21,9 @@ const reducer = (state, action) => {
 function Counter() {
     let [state, dispatch] = useReducer(reducer, { count: 0 })
 
-    const increaseCount = () => dispatch({type: "increment"})
+    const increaseCount = () => dispatch({type: ACTIONS.INCREMENT})
 
-    const decreaseCount = () => dispatch({type: "decrement"})
+    const decreaseCount = () => dispatch({type: ACTIONS.DECREMENT})
 
     return (
         <div>
