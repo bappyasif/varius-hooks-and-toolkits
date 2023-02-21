@@ -2,9 +2,11 @@ import React from 'react'
 import styled from "styled-components";
 import ProductCard from './ProductCard';
 import { useShop } from './ShopContext';
+import { useShopRedone } from './ShopContextRedone';
 
 const Cart = () => {
-    const { products, total } = useShop();
+    // const { products, total } = useShop();
+    const { products, total } = useShopRedone();
 
     return (
         <>

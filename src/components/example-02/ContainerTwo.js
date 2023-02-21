@@ -5,6 +5,7 @@ import { Router, Link } from "@reach/router";
 import Products from "./Products";
 import Cart from "./Cart";
 import { ShopProvider } from './ShopContext';
+import { ShopProviderRedone } from './ShopContextRedone';
 
 // Create a Title component that'll render an <h1> tag with some styles
 const TitleWrapper = styled.h1`
@@ -27,13 +28,14 @@ const Wrapper = styled.section`
 
 function ContainerTwo() {
     return (
-        <ShopProvider>
+        // <ShopProvider>
+        <ShopProviderRedone>
             <Wrapper>
                 <TitleWrapper>
                     <h1>useReducer Hook Starter Project</h1>
-                    <p>
+                    {/* <p>
                         A <a href="designcode.io">Design+Code</a> tutorial
-                    </p>
+                    </p> */}
                 </TitleWrapper>
                 <LinksWrapper>
                     <Link to="/">Home</Link>
@@ -44,7 +46,8 @@ function ContainerTwo() {
                     <Cart path="/cart" />
                 </Router>
             </Wrapper>
-        </ShopProvider>
+            {/* </ShopProvider> */}
+        </ShopProviderRedone>
     )
 }
 

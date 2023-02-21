@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import styled from "styled-components";
 import { useShop } from './ShopContext';
+import { useShopRedone } from './ShopContextRedone';
 
 const ProductCard = ({ name, imageUrl, price }) => {
-    const {products, addToCart, removeFromCart} = useShop()
+    // const {products, addToCart, removeFromCart} = useShop()
+    const { products, addToCart, removeFromCart } = useShopRedone()
+
     let [isInCart, setIsInCart] = useState(false);
+
     useEffect(() => {
         const checkProductIsAlreadyInCart = products.find(prod => prod.name === name);
 
-        if(checkProductIsAlreadyInCart) {
+        if (checkProductIsAlreadyInCart) {
             setIsInCart(true)
         } else {
             setIsInCart(false)
@@ -16,25 +20,26 @@ const ProductCard = ({ name, imageUrl, price }) => {
     }, [products, name])
 
     const handleClick = () => {
-        const product = {name, imageUrl, price}
+        const product = { name, imageUrl, price }
 
-        if(isInCart) {
+        if (isInCart) {
             removeFromCart(product)
         } else {
             addToCart(product)
         }
     }
-  return (
-    <Wrapper background={imageUrl}>
-      <AddButton isInCart={isInCart} onClick={handleClick}>
-        <p>{isInCart ? "-" : "+"}</p>
-      </AddButton>
-      <TextContainer>
-        <Title>{name}</Title>
-        <Subtitle>{price}.00$</Subtitle>
-      </TextContainer>
-    </Wrapper>
-  );
+
+    return (
+        <Wrapper background={imageUrl}>
+            <AddButton isInCart={isInCart} onClick={handleClick}>
+                <p>{isInCart ? "-" : "+"}</p>
+            </AddButton>
+            <TextContainer>
+                <Title>{name}</Title>
+                <Subtitle>{price}.00$</Subtitle>
+            </TextContainer>
+        </Wrapper>
+    );
 };
 
 export default ProductCard;
@@ -48,7 +53,7 @@ const Wrapper = styled.div`
   box-shadow: 0px 20px 40px rgba(52, 53, 99, 0.2),
     0px 1px 3px rgba(0, 0, 0, 0.05);
   background: ${(props) =>
-    props.background && `url(${props.background}) center no-repeat`};
+        props.background && `url(${props.background}) center no-repeat`};
   background-size: 300px;
   overflow: hidden;
   position: relative;
