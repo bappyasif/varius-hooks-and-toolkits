@@ -6,6 +6,8 @@ import { useRouter } from 'next/router'
 
 const inter = Inter({ subsets: ['latin'] })
 
+// its always a good practice to view this in build mode to see what will be deployed in procution mode and how app wqill behave before actual deployment takes place
+
 // index.js will be treated as home routes by default
 // nextJS uses file based routing system
 // any file added into Pages folder will be treated as a destination for route page, which includes nested, dynamic, and static kind of pages
@@ -29,11 +31,23 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
+        {/* any links in viewport initially or through scroll will be prefetched by default including their data for pages using Static Site Generation */}
+        {/* when a page getStaticProps is pre rendered at build time, in addition to the page HTML file, a json file is also gets generated */}
+        {/* json file will be used in client side routing through next/link or next/route */}
+        {/* when navigated to a page that is pre rendered using getStaticProps next.js fetches corresponding json file which was pre computed at build time and uses it as a props to create page component for client side */}
+        {/* when navigated directly to a route which has SSG in it then it will serve that HTML file from build time */}
+        {/* when naviagted from a different route using Link to that page the SSG will use json file which was pre fetched from server during build time to create that client side page */}
         <Link href={"/blog"}>
           Blog
         </Link>
         <Link href={"/product"}>
           Products
+        </Link>
+        <Link href={"/users"}>
+          Users
+        </Link>
+        <Link href={"/posts"}>
+          Posts
         </Link>
         {/* usecase for rendering routes programatically after any action */}
         <button onClick={handleClick}>Place Order</button>
