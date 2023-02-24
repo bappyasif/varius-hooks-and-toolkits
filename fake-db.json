@@ -1,0 +1,60 @@
+{
+    "dashboard": {
+        "posts": 5,
+        "likes": 99,
+        "followers": 20,
+        "following": 40
+    },
+    "news": [
+        {
+            "id": "1",
+            "title": "News Artikel Een",
+            "description": "Het is Artikel nummer een",
+            "category": "sports"
+        },
+        {
+            "id": "2",
+            "title": "News Artikel Twee",
+            "description": "Het is Artikel nummer twee",
+            "category": "politics"
+        },
+        {
+            "id": "3",
+            "title": "News Artikel Drie",
+            "description": "Het is Artikel nummer drie",
+            "category": "sports"
+        },
+        {
+            "id": "4",
+            "title": "News Artikel Vier",
+            "description": "Het is Artikel nummer vier",
+            "category": "politics"
+        }
+    ],
+    "products": [
+        {
+            "id": 1,
+            "title": "Product Een",
+            "price": 1000,
+            "description": "Het is product nummert een"
+        },
+        {
+            "id": 2,
+            "title": "Product Een",
+            "price": 1500,
+            "description": "Het is product nummert twee"
+        },
+        {
+            "id": 3,
+            "title": "Product Drie",
+            "price": 1800,
+            "description": "Het is product nummer drie"
+        },
+        {
+            "id": 4,
+            "title": "Product Vier",
+            "price": 2000,
+            "description": "Het is product nummer vier"
+        }
+    ]
+}
