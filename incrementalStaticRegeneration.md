@@ -60,3 +60,24 @@ something about Re-Generation
   * it is used only for pre-rendering and not client side data fetching
 * getServerSideProps should return an object with an object inside of it that contains props as a key and which is a an object it self
 * getServerSideProps will run at request time
+
+# pre-rendering and data fetching summary
+* pre-rendering refers to process of generating html in advance which results in better performance and seo nextjs supports two forms of pre-rendering 
+  * static generations
+  * server side rendering
+
+## static generations
+* a method of pre-rendering where HTML pages are generated at build time
+* pages can be built once and cached by a CDN and served to clients almost instantly, for example marketing or blog site
+* for a normal page use getStaticProps function to fetch data  ahead of time
+* for dynamic page we can use getyStaticPaths function
+* fallback value could be either "false", "true" or "blocking"
+* pages can not be updated without a full re-build
+* to mitigate that in a way,m we can use Incremental Static Generation aka ISG with "revalidate" key for data fetching after that "time frame -- in seconds"
+
+## server-side rendering
+* fetch data at request time
+* personalize data based on user information in incoming request, for example "a news listings site"
+* we use then getServerSideProps function for data fetching
+* combining pre-rendering with client side data fetching 
+* shallow routing - routing without calling getStaticProps or getServerSideProps

@@ -1,4 +1,76 @@
 {
+    "events": [
+        {
+            "id": 1,
+            "title": "Event Een",
+            "description": "Hier is Event nummer een",
+            "category": "sports",
+            "date": "April 24th"
+        },
+        {
+            "id": 2,
+            "title": "Event Twee",
+            "description": "Hier is Event nummer twee",
+            "category": "sports",
+            "date": "May 25th"
+        },
+        {
+            "id": 3,
+            "title": "Event Drie",
+            "description": "Hier is Event nummer drie",
+            "category": "sports",
+            "date": "June 26th"
+        },
+        {
+            "id": 4,
+            "title": "Event Vier",
+            "description": "Hier is Event nummer vier",
+            "category": "politics",
+            "date": "July 27th"
+        },
+        {
+            "id": 5,
+            "title": "Event Vijf",
+            "description": "Hier is Event nummer vijf",
+            "category": "politics",
+            "date": "August 28th"
+        },
+        {
+            "id": 6,
+            "title": "Event Zes",
+            "description": "Hier is Event nummer zes",
+            "category": "politics",
+            "date": "September 29th"
+        },
+        {
+            "id": 7,
+            "title": "Event Zeven",
+            "description": "Hier is Event nummer zeven",
+            "category": "technology",
+            "date": "October 30th"
+        },
+        {
+            "id": 8,
+            "title": "Event Acht",
+            "description": "Hier is Event nummer acht",
+            "category": "food",
+            "date": "November 31th"
+        },
+        {
+            "id": 9,
+            "title": "Event Negen",
+            "description": "Hier is Event nummer negen",
+            "category": "food",
+            "date": "December 1st"
+        },
+        {
+            "id": 10,
+            "title": "Event Tien",
+            "description": "Hier is Event nummer tien",
+            "category": "technology",
+            "date": "January 2nd"
+        }
+    ],
     "dashboard": {
         "posts": 5,
         "likes": 99,
