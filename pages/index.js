@@ -3,6 +3,7 @@ import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useSession } from 'next-auth/react'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -12,14 +13,17 @@ const inter = Inter({ subsets: ['latin'] })
 // nextJS uses file based routing system
 // any file added into Pages folder will be treated as a destination for route page, which includes nested, dynamic, and static kind of pages
 export default function Home() {
+  let { data: session, status } = useSession();
   const router = useRouter();
 
-  const handleClick = () => {
-      // by pushing it to router history stack we will ensure routes to this pushed route
-      router.push("/product")
+  console.log(session, "sesson from home page")
 
-      // we can use "replace" which will mimic "replace" property used on "Link"
-      // router.replace("/product")
+  const handleClick = () => {
+    // by pushing it to router history stack we will ensure routes to this pushed route
+    router.push("/product")
+
+    // we can use "replace" which will mimic "replace" property used on "Link"
+    // router.replace("/product")
   }
 
   return (
@@ -37,7 +41,7 @@ export default function Home() {
         {/* when navigated to a page that is pre rendered using getStaticProps next.js fetches corresponding json file which was pre computed at build time and uses it as a props to create page component for client side */}
         {/* when navigated directly to a route which has SSG in it then it will serve that HTML file from build time */}
         {/* when naviagted from a different route using Link to that page the SSG will use json file which was pre fetched from server during build time to create that client side page */}
-        <Link href={"/blog"}>
+        <h1>Welcome {status === "authenticated" ? `${session.user.name}, ` : ""} To Home Page</h1>        <Link href={"/blog"}>
           Blog
         </Link>
         <Link href={"/product"}>
