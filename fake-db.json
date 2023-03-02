@@ -19,6 +19,41 @@
             "id": 4,
             "name": "Elastic Girl",
             "alterEgo": "Helen Parr"
+        },
+        {
+            "id": 5,
+            "name": "Cat Woman",
+            "alterEgo": "Selina Kyle"
+        }
+    ],
+    "friends": [
+        {
+            "id": "1",
+            "name": "Phoebe"
+        },
+        {
+            "id": "2",
+            "name": "Joey"
+        },
+        {
+            "id": "3",
+            "name": "Rachel"
+        },
+        {
+            "id": "4",
+            "name": "Monika"
+        }
+    ],
+    "users": [
+        {
+            "id": "ab@cdef.ghi",
+            "channelId": "gg"
+        }
+    ],
+    "channels": [
+        {
+            "id": "gg",
+            "contents": ["esports", "video games"]
         }
     ]
 }

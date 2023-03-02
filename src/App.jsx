@@ -8,6 +8,11 @@ import {
 import HomePage from './componnets/Home.page'
 import SuperheroesPage from './componnets/Superheroes.page'
 import TRQSuperheroesPage from './componnets/TRQ.Superheroes.page';
+import TRQCustomHookExercise from './componnets/TRQ.CustomHookExercise';
+import { TRQSuperheroDetailPage } from './componnets/TRQ.SuperheroDetail.page';
+import { TRQParallelQueriesPage } from './componnets/TRQParallelQueries.page';
+import { TRQDynamicParallelQueriesPage } from './componnets/TRQDynamicParallelQueries.page';
+import { TRQDependentQueriesPage } from './componnets/TRQDependentQueries.page';
 function App() {
   return (
 
@@ -18,13 +23,19 @@ function App() {
           <li><Link to={"/"}>Home</Link></li>
           <li><Link to={"/super-heroes"}>Superheroes - Traditional Fetching</Link></li>
           <li><Link to={"/super-heroes-trq"}>Superheroes - Tanstack React Query Fetching</Link></li>
+          {/* <li><Link to={"/custom-hook-exercise-trq"}>Superheroes - Custom Hook Usage Exercise</Link></li> */}
         </ul>
       </nav>
 
       <Routes>
         <Route path='/' element={<HomePage />} />
+        <Route path='/trq-dependent' element={<TRQDependentQueriesPage emailAddr={"ab@cdef.ghi"} />} />
+        <Route path='/trq-parallel' element={<TRQParallelQueriesPage />} />
+        <Route path='/trq-dynamic-parallel' element={<TRQDynamicParallelQueriesPage heroIds={[1,4]} />} />
+        <Route path='/super-heroes-trq/:heroId' element={<TRQSuperheroDetailPage />} />
         <Route path='/super-heroes' element={<SuperheroesPage />} />
         <Route path='/super-heroes-trq' element={<TRQSuperheroesPage />} />
+        {/* <Route path='/custom-hook-exercise-trq' element={<TRQCustomHookExercise />} /> */}
       </Routes>
     </div>
 
