@@ -1,59 +1,146 @@
 {
-    "superheroes": [
-        {
-            "id": 1,
-            "name": "Batman",
-            "alterEgo": "Bruce Wayne"
-        },
-        {
-            "id": 2,
-            "name": "Superman",
-            "alterEgo": "Clark Kent"
-        },
-        {
-            "id": 3,
-            "name": "Wonder Woman",
-            "alterEgo": "Princes Diana"
-        },
-        {
-            "id": 4,
-            "name": "Elastic Girl",
-            "alterEgo": "Helen Parr"
-        },
-        {
-            "id": 5,
-            "name": "Cat Woman",
-            "alterEgo": "Selina Kyle"
-        }
-    ],
-    "friends": [
-        {
-            "id": "1",
-            "name": "Phoebe"
-        },
-        {
-            "id": "2",
-            "name": "Joey"
-        },
-        {
-            "id": "3",
-            "name": "Rachel"
-        },
-        {
-            "id": "4",
-            "name": "Monika"
-        }
-    ],
-    "users": [
-        {
-            "id": "ab@cdef.ghi",
-            "channelId": "gg"
-        }
-    ],
-    "channels": [
-        {
-            "id": "gg",
-            "contents": ["esports", "video games"]
-        }
-    ]
+  "superheroes": [
+    {
+      "id": 1,
+      "name": "Batman",
+      "alterEgo": "Bruce Wayne"
+    },
+    {
+      "id": 2,
+      "name": "Superman",
+      "alterEgo": "Clark Kent"
+    },
+    {
+      "id": 3,
+      "name": "Wonder Woman",
+      "alterEgo": "Princes Diana"
+    },
+    {
+      "id": 4,
+      "name": "Elastic Girl",
+      "alterEgo": "Helen Parr"
+    },
+    {
+      "id": 5,
+      "name": "Cat Woman",
+      "alterEgo": "Selina Kyle"
+    },
+    {
+      "name": "de flash",
+      "alterEgo": "barry allen",
+      "id": 6
+    },
+    {
+      "name": "popey",
+      "alterEgo": "sailor man",
+      "id": 7
+    },
+    {
+      "name": "spiderman",
+      "alterEgo": "peter parker",
+      "id": 8
+    },
+    {
+      "name": "hulk",
+      "alterEgo": "bruce banner",
+      "id": 9
+    },
+    {
+      "name": "green arrow",
+      "alterEgo": "oliver queen",
+      "id": 10
+    },
+    {
+      "name": "aa",
+      "alterEgo": "bb",
+      "id": 11
+    },
+    {
+      "name": "bb",
+      "alterEgo": "cc",
+      "id": 12
+    },
+    {
+      "name": "cc",
+      "alterEgo": "dd",
+      "id": 13
+    },
+    {
+      "name": "dd",
+      "alterEgo": "ee",
+      "id": 14
+    },
+    {
+      "name": "qq",
+      "alterEgo": "ww",
+      "id": 15
+    }
+  ],
+  "friends": [
+    {
+      "id": "1",
+      "name": "Phoebe"
+    },
+    {
+      "id": "2",
+      "name": "Joey"
+    },
+    {
+      "id": "3",
+      "name": "Rachel"
+    },
+    {
+      "id": "4",
+      "name": "Monika"
+    }
+  ],
+  "users": [
+    {
+      "id": "ab@cdef.ghi",
+      "channelId": "gg"
+    }
+  ],
+  "channels": [
+    {
+      "id": "gg",
+      "contents": [
+        "esports",
+        "video games"
+      ]
+    }
+  ],
+  "colors": [
+    {
+      "id": 1,
+      "label": "red"
+    },
+    {
+      "id": 2,
+      "label": "blue"
+    },
+    {
+      "id": 3,
+      "label": "green"
+    },
+    {
+      "id": 4,
+      "label": "yellow"
+    },
+    {
+      "id": 5,
+      "label": "magenta"
+    },
+    {
+      "id": 6,
+      "label": "white"
+    },
+    {
+      "id": 7,
+      "label": "orange"
+    },
+    {
+      "id": 8,
+      "label": "purple"
+    }
+  ]
 }

@@ -13,6 +13,8 @@ import { TRQSuperheroDetailPage } from './componnets/TRQ.SuperheroDetail.page';
 import { TRQParallelQueriesPage } from './componnets/TRQParallelQueries.page';
 import { TRQDynamicParallelQueriesPage } from './componnets/TRQDynamicParallelQueries.page';
 import { TRQDependentQueriesPage } from './componnets/TRQDependentQueries.page';
+import { TRQPaginatedQueriesPgae } from './componnets/TRQPaginatedQueries.pgae';
+import TRQInfinitePaginationQueriesPage from './componnets/TRQInfinitePaginationQueries.page';
 function App() {
   return (
 
@@ -29,6 +31,8 @@ function App() {
 
       <Routes>
         <Route path='/' element={<HomePage />} />
+        <Route path='/trq-infinite' element={<TRQInfinitePaginationQueriesPage />} />
+        <Route path='/trq-paginated' element={<TRQPaginatedQueriesPgae />} />
         <Route path='/trq-dependent' element={<TRQDependentQueriesPage emailAddr={"ab@cdef.ghi"} />} />
         <Route path='/trq-parallel' element={<TRQParallelQueriesPage />} />
         <Route path='/trq-dynamic-parallel' element={<TRQDynamicParallelQueriesPage heroIds={[1,4]} />} />
