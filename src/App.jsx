@@ -15,6 +15,7 @@ import { TRQDynamicParallelQueriesPage } from './componnets/TRQDynamicParallelQu
 import { TRQDependentQueriesPage } from './componnets/TRQDependentQueries.page';
 import { TRQPaginatedQueriesPgae } from './componnets/TRQPaginatedQueries.pgae';
 import TRQInfinitePaginationQueriesPage from './componnets/TRQInfinitePaginationQueries.page';
+import { PostsPage } from './componnets/Posts.page';
 function App() {
   return (
 
@@ -30,6 +31,9 @@ function App() {
       </nav>
 
       <Routes>
+        <Route path='/posts' element={<PostsPage />} />
+
+
         <Route path='/' element={<HomePage />} />
         <Route path='/trq-infinite' element={<TRQInfinitePaginationQueriesPage />} />
         <Route path='/trq-paginated' element={<TRQPaginatedQueriesPgae />} />
