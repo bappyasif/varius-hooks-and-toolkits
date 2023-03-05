@@ -18,6 +18,9 @@ import TRQInfinitePaginationQueriesPage from './componnets/TRQInfinitePagination
 import { PostsPage } from './componnets/Posts.page';
 import { PostCreatePage } from './componnets/Post.create.page';
 import { PostDetailPage } from './componnets/Post.detail.page';
+import { TRQPostsPage } from './componnets/TRQ.Posts.Page';
+import { TRQPostCreatePage } from './componnets/TRQ.Post.Create.Page';
+import { TRQPostDetailPage } from './componnets/TRQ.Post.Detail.page';
 function App() {
   return (
 
@@ -33,9 +36,13 @@ function App() {
       </nav>
 
       <Routes>
-        <Route path='/posts' element={<PostsPage />} />
+        {/* <Route path='/posts' element={<PostsPage />} />
         <Route path='/posts/:postId' element={<PostDetailPage />} />
-        <Route path='/post-create' element={<PostCreatePage />} />
+        <Route path='/post-create' element={<PostCreatePage />} /> */}
+
+        <Route path='/posts' element={<TRQPostsPage />} />
+        <Route path='/posts/:postId' element={<TRQPostDetailPage />} />
+        <Route path='/post-create' element={<TRQPostCreatePage />} />
 
 
         <Route path='/' element={<HomePage />} />
@@ -43,7 +50,7 @@ function App() {
         <Route path='/trq-paginated' element={<TRQPaginatedQueriesPgae />} />
         <Route path='/trq-dependent' element={<TRQDependentQueriesPage emailAddr={"ab@cdef.ghi"} />} />
         <Route path='/trq-parallel' element={<TRQParallelQueriesPage />} />
-        <Route path='/trq-dynamic-parallel' element={<TRQDynamicParallelQueriesPage heroIds={[1,4]} />} />
+        <Route path='/trq-dynamic-parallel' element={<TRQDynamicParallelQueriesPage heroIds={[1, 4]} />} />
         <Route path='/super-heroes-trq/:heroId' element={<TRQSuperheroDetailPage />} />
         <Route path='/super-heroes' element={<SuperheroesPage />} />
         <Route path='/super-heroes-trq' element={<TRQSuperheroesPage />} />

@@ -2,7 +2,7 @@
   "posts": [
     {
       "id": 1,
-      "title": "eerst Post (:!!",
+      "title": "eerst Post",
       "body": "Cake muffin lemon drops marzipan pastry pudding. Donut chocolate bar jujubes cake toffee. Jelly-o pie sugar plum fruitcake cupcake icing macaroon"
     },
     {
@@ -14,11 +14,6 @@
       "id": 3,
       "title": "derde Post",
       "body": "Gingerbread chocolate cake brownie soufflé soufflé danish ice cream pie. Lemon drops macaroon dessert bonbon gummies candy cupcake. Liquorice oat cake tart ice cream cheesecake fruitcake apple pie. Candy canes marshmallow wafer macaroon chocolate bar marzipan cheesecake marshmallow"
-    },
-    {
-      "id": 4,
-      "title": "vierde Post!!",
-      "body": "Candy croissant croissant cake brownie bonbon croissant cotton candy. Sweet cake pie powder dragée sesame snaps marshmallow. Chocolate cake oat cake chocolate donut croissant cake cupcake cookie"
     }
   ]
 }
