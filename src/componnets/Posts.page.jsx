@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 import { axios_request } from "../utils/another-axios-interceptor"
 
 export const PostsPage = () => {
@@ -20,8 +21,20 @@ export const PostsPage = () => {
             }
         }
     }
+    const handleDelete = async (e) => {
+        try {
+            const response = await axios_request.delete(`/posts/${e.target.parentNode.id}`)
+            fetchPosts();
+        } catch (err) {
+            console.log("Something's wrong....", err.message)
+        }
+
+    }
     useEffect(() => {
+        setPosts([])
         fetchPosts()
+        console.log("IM RUNNING!!")
+        // setEditToggle(false)
     }, [])
     return (
         <main>
@@ -29,10 +42,14 @@ export const PostsPage = () => {
             {
                 posts?.map(post => {
                     return (
-                        <article key={post.id}>
-                            <h2>{post.id} -- {post.title}</h2>
-                            <h4>{post.body}</h4>
-                        </article>
+                        <Link key={post.id} to={`/posts/${post.id}`}>
+                            <article key={post.id} id={post.id}>
+                                <h2>{post.id} -- {post.title}</h2>
+                                <h4>{post.body}</h4>
+                                <h6 onClick={handleDelete}>X</h6>
+                                {/* <h6 onClick={() => setEditToggle(prev => !prev)}>Edit</h6> */}
+                            </article>
+                        </Link>
                     )
                 })
             }

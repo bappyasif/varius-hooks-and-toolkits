@@ -16,6 +16,8 @@ import { TRQDependentQueriesPage } from './componnets/TRQDependentQueries.page';
 import { TRQPaginatedQueriesPgae } from './componnets/TRQPaginatedQueries.pgae';
 import TRQInfinitePaginationQueriesPage from './componnets/TRQInfinitePaginationQueries.page';
 import { PostsPage } from './componnets/Posts.page';
+import { PostCreatePage } from './componnets/Post.create.page';
+import { PostDetailPage } from './componnets/Post.detail.page';
 function App() {
   return (
 
@@ -32,6 +34,8 @@ function App() {
 
       <Routes>
         <Route path='/posts' element={<PostsPage />} />
+        <Route path='/posts/:postId' element={<PostDetailPage />} />
+        <Route path='/post-create' element={<PostCreatePage />} />
 
 
         <Route path='/' element={<HomePage />} />
