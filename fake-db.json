@@ -1,146 +1,132 @@
 {
-  "superheroes": [
-    {
-      "id": 1,
-      "name": "Batman",
-      "alterEgo": "Bruce Wayne"
+    "events": [
+        {
+            "id": 1,
+            "title": "Event Een",
+            "description": "Hier is Event nummer een",
+            "category": "sports",
+            "date": "April 24th"
+        },
+        {
+            "id": 2,
+            "title": "Event Twee",
+            "description": "Hier is Event nummer twee",
+            "category": "sports",
+            "date": "May 25th"
+        },
+        {
+            "id": 3,
+            "title": "Event Drie",
+            "description": "Hier is Event nummer drie",
+            "category": "sports",
+            "date": "June 26th"
+        },
+        {
+            "id": 4,
+            "title": "Event Vier",
+            "description": "Hier is Event nummer vier",
+            "category": "politics",
+            "date": "July 27th"
+        },
+        {
+            "id": 5,
+            "title": "Event Vijf",
+            "description": "Hier is Event nummer vijf",
+            "category": "politics",
+            "date": "August 28th"
+        },
+        {
+            "id": 6,
+            "title": "Event Zes",
+            "description": "Hier is Event nummer zes",
+            "category": "politics",
+            "date": "September 29th"
+        },
+        {
+            "id": 7,
+            "title": "Event Zeven",
+            "description": "Hier is Event nummer zeven",
+            "category": "technology",
+            "date": "October 30th"
+        },
+        {
+            "id": 8,
+            "title": "Event Acht",
+            "description": "Hier is Event nummer acht",
+            "category": "food",
+            "date": "November 31th"
+        },
+        {
+            "id": 9,
+            "title": "Event Negen",
+            "description": "Hier is Event nummer negen",
+            "category": "food",
+            "date": "December 1st"
+        },
+        {
+            "id": 10,
+            "title": "Event Tien",
+            "description": "Hier is Event nummer tien",
+            "category": "technology",
+            "date": "January 2nd"
+        }
+    ],
+    "dashboard": {
+        "posts": 5,
+        "likes": 99,
+        "followers": 20,
+        "following": 40
     },
-    {
-      "id": 2,
-      "name": "Superman",
-      "alterEgo": "Clark Kent"
-    },
-    {
-      "id": 3,
-      "name": "Wonder Woman",
-      "alterEgo": "Princes Diana"
-    },
-    {
-      "id": 4,
-      "name": "Elastic Girl",
-      "alterEgo": "Helen Parr"
-    },
-    {
-      "id": 5,
-      "name": "Cat Woman",
-      "alterEgo": "Selina Kyle"
-    },
-    {
-      "name": "de flash",
-      "alterEgo": "barry allen",
-      "id": 6
-    },
-    {
-      "name": "popey",
-      "alterEgo": "sailor man",
-      "id": 7
-    },
-    {
-      "name": "spiderman",
-      "alterEgo": "peter parker",
-      "id": 8
-    },
-    {
-      "name": "hulk",
-      "alterEgo": "bruce banner",
-      "id": 9
-    },
-    {
-      "name": "green arrow",
-      "alterEgo": "oliver queen",
-      "id": 10
-    },
-    {
-      "name": "aa",
-      "alterEgo": "bb",
-      "id": 11
-    },
-    {
-      "name": "bb",
-      "alterEgo": "cc",
-      "id": 12
-    },
-    {
-      "name": "cc",
-      "alterEgo": "dd",
-      "id": 13
-    },
-    {
-      "name": "dd",
-      "alterEgo": "ee",
-      "id": 14
-    },
-    {
-      "name": "qq",
-      "alterEgo": "ww",
-      "id": 15
-    }
-  ],
-  "friends": [
-    {
-      "id": "1",
-      "name": "Phoebe"
-    },
-    {
-      "id": "2",
-      "name": "Joey"
-    },
-    {
-      "id": "3",
-      "name": "Rachel"
-    },
-    {
-      "id": "4",
-      "name": "Monika"
-    }
-  ],
-  "users": [
-    {
-      "id": "ab@cdef.ghi",
-      "channelId": "gg"
-    }
-  ],
-  "channels": [
-    {
-      "id": "gg",
-      "contents": [
-        "esports",
-        "video games"
-      ]
-    }
-  ],
-  "colors": [
-    {
-      "id": 1,
-      "label": "red"
-    },
-    {
-      "id": 2,
-      "label": "blue"
-    },
-    {
-      "id": 3,
-      "label": "green"
-    },
-    {
-      "id": 4,
-      "label": "yellow"
-    },
-    {
-      "id": 5,
-      "label": "magenta"
-    },
-    {
-      "id": 6,
-      "label": "white"
-    },
-    {
-      "id": 7,
-      "label": "orange"
-    },
-    {
-      "id": 8,
-      "label": "purple"
-    }
-  ]
+    "news": [
+        {
+            "id": "1",
+            "title": "News Artikel Een",
+            "description": "Het is Artikel nummer een",
+            "category": "sports"
+        },
+        {
+            "id": "2",
+            "title": "News Artikel Twee",
+            "description": "Het is Artikel nummer twee",
+            "category": "politics"
+        },
+        {
+            "id": "3",
+            "title": "News Artikel Drie",
+            "description": "Het is Artikel nummer drie",
+            "category": "sports"
+        },
+        {
+            "id": "4",
+            "title": "News Artikel Vier",
+            "description": "Het is Artikel nummer vier",
+            "category": "politics"
+        }
+    ],
+    "products": [
+        {
+            "id": 1,
+            "title": "Product Een",
+            "price": 1000,
+            "description": "Het is product nummert een"
+        },
+        {
+            "id": 2,
+            "title": "Product Een",
+            "price": 1500,
+            "description": "Het is product nummert twee"
+        },
+        {
+            "id": 3,
+            "title": "Product Drie",
+            "price": 1800,
+            "description": "Het is product nummer drie"
+        },
+        {
+            "id": 4,
+            "title": "Product Vier",
+            "price": 2000,
+            "description": "Het is product nummer vier"
+        }
+    ]
 }
