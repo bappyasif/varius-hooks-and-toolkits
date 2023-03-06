@@ -7,6 +7,7 @@ import "@/styles/layout.css"
 import "@/components/navbar/Navbar.css"
 import Head from 'next/head'
 import { SessionProvider } from 'next-auth/react'
+import { MainNavigation } from '@/components/MainNavigation'
 
 const theme = {
   colors: {
@@ -34,10 +35,11 @@ export default function App({ Component, pageProps }) {
     <SessionProvider session={pageProps.session}>
       <ThemeProvider theme={theme}>
         <Head>
-          <title>Next JS Is Fuuuuunnnnn!!!!</title>
-          <meta name='learning nextjs' content='a popular full react framework' />
+          <title>TanstackQueries.Axios.NextJS.Tailwind -- T.A.N.T.</title>
+          <meta name='learning using t.a.n.t. together' content='a popular full react framework' />
         </Head>
-        <Header />
+        {/* <Header /> */}
+        <MainNavigation />
         <Component {...pageProps} />
         <Footer />
       </ThemeProvider>
