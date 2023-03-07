@@ -16,9 +16,25 @@ const nextConfig = {
         source: "/old-blog/:id",
         destination: "/new-blog/:id",
         permanent: true
-      }
+      },
     ]
-  }
+  },
+  // configuring remote image pathname
+   images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'image.tmdb.org',
+        port: '',
+        pathname: '/t/p/original',
+      },
+    ],
+  },
+  // images: {
+  //   loader: "default",
+  //   minimumCacheTTL: 60,
+  //   domains: ["image.tmdb.org"],
+  // },
 }
 
 module.exports = nextConfig
