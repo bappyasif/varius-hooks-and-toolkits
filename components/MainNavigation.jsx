@@ -17,14 +17,14 @@ const OnlyNavs = () => {
     return (
         <div className="flex flex-row justify-between bg-gray-400">
             {/* <SidebarNavigation /> */}
-            <BranView />
+            <BrandView />
             <SearchView />
             <TopNavigation />
         </div>
     )
 }
 
-const BranView = () => {
+const BrandView = () => {
     return (
         <h1 className="min-w-fit py-1 self-end px-4">Welcome To Your Portal</h1>
     )
@@ -34,7 +34,7 @@ const SearchView = () => {
     return (
         <section className="bg-blue-400 flex flex-row justify-between py-3 px-6 gap-4 self-start items-center rounded-sm">
             <FaSearch className="text-4xl" />
-            <input className="bg-inherit text-4xl outline-dotted rounded-sm" />
+            <input className="bg-inherit text-4xl outline-double rounded-sm" placeholder="search your movie here" />
         </section>
     )
 }

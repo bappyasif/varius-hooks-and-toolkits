@@ -1,132 +1,139 @@
 {
-    "events": [
-        {
-            "id": 1,
-            "title": "Event Een",
-            "description": "Hier is Event nummer een",
-            "category": "sports",
-            "date": "April 24th"
-        },
-        {
-            "id": 2,
-            "title": "Event Twee",
-            "description": "Hier is Event nummer twee",
-            "category": "sports",
-            "date": "May 25th"
-        },
-        {
-            "id": 3,
-            "title": "Event Drie",
-            "description": "Hier is Event nummer drie",
-            "category": "sports",
-            "date": "June 26th"
-        },
-        {
-            "id": 4,
-            "title": "Event Vier",
-            "description": "Hier is Event nummer vier",
-            "category": "politics",
-            "date": "July 27th"
-        },
-        {
-            "id": 5,
-            "title": "Event Vijf",
-            "description": "Hier is Event nummer vijf",
-            "category": "politics",
-            "date": "August 28th"
-        },
-        {
-            "id": 6,
-            "title": "Event Zes",
-            "description": "Hier is Event nummer zes",
-            "category": "politics",
-            "date": "September 29th"
-        },
-        {
-            "id": 7,
-            "title": "Event Zeven",
-            "description": "Hier is Event nummer zeven",
-            "category": "technology",
-            "date": "October 30th"
-        },
-        {
-            "id": 8,
-            "title": "Event Acht",
-            "description": "Hier is Event nummer acht",
-            "category": "food",
-            "date": "November 31th"
-        },
-        {
-            "id": 9,
-            "title": "Event Negen",
-            "description": "Hier is Event nummer negen",
-            "category": "food",
-            "date": "December 1st"
-        },
-        {
-            "id": 10,
-            "title": "Event Tien",
-            "description": "Hier is Event nummer tien",
-            "category": "technology",
-            "date": "January 2nd"
-        }
-    ],
-    "dashboard": {
-        "posts": 5,
-        "likes": 99,
-        "followers": 20,
-        "following": 40
+  "events": [
+    {
+      "id": 1,
+      "title": "Event Een",
+      "description": "Hier is Event nummer een",
+      "category": "sports",
+      "date": "April 24th"
     },
-    "news": [
-        {
-            "id": "1",
-            "title": "News Artikel Een",
-            "description": "Het is Artikel nummer een",
-            "category": "sports"
-        },
-        {
-            "id": "2",
-            "title": "News Artikel Twee",
-            "description": "Het is Artikel nummer twee",
-            "category": "politics"
-        },
-        {
-            "id": "3",
-            "title": "News Artikel Drie",
-            "description": "Het is Artikel nummer drie",
-            "category": "sports"
-        },
-        {
-            "id": "4",
-            "title": "News Artikel Vier",
-            "description": "Het is Artikel nummer vier",
-            "category": "politics"
-        }
-    ],
-    "products": [
-        {
-            "id": 1,
-            "title": "Product Een",
-            "price": 1000,
-            "description": "Het is product nummert een"
-        },
-        {
-            "id": 2,
-            "title": "Product Een",
-            "price": 1500,
-            "description": "Het is product nummert twee"
-        },
-        {
-            "id": 3,
-            "title": "Product Drie",
-            "price": 1800,
-            "description": "Het is product nummer drie"
-        },
-        {
-            "id": 4,
-            "title": "Product Vier",
-            "price": 2000,
-            "description": "Het is product nummer vier"
-        }
-    ]
+    {
+      "id": 2,
+      "title": "Event Twee",
+      "description": "Hier is Event nummer twee",
+      "category": "sports",
+      "date": "May 25th"
+    },
+    {
+      "id": 3,
+      "title": "Event Drie",
+      "description": "Hier is Event nummer drie",
+      "category": "sports",
+      "date": "June 26th"
+    },
+    {
+      "id": 4,
+      "title": "Event Vier",
+      "description": "Hier is Event nummer vier",
+      "category": "politics",
+      "date": "July 27th"
+    },
+    {
+      "id": 5,
+      "title": "Event Vijf",
+      "description": "Hier is Event nummer vijf",
+      "category": "politics",
+      "date": "August 28th"
+    },
+    {
+      "id": 6,
+      "title": "Event Zes",
+      "description": "Hier is Event nummer zes",
+      "category": "politics",
+      "date": "September 29th"
+    },
+    {
+      "id": 7,
+      "title": "Event Zeven",
+      "description": "Hier is Event nummer zeven",
+      "category": "technology",
+      "date": "October 30th"
+    },
+    {
+      "id": 8,
+      "title": "Event Acht",
+      "description": "Hier is Event nummer acht",
+      "category": "food",
+      "date": "November 31th"
+    },
+    {
+      "id": 9,
+      "title": "Event Negen",
+      "description": "Hier is Event nummer negen",
+      "category": "food",
+      "date": "December 1st"
+    },
+    {
+      "id": 10,
+      "title": "Event Tien",
+      "description": "Hier is Event nummer tien",
+      "category": "technology",
+      "date": "January 2nd"
+    }
+  ],
+  "dashboard": {
+    "posts": 5,
+    "likes": 99,
+    "followers": 20,
+    "following": 40
+  },
+  "news": [
+    {
+      "id": "1",
+      "title": "News Artikel Een",
+      "description": "Het is Artikel nummer een",
+      "category": "sports"
+    },
+    {
+      "id": "2",
+      "title": "News Artikel Twee",
+      "description": "Het is Artikel nummer twee",
+      "category": "politics"
+    },
+    {
+      "id": "3",
+      "title": "News Artikel Drie",
+      "description": "Het is Artikel nummer drie",
+      "category": "sports"
+    },
+    {
+      "id": "4",
+      "title": "News Artikel Vier",
+      "description": "Het is Artikel nummer vier",
+      "category": "politics"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "title": "Product Een",
+      "price": 1000,
+      "description": "Het is product nummert een"
+    },
+    {
+      "id": 2,
+      "title": "Product Een",
+      "price": 1500,
+      "description": "Het is product nummert twee"
+    },
+    {
+      "id": 3,
+      "title": "Product Drie",
+      "price": 1800,
+      "description": "Het is product nummer drie"
+    },
+    {
+      "id": 4,
+      "title": "Product Vier",
+      "price": 2000,
+      "description": "Het is product nummer vier"
+    }
+  ],
+  "favourites": [
+    {
+      "id": 505642,
+      "title": "Black Panther: Wakanda Forever"
+    }
+  ],
+  "wishlist": []
 }
