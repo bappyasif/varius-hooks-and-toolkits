@@ -131,9 +131,20 @@
   ],
   "favourites": [
     {
-      "id": 505642,
-      "title": "Black Panther: Wakanda Forever"
+      "id": 315162,
+      "title": "Puss in Boots: The Last Wish",
+      "poster_path": "/kuf6dutpsT0vSVehic3EZIqkOBt.jpg",
+      "release_date": "2022-12-07",
+      "vote_average": 8.4
     }
   ],
-  "wishlist": []
+  "wishlist": [
+    {
+      "id": 315162,
+      "title": "Puss in Boots: The Last Wish",
+      "poster_path": "/kuf6dutpsT0vSVehic3EZIqkOBt.jpg",
+      "release_date": "2022-12-07",
+      "vote_average": 8.4
+    }
+  ]
 }
