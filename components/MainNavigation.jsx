@@ -80,12 +80,12 @@ export const navs = [
     },
     {
         name: "All Time Favourites",
-        path: "/favorites",
+        path: "/movie/favourites",
         icon: null
     },
     {
         name: "Wishlist",
-        path: "/wishlist",
+        path: "/movie/wishlist",
         icon: null
     },
 ]
