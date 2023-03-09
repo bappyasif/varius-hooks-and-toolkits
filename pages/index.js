@@ -4,26 +4,32 @@ import { useQuery } from '@tanstack/react-query'
 import { rapid_external_axios_request } from '@/utils/axios-interceptor'
 import { SidebarNavs } from '@/components/Sidebar'
 import { GamesList } from '@/components/GamesList'
+import { useSession } from 'next-auth/react'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home({rawg}) {
-  const {data} = useQuery({
+export default function Home({ rawg }) {
+  const {data: session, status} = useSession()
+
+  const { data } = useQuery({
     queryKey: ["test"],
     queryFn: () => {
-      return rapid_external_axios_request({url: `/games?key=${rawg}`})
+      return rapid_external_axios_request({ url: `/games?key=${rawg}` })
       // return rapid_external_axios_request({url: `/games?key=${process.env.RAWG_API_KEY}`})
       // return rapid_external_axios_request(`/games?key=${process.env.RAWG_API_KEY}`)
     }
   })
-  console.log(data?.data?.results)
+  // console.log(data?.data?.results)
   return (
-    // className={styles.main}
-    <main>
-      <SidebarNavs />
+    <main className='flex flex-col'>
+      <h1>Welcome Dear { (status === "authenticated" && session?.user) ? session?.user.name : "User" }</h1>
       <GamesList />
-      <h1 className='text-4xl text-purple-900'>Haloooooo :)</h1>
     </main>
+    // className={styles.main}
+    // <main className='flex flex-row gap-4'>
+    //   <SidebarNavs />
+    //   <GamesList />
+    // </main>
   )
 }
 

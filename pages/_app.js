@@ -2,6 +2,7 @@ import { SidebarNavs } from '@/components/Sidebar'
 import '@/styles/globals.css'
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { SessionProvider } from 'next-auth/react'
 import Head from 'next/head'
 
 export default function App({ Component, pageProps }) {
@@ -14,8 +15,15 @@ export default function App({ Component, pageProps }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {/* <SidebarNavs /> */}
-      <Component {...pageProps} />
+      {/* <SidebarNavs />
+      <Component {...pageProps} /> */}
+      {/* session={pageProps.session} */}
+      <SessionProvider>
+        <div className='flex flex-row gap-6'>
+          <SidebarNavs />
+          <Component {...pageProps} />
+        </div>
+      </SessionProvider>
       <ReactQueryDevtools />
     </QueryClientProvider>
   )
