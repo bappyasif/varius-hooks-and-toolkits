@@ -15,7 +15,7 @@ export const GamesList = () => {
 
     return (
         <div className='block'>
-            <h1>All Games</h1>
+            <h1 className='text-4xl my-4'>List Of All Available Games</h1>
             <section className='flex flex-row flex-wrap justify-start gap-4'>
                 {renderGames()}
             </section>
@@ -29,7 +29,7 @@ const RenderGameDetails = ({ item }) => {
     return (
         <article>
             <Link href={`/game/${id}`}>
-                <h2>{name}</h2>
+                <h2 className='text-xl'>{name}</h2>
                 <Image className='h-2/3' src={background_image} alt={name} width={240} height={92} />
             </Link>
         </article>

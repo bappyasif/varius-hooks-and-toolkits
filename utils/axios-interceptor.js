@@ -19,6 +19,15 @@ export const rapid_external_axios_request = ({...options}) => {
     return client(options).then(onSuccess).catch(onError)
 }
 
-export const internal_axios_request = () => axios.create({baseURL: "http://localhost:4000"})
+// export const internal_axios_request = () => axios.create({baseURL: "http://localhost:4000"})
 
 // export const rapi_external_axios_request = () =>  axios.create({baseURL: "https://rawg-video-games-database.p.rapidapi.com", })
+
+// export const axios_internal_api_request = () => axios.create({baseURL: "http://localhost:4000", url: "", data: ""})
+
+export const axios_internal_api_request = ({...options}) => {
+    const onSuccess = resp => resp
+    const onError = err => err
+    const client = axios.create({baseURL: "http://localhost:4000"})
+    return client(options).then(onSuccess).catch(onError)
+}

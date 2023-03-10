@@ -7,7 +7,7 @@ export default function AllAboutGameDetail ({id}) {
     console.log( id )
   return (
     <main>
-        <h1>GameDetail</h1>
+        <h1 className='text-6xl my-4'>GameDetail</h1>
         <GameDetail id={id} />
     </main>
   )

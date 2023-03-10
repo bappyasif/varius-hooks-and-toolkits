@@ -22,7 +22,7 @@ export default function Home({ rawg }) {
   // console.log(data?.data?.results)
   return (
     <main className='flex flex-col'>
-      <h1>Welcome Dear { (status === "authenticated" && session?.user) ? session?.user.name : "User" }</h1>
+      <h1 className='text-6xl'>Welcome Dear { (status === "authenticated" && session?.user) ? session?.user.name : "User" }</h1>
       <GamesList />
     </main>
     // className={styles.main}
