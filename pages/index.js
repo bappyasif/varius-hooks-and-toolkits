@@ -1,3 +1,4 @@
+import { ListCityTopTracks, ListTopTracks } from '@/components/ListTopTracks'
 import { RecordVoice } from '@/components/RecordVoice'
 import { Inter } from 'next/font/google'
 
@@ -7,8 +8,8 @@ export default function Home({ rawg }) {
   
   return (
     <main className='flex flex-col'>
-      <h1>Hallo, lets record your voice and test through shazam :)</h1>
-      <RecordVoice />
+      <ListTopTracks />
+      <ListCityTopTracks />
     </main>
   )
 }
