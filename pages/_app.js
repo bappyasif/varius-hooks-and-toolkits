@@ -1,5 +1,3 @@
-import { Herobanner } from '@/components/Herobanner'
-import { SidebarNavs } from '@/components/Sidebar'
 import '@/styles/globals.css'
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
@@ -16,16 +14,16 @@ export default function App({ Component, pageProps }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Component {...pageProps} />
+      
       {/* <SidebarNavs />
       <Component {...pageProps} /> */}
       {/* session={pageProps.session} */}
-      <SessionProvider>
-        <Herobanner />
+      {/* <SessionProvider>
         <div className='flex flex-row gap-6'>
-          <SidebarNavs />
           <Component {...pageProps} />
         </div>
-      </SessionProvider>
+      </SessionProvider> */}
       <ReactQueryDevtools />
     </QueryClientProvider>
   )

@@ -12,7 +12,7 @@ const nextConfig = {
   //   // domains: 
   // ],
   images: {
-    domains: ['media.rawg.io'],
+    domains: ['media.rawg.io', "is4-ssl.mzstatic.com"],
   }
 }
 
