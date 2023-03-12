@@ -1,7 +1,16 @@
+import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import React from 'react'
 
 export const Sidebar = () => {
+    const {data: session, status} = useSession()
+
+    if(status === "unauthenticated") {
+        options = options.filter(item => (item.name === "Home" || item.name === "Login" || item.name === "Detect"))
+    } else if (status === "authenticated") {
+        options = options.filter(item => item.name !== "Login")
+    }
+
     const renderNavs = () => options.map(item => <RenderNav key={item.name} item={item} />)
     
     return (
@@ -22,10 +31,15 @@ const RenderNav = ({ item }) => {
 }
 
 
-const options = [
+let options = [
     {
         name: "Home",
         path: "/",
+        icon: null
+    },
+    {
+        name: "Dashboard",
+        path: "/dashboard",
         icon: null
     },
     {
@@ -46,6 +60,16 @@ const options = [
     {
         name: "Playlists",
         path: "/playlists",
+        icon: null
+    },
+    {
+        name: "Login",
+        path: "/api/auth/signin",
+        icon: null
+    },
+    {
+        name: "Logout",
+        path: "/api/auth/signout",
         icon: null
     }
 ]
