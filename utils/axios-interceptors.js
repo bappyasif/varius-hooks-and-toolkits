@@ -14,3 +14,13 @@ export const shazam_axios_interceptor_client = ({...options}) => {
 
     return client(options).then(onSuccess).catch(onError)
 }
+
+const client_internal = axios.create({baseURL: "http://localhost:4000"})
+
+export const request_internal = ({...options}) => {
+    const onSuccess = resp => resp
+
+    const onError = err => err
+
+    return client_internal(options).then(onSuccess).catch(onError)
+}

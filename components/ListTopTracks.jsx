@@ -1,6 +1,7 @@
-import { shazam_axios_interceptor_client } from '@/utils/axios-interceptors'
-import { useQuery } from '@tanstack/react-query'
-import React from 'react'
+import { request_internal, shazam_axios_interceptor_client } from '@/utils/axios-interceptors'
+import { useMutation, useQuery } from '@tanstack/react-query'
+import axios from 'axios'
+import React, { useState } from 'react'
 
 const fetchTracks = (url) => shazam_axios_interceptor_client({ url: url, params: { country_code: "US", limit: 20, start_from: 0 }, method: "get" })
 
@@ -61,6 +62,8 @@ const RenderMusicTrackData = ({ item }) => {
     const { background, coverart } = images
     const { avatar, href, image, subject, text } = share
 
+    const [showMenu, setShowMenu] = useState(false)
+
     return (
         <article
             style={{
@@ -85,10 +88,126 @@ const RenderMusicTrackData = ({ item }) => {
                 <span>{text}</span>
                 <span>Liten to it from <a className='text-blue-600' target={"_blank"} href={href}>Shazam</a></span>
             </p>
-            <p className='flex gap-6 justify-center my-2 text-xl'>
+            <p className='flex gap-6 justify-center my-2 text-xl relative'>
                 <button className='py-4 px-6 bg-pink-600 rounded-lg'>Add To Favourites</button>
-                <button className='py-4 px-6 bg-pink-800 rounded-lg'>Add to Playlist</button>
+                <button onClick={() => setShowMenu(true)} className='py-4 px-6 bg-pink-800 rounded-lg'>Add to Playlist</button>
+                <RenderMenu item={item} />
             </p>
         </article>
+    )
+}
+
+export const RenderMenu = ({item}) => {
+    const fetchExistingLists = () => request_internal({ url: "/playlists" })
+
+    const { data: playlists } = useQuery({
+        queryKey: ["playlists"],
+        queryFn: fetchExistingLists,
+        refetchOnWindowFocus: false
+    })
+
+    console.log(playlists?.data, "playlist", playlists?.data?.length)
+
+    return (
+        <div className='absolute right-0 top-0 bg-blue-200 px-4 py-1 text-3xl'>
+            {
+                playlists?.data
+                    ?
+                    <RenderMenuLists items={playlists?.data} songData={item} />
+                    :
+                    <>
+                        <p>No Playlists Has Been Created Yet</p>
+                        <button>Create A New Playlist</button>
+                    </>
+            }
+        </div>
+    )
+}
+
+const RenderMenuLists = ({ items, songData={name: "test2"} }) => {
+    console.log(items, "itenmsx")
+
+    // const {mutate: addSongToPlaylist} = useMutation({
+    //     mutationKey: ["add to playlist", `${name}`],
+    //     mutationFn: () => {
+    //         return request_internal({url: "/playlists", method: "post", data: songData})
+    //     }
+    // })
+
+    const arr = []
+
+    for(let key in items) {
+        arr.push({[key]: items[key]})
+    }
+
+    const renderMenus = () => arr?.map((item, idx) => <RenderMenuList key={idx} item={item} songData={songData} />)
+
+    return (
+        <menu>
+            {renderMenus()}
+        </menu>
+    )
+}
+
+const RenderMenuList = ({ item, songData }) => {
+    console.log(item, Object.keys(item))
+    const listName = Object.keys(item)[0];
+
+    const getListsData = () => request_internal({url: "/playlists"})
+
+    const {mutate: addSongToPlaylist} = useMutation({
+        mutationKey: ["add to playlist", `${listName}`],
+        mutationFn: async newItem => {
+            console.log(newItem, "newItem!!")
+            let newData = []
+            // getListsData().then(data => {
+            //     newData.push(data, songData)
+            // })
+            const response = await getListsData()
+            const data = response?.data
+
+            const idx = data[listName].findIndex(item => item.name === songData.name)
+
+            idx !== -1 ? data : data[listName].push(songData)
+            newData = data
+
+            // data["eerst"] = songData
+            // newData = data
+
+            // newData = newData.concat(data, songData)
+
+            return request_internal({url: "/playlists", method: "post", data: newData})
+
+            // return request_internal({url: "/playlists/eerst", method: "post", data: newItem})
+        }
+        // mutationFn: () => {
+        //     return axios.post("http://localhost:4000/playlist/eerst", songData)
+        //     // return request_internal({url: `/playlists/${listName}/`, method: "post", data: songData})
+        //     // return request_internal({url: `/playlists`, method: "post", data: songData})
+        // }
+    })
+
+    const renderListName = () => Object.keys(item).map(name => <RenderMenuItem key={name} name={name} addSongToPlaylist={addSongToPlaylist} />)
+    return (
+        <ul className='flex flex-col gap-4'>
+            {renderListName()}
+        </ul>
+    )
+}
+
+const RenderMenuItem = ({ name, addSongToPlaylist }) => {
+    // const {} = useMutation({
+    //     mutationKey: ["add to playlist", `${name}`],
+    //     mutationFn: () => {
+
+    //     }
+    // })
+    const handleClick = () => {
+        addSongToPlaylist({"test": "test test"})
+    }
+    return (
+        <li onClick={handleClick} className='my-1 px-4 rounded-md outline-none hover: outline-2, outline-blue-900, outline'>
+            {name}
+        </li>
     )
 }

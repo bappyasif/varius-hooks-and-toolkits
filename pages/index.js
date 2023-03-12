@@ -1,4 +1,4 @@
-import { ListCityTopTracks, ListTopTracks } from '@/components/ListTopTracks'
+import { ListCityTopTracks, ListTopTracks, RenderMenu } from '@/components/ListTopTracks'
 import { RecordVoice } from '@/components/RecordVoice'
 import { Inter } from 'next/font/google'
 
@@ -8,8 +8,9 @@ export default function Home({ rawg }) {
   
   return (
     <main className='flex flex-col'>
-      <ListTopTracks />
-      <ListCityTopTracks />
+      {/* <ListTopTracks /> */}
+      {/* <ListCityTopTracks /> */}
+      <RenderMenu />
     </main>
   )
 }

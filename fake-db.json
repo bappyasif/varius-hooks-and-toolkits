@@ -1,4 +1,29 @@
 {
   "favourites": [],
-  "wishlist": []
+  "playlists": {
+    "eerst": [
+      {
+        "name": "test a",
+        "subject": "subject a",
+        "id": "id a",
+        "image": "image a",
+        "url": "url a"
+      },
+      {
+        "name": "test2"
+      }
+    ],
+    "twee": [
+      {
+        "name": "test b",
+        "subject": "subject b",
+        "id": "id b",
+        "image": "image b",
+        "url": "url b"
+      },
+      {
+        "name": "test2"
+      }
+    ]
+  }
 }
