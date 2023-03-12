@@ -33,18 +33,6 @@ const RenderPlaylistItem = ({ item, listName }) => {
             const filtered = playlists?.data[listName].filter(item => item.id !== id)
 
             return request_internal({ url: "/playlists", method: "post", data: { ...playlists?.data, [listName]: filtered} })
-
-            // playlists?.data[listName] = filtered
-
-            // console.log(playlists?.data)
-
-            // return request_internal({ url: "/playlists", method: "post", data: playlists?.data })
-
-            // console.log(filtered, playlists?.data[listName], playlists?.data, "CHECKS!!")
-
-            // return request_internal({ url: "/playlists", method: "post", data: {[listName]: filtered} })
-
-            // return request_internal({ url: "/playlists", method: "post", data: filtered })
         },
         onSuccess: () => clientQuery.invalidateQueries(["playlists"])
     })

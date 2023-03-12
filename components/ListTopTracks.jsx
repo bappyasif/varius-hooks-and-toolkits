@@ -1,6 +1,5 @@
 import { request_internal, shazam_axios_interceptor_client } from '@/utils/axios-interceptors'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import axios from 'axios'
 import React, { useState } from 'react'
 
 const fetchTracks = (url) => shazam_axios_interceptor_client({ url: url, params: { country_code: "US", limit: 20, start_from: 0 }, method: "get" })
@@ -68,6 +67,13 @@ const RenderMusicTrackData = ({ item }) => {
 
     // console.log(item, "ITEM")
 
+    const {mutate: addToFavourites} = useMutation({
+        mutationKey: ["Add To Favourites"],
+        mutationFn: () => {
+            return request_internal({url: "/favourites", method: "post", data: forDD})
+        }
+    })
+
     return (
         <article
             style={{
@@ -93,7 +99,7 @@ const RenderMusicTrackData = ({ item }) => {
                 <span>Liten to it from <a className='text-blue-600' target={"_blank"} href={href}>Shazam</a></span>
             </p>
             <p className='flex gap-6 justify-center my-2 text-xl relative'>
-                <button className='py-4 px-6 bg-pink-600 rounded-lg'>Add To Favourites</button>
+                <button onClick={addToFavourites} className='py-4 px-6 bg-pink-600 rounded-lg'>Add To Favourites</button>
                 <button onClick={() => setShowMenu(prev => !prev)} className='py-4 px-6 bg-pink-800 rounded-lg'>Add to Playlist</button>
                 { showMenu ? <RenderMenu item={forDD} setShowMenu={setShowMenu} /> : null}
             </p>
@@ -125,7 +131,7 @@ export const RenderMenu = ({item, setShowMenu}) => {
 
     const handleCreateNewList = () => createNewList()
 
-    console.log(playlists?.data, "playlist", playlists?.data?.length)
+    // console.log(playlists?.data, "playlist", playlists?.data?.length)
 
     const checkListIfEmpty = playlists?.data && Object.keys(playlists?.data).length
 
@@ -146,7 +152,7 @@ export const RenderMenu = ({item, setShowMenu}) => {
 }
 
 const RenderMenuLists = ({ items, songData={subtitle: "test2"}, setShowMenu, clientQuery }) => {
-    console.log(items, "itenmsx")
+    // console.log(items, "itenmsx")
 
     const arr = []
 
@@ -176,7 +182,7 @@ const RenderMenuLists = ({ items, songData={subtitle: "test2"}, setShowMenu, cli
 }
 
 const RenderMenuList = ({ item, songData, setShowMenu }) => {
-    console.log(item, Object.keys(item))
+    // console.log(item, Object.keys(item))
     const listName = Object.keys(item)[0];
 
     const getListsData = () => request_internal({url: "/playlists"})
@@ -211,7 +217,6 @@ const RenderMenuList = ({ item, songData, setShowMenu }) => {
 const RenderMenuItem = ({ name, addSongToPlaylist }) => {
     const handleClick = () => {
         addSongToPlaylist()
-        // addSongToPlaylist({"test": "test test"})
     }
     return (
         <li onClick={handleClick} className='my-1 px-4 rounded-md outline-none hover: outline-2, outline-blue-900, outline'>

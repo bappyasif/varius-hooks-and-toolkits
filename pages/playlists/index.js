@@ -15,13 +15,7 @@ const ShowPlaylists = () => {
         arr.push({[key]: playlists.data[key]})
     }
 
-    // for(let idx in playlists?.data) {
-    //     const key = Object.keys(playlists?.data)[0]
-    //     const values = Object.values(playlists?.data)
-    //     arr.push({[key]: values})
-    // }
-
-    console.log(arr, "playlists<><>")
+    // console.log(arr, "playlists<><>")
 
     const renderLists = () => arr?.map((item, idx) => <RenderPlaylist key={idx} item={item} />)
 
