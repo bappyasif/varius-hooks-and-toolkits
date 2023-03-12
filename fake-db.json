@@ -1,28 +1,32 @@
 {
   "favourites": [],
   "playlists": {
-    "eerst": [
+    "Awesome Tracks": [
       {
-        "name": "test a",
-        "subject": "subject a",
-        "id": "id a",
-        "image": "image a",
-        "url": "url a"
+        "subtitle": "Rema",
+        "subject": "Calm Down - Rema",
+        "id": "601555046",
+        "image": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/b2/b4/7c/b2b47cf9-d8e2-53f6-5c62-c974d665c95b/22UMGIM08994.rgb.jpg/400x400cc.jpg",
+        "url": "https://www.shazam.com/track/601555046/calm-down",
+        "text": "I used Shazam to discover Calm Down by Rema."
       },
       {
-        "name": "test2"
+        "subtitle": "SZA",
+        "subject": "Kill Bill - SZA",
+        "id": "644597356",
+        "image": "https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/62/93/13/6293132e-20ff-67ab-3d1f-96bb6797a6ba/196589564955.jpg/400x400cc.jpg",
+        "url": "https://www.shazam.com/track/644597356/kill-bill",
+        "text": "I used Shazam to discover Kill Bill by SZA."
       }
     ],
-    "twee": [
+    "Awesome Tracks2": [
       {
-        "name": "test b",
-        "subject": "subject b",
-        "id": "id b",
-        "image": "image b",
-        "url": "url b"
-      },
-      {
-        "name": "test2"
+        "subtitle": "Superstar Pride",
+        "subject": "PAINTING PICTURES - Superstar Pride",
+        "id": "638008997",
+        "image": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/60/8a/ee/608aeec0-4481-fcc0-8333-11ee0749dced/197188350536.jpg/400x400cc.jpg",
+        "url": "https://www.shazam.com/track/638008997/painting-pictures",
+        "text": "I used Shazam to discover PAINTING PICTURES by Superstar Pride."
       }
     ]
   }

@@ -8,9 +8,9 @@ export default function Home({ rawg }) {
   
   return (
     <main className='flex flex-col'>
-      {/* <ListTopTracks /> */}
+      <ListTopTracks />
       {/* <ListCityTopTracks /> */}
-      <RenderMenu />
+      {/* <RenderMenu /> */}
     </main>
   )
 }
