@@ -29,7 +29,7 @@ const ShowPlaylists = () => {
 
   return (
     <div>
-        <h1 className='text-4xl'>All Available Playlists</h1>
+        <h1 className='text-4xl bg-zinc-400 text-center'>All Available Playlists</h1>
         {arr.length ? renderLists() : <h2 className='text-3xl py-4'>Consider Adding some from <Link className='bg-blue-400 p-2 rounded-md' href={"/dashboard"}>Dashboard</Link></h2>}
     </div>
   )
@@ -43,7 +43,7 @@ const RenderPlaylist = ({item}) => {
 
     return (
         <section>
-            <h1 className='text-3xl py-4'>{listName}</h1>
+            <h1 className='text-3xl py-4'> <span className='text-blue-800'>Playlist: </span> <span className='bg-zinc-400 px-2'>{listName}</span></h1>
             {renderListItems()}
         </section>
     )
