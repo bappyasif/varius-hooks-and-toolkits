@@ -21,7 +21,7 @@ export const ListTopTracks = () => {
     return (
         data?.data
             ?
-            <section>
+            <section className='ml-20'>
                 <h2 className='text-4xl py-6'>List Of Top Tracks For USA </h2>
                 <div className='flex flex-wrap gap-6 justify-start'>
                     {renderTracks()}

@@ -1,6 +1,7 @@
 import { shazam_axios_interceptor_client } from '@/utils/axios-interceptors';
 import { useQuery } from '@tanstack/react-query';
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
+import {GoEllipsis} from "react-icons/go"
 
 export const SongSearch = () => {
     const [text, setText] = useState();
@@ -49,7 +50,7 @@ const ShowSongSearchResults = ({ queryText, searchNow, setSearchNow }) => {
 
     return (
         <section className='flex flex-wrap gap-4'>
-            {(isLoading && searchNow) ? <h2>Loading....</h2> : null}
+            {(isLoading && searchNow) ? <h2><GoEllipsis className='animate-spin' /> Loading....</h2> : null}
             {(songs?.data?.result?.hits.length) ? renderTracks() : null}
         </section>
     )

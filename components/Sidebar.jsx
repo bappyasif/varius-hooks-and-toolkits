@@ -3,20 +3,22 @@ import Link from 'next/link'
 import React from 'react'
 
 export const Sidebar = () => {
-    const {data: session, status} = useSession()
+    const { data: session, status } = useSession()
 
-    if(status === "unauthenticated") {
+    if (status === "unauthenticated") {
         options = options.filter(item => (item.name === "Home" || item.name === "Login" || item.name === "Detect"))
     } else if (status === "authenticated") {
         options = options.filter(item => item.name !== "Login")
     }
 
     const renderNavs = () => options.map(item => <RenderNav key={item.name} item={item} />)
-    
+
     return (
-        <nav className='flex flex-col bg-blue-200 h-screen align-middle justify-center'>
-            {renderNavs()}
-        </nav>
+        <div className='mr-80'>
+            <nav className='flex flex-col bg-blue-200 min-h-screen fixed align-middle justify-center'>
+                {renderNavs()}
+            </nav>
+        </div>
     )
 }
 

@@ -10,7 +10,7 @@ export const RenderPlaylistItems = ({ items, listName }) => {
     return (
         <section>
             <h2 className='text-2xl mb-2 bg-stone-400 w-fit px-4'>Songs List:</h2>
-            <article className='flex gap-2'>
+            <article className='flex gap-2 flex-wrap'>
                 {renderItems()}
             </article>
         </section>

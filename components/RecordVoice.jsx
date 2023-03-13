@@ -7,7 +7,7 @@ export const RecordVoice = () => {
     const [stopDisable, setStopDisable] = useState(true)
     const [recorder, setRecorder] = useState(null)
     const [shazamData, setShazamData] = useState(false)
-    // const [loading, setLoading] = useState()
+    const [loading, setLoading] = useState()
 
     let audioChunks = [];
     let rec;
@@ -65,6 +65,7 @@ export const RecordVoice = () => {
     const onStart = () => {
         setRecordDisable(true);
         setStopDisable(false);
+        setLoading(false);
         audioChunks = [];
         recorder.start()
 
@@ -76,6 +77,7 @@ export const RecordVoice = () => {
         setStopDisable(true);
         audioChunks = [];
         recorder.stop()
+        setLoading(true)
     }
 
     useEffect(() => {
@@ -83,24 +85,32 @@ export const RecordVoice = () => {
     }, [])
 
     return (
-        <section className='flex flex-col items-center'>
+        <section className='flex flex-col items-center ml-56'>
             <h2 className='text-3xl'>Record Your Music By giving Access To Your Microphone and Hit Record :)</h2>
-            <audio className='my-4' ref={ref} src=""></audio>
-            <p className='flex gap-4 my-4'>
-                <button className={`text-2xl w-2/4 p-4 text-teal-900 ${recordDisable ? "bg-blue-900" : "bg-slate-400"} rounded-lg hover:text-white`} onClick={onStart} disabled={recordDisable}>Record</button>
-                <button className={`text-2xl w-3/4 p-4 text-red-900 ${stopDisable ? "bg-yellow-200" : "bg-zinc-400"} rounded-lg hover:text-slate-600`} onClick={onStop} disabled={stopDisable}>Stop</button>
-            </p>
+
+            <div className='flex justify-start gap-4 items-center'>
+                <audio className='my-4' ref={ref} src=""></audio>
+                <p className='flex gap-4 my-4'>
+                    {/* <button class="transition transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:transform-none ...">
+                    Hover me
+                </button> */}
+                    {/* <button class="transition bg-violet-800 eas ">
+                    Hover me
+                </button> */}
+                    {/* <button className='animate-pulse'>WHAT WHTA</button> */}
+                    <button className={`${!recordDisable ? "animate-pulse" : null} bg text-2xl w-2/4 p-4 text-teal-900 ${recordDisable ? "bg-blue-400" : "bg-slate-400"} rounded-lg hover:${recordDisable ? null : "text-white"}`} onClick={onStart} disabled={recordDisable}>Record</button>
+                    <button className={`${!stopDisable ? "animate-pulse" : null} text-2xl w-3/4 p-4 text-red-900 ${stopDisable ? "bg-yellow-200" : "bg-zinc-400"} rounded-lg hover:text-slate-600`} onClick={onStop} disabled={stopDisable}>Stop</button>
+                </p>
+            </div>
+
+            <hr />
+            {(!shazamData && loading) ? <h2>Loading Detected Music Data</h2> : null}
 
             <hr />
 
             {
                 shazamData
-                    ?
-                    <>
-                        <h2>Loading Detected Music Data</h2>
-                        <hr />
-                        <RenderShazamData data={shazamData} />
-                    </>
+                    ? <RenderShazamData data={shazamData} />
                     : null
             }
         </section>
