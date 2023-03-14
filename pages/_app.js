@@ -15,12 +15,17 @@ export default function App({ Component, pageProps }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <SessionProvider baseUrl='http://localhost:3000/'>
+      <div className='flex flex-row gap-6'>
+          <Sidebar />
+          <Component {...pageProps} />
+        </div>
+
+      {/* <SessionProvider baseUrl='http://localhost:3000/'>
         <div className='flex flex-row gap-6'>
           <Sidebar />
           <Component {...pageProps} />
         </div>
-      </SessionProvider>
+      </SessionProvider> */}
 
       {/* <SidebarNavs />
       <Component {...pageProps} /> */}
