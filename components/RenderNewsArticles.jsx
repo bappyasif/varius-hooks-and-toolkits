@@ -19,7 +19,7 @@ const RenderArticle = ({item, idx}) => {
             <img className='w-full aspect-square mb-6 m-auto' src={image_url ? image_url : `https://picsum.photos/500/300?random=${idx}`} alt={title} />
             <h3 className='bg-zinc-200'>{content}</h3>
             {video_url ? <video className='w-full aspect-video mb-6 m-auto' controls src={video_url ? video_url : "https://picsum.photos/200/300"} alt={description} /> : null}
-            <button className='bg-blue-600 p-1 px-2'><a href={link}>Click Here To Read From Source Site</a></button>
+            <button className='bg-blue-600 p-1 px-2 mb-4 rounded-lg'><a target={"_blank"} href={link}>Click Here To Read From Source Site</a></button>
         </article>
     )
 }

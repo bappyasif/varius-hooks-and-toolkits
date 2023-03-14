@@ -1,4 +1,18 @@
 {
+  "customNews": [
+    {
+      "country": "bd",
+      "language": "bn",
+      "category": "top",
+      "id": 1
+    },
+    {
+      "country": "us",
+      "language": "en",
+      "category": "science",
+      "id": 2
+    }
+  ],
   "favourites": [],
   "playlists": {
     "Awesome Tracks": [

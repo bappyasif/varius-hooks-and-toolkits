@@ -4,7 +4,7 @@ import React from 'react'
 export const Sidebar = () => {
     const renderNavs = () => navs.map(item => <RenderNav key={item.name} item={item} />)
   return (
-    <nav className='flex flex-col'>
+    <nav className='flex flex-col' style={{minWidth: "180px"}}>
         {renderNavs()}
     </nav>
   )
@@ -14,7 +14,7 @@ const RenderNav = ({item}) => {
     const {name, path, icon} = item
 
     return (
-        <Link href={`${path}`}>
+        <Link href={`${path}`} className="flex text-2xl my-1">
             <span>{icon}</span>
             <span>{name}</span>
         </Link>
@@ -30,6 +30,11 @@ const navs = [
     {
         name: "Search News",
         path: "/search",
+        icon: null
+    },
+    {
+        name: "Presaved Filters",
+        path: "/presaved",
         icon: null
     },
     {

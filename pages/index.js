@@ -11,7 +11,7 @@ export default function Home({ rawg }) {
   // console.log(news, "!!")
 
   return (
-    <main className='flex flex-col'>
+    <main className='flex flex-col justify-between px-2'>
       <h1>News Search</h1>
       <NewsCustomization />
     </main>
