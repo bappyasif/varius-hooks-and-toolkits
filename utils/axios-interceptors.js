@@ -24,3 +24,16 @@ export const request_internal = ({...options}) => {
 
     return client_internal(options).then(onSuccess).catch(onError)
 }
+
+const newsClient = axios.create({baseURL: "https://newsdata2.p.rapidapi.com"})
+
+export const news_data_request_interceptor = ({...options}) => {
+    newsClient.defaults.headers.common["X-RapidAPI-Key"] = secrets.RAPID_API_KEY
+    newsClient.defaults.headers.common["X-RapidAPI-Host"] = "newsdata2.p.rapidapi.com"
+
+    const onSuccess = response => response
+
+    const onError = error => error
+
+    return newsClient(options).then(onSuccess).catch(onError)
+}
