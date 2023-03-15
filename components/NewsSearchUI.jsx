@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 export const NewsSearchUI = ({ searchType, handleChanges, handleSearch }) => {
     return (
-        <section className='flex gap-4 text-2xl my-6 mb-8'>
+        <section className='flex gap-4 text-2xl my-6 mb-8 h-11'>
             <ChooseSearchType handleChanges={handleChanges} />
             <AdditionalSearchLogic searchType={searchType} handleChanges={handleChanges} />
             <SearchForm handleChanges={handleChanges} handleSearch={handleSearch} />
@@ -10,7 +10,7 @@ export const NewsSearchUI = ({ searchType, handleChanges, handleSearch }) => {
     )
 }
 
-const AdditionalSearchLogic = ({ searchType, handleChanges }) => {
+export const AdditionalSearchLogic = ({ searchType, handleChanges }) => {
     const [filter, setFilter] = useState();
 
     const forQ = ["Keyword", "Phrase", "With NOT", "With AND", "With OR", "AND with NOT", "OR with NOT", "Multiple AND", "Multiple OR"]
@@ -73,7 +73,7 @@ const ShowAdditionalFilterExample = ({ filter }) => {
     return <h2 className='absolute text-sm'><span>Example: </span><span>"{example}"</span></h2>
 }
 
-const ChooseSearchType = ({ handleChanges }) => {
+export const ChooseSearchType = ({ handleChanges }) => {
     const options = ["Search By News Title", "Search With Query String"];
     const renderOptions = () => options.map(name => <RenderOption key={name} name={name} />)
 
@@ -91,18 +91,18 @@ const RenderOption = ({ name }) => {
     )
 }
 
-const SearchForm = ({ handleChanges, handleSearch }) => {
+export const SearchForm = ({ handleChanges, handleSearch }) => {
     const handleSubmit = evt => {
         evt.preventDefault();
         handleSearch()
     }
     return (
-        <form className='flex items-center gap-6' method='post' onSubmit={handleSubmit}>
+        <form className='flex justify-between items-center w-full gap-4' method='post' onSubmit={handleSubmit}>
             <fieldset>
                 <label htmlFor='search'></label>
                 <input className='px-2 outline-double h-11' onChange={e => handleChanges(e, "searchStr")} type={"text"} id={"search"} placeholder={`Search News With Query....`} />
             </fieldset>
-            <button className='outline-double bg-blue-600 px-4 rounded-lg h-11' type='submit'>Search</button>
+            <button className='outline-double bg-blue-600 text-white px-4 rounded-lg h-12 w-full' type='submit'>Search</button>
         </form>
     )
 }

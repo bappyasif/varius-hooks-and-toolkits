@@ -15,7 +15,7 @@ const NewsSearch = () => {
     }
 
     const fetchNews = () => {
-        const typeSelection = searchData?.type === "Search With Query String" ? "q" : searchData?.type === "Search By News Title" ? "qInTitle" : null
+        const typeSelection = searchData?.type === "Search With Query String" ? "q" : searchData?.type === "Search By News Title" ? "qInTitle" : "q"
         const params = { [typeSelection]: searchData?.searchStr }
         return news_data_request_interceptor({ url: "/news", params })
     }

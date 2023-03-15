@@ -33,20 +33,30 @@ const navs = [
         icon: null
     },
     {
+        name: "News Archive",
+        path: "/archive",
+        icon: null
+    },
+    {
+        name: "News Outlets",
+        path: "/outlets",
+        icon: null
+    },
+    {
         name: "Presaved Filters",
         path: "/presaved",
         icon: null
     },
-    {
-        name: "Add Outlets",
-        path: "/outlets",
-        icon: null
-    },
-    {
-        name: "Outlets List",
-        path: "/outlets",
-        icon: null
-    },
+    // {
+    //     name: "Add Outlets",
+    //     path: "/outlets",
+    //     icon: null
+    // },
+    // {
+    //     name: "Outlets List",
+    //     path: "/outlets",
+    //     icon: null
+    // },
     {
         name: "Login",
         path: "/api/auth/signin",

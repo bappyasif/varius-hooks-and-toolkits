@@ -64,10 +64,10 @@ export const NewsCustomization = ({handleNews}) => {
     )
 }
 
-const PossibleNewsCategoriesList = ({handleNewsFilters}) => {
+export const PossibleNewsCategoriesList = ({handleNewsFilters}) => {
     const renderList = () => newsCategories?.map(item => <RenderCategory key={item} name={item} />)
     return (
-        <select className='w-1/4' onChange={e => handleNewsFilters(e, "category")} name="categories" id="news-categories" placeholder='Select Preferred News Categories'>
+        <select className='w-min-1/4' onChange={e => handleNewsFilters(e, "category")} name="categories" id="news-categories" placeholder='Select Preferred News Categories'>
             <option value={null}>Choose Category</option>
             {renderList()}
         </select>
@@ -78,7 +78,7 @@ const RenderCategory = ({ name }) => {
     return <option value={name}>{name}</option>
 }
 
-const RenderListOfPossibleNewsLanguages = ({handleNewsFilters}) => {
+export const RenderListOfPossibleNewsLanguages = ({handleNewsFilters}) => {
     const list = [];
 
     for (let key in possibleLanguages) {
@@ -89,14 +89,14 @@ const RenderListOfPossibleNewsLanguages = ({handleNewsFilters}) => {
     const renderList = () => list?.map(item => <RenderOption key={item.code} item={item} />)
 
     return (
-        <select className='w-1/4' onChange={e => handleNewsFilters(e, "language")} name="languages" id="language-list" placeholder='Select Language For News'>
+        <select className='' onChange={e => handleNewsFilters(e, "language")} name="languages" id="language-list" placeholder='Select Language For News'>
             <option value={null}>Choose Language</option>
             {renderList()}
         </select>
     )
 }
 
-const RenderListOfAllAvailableCountries = ({handleNewsFilters}) => {
+export const RenderListOfAllAvailableCountries = ({handleNewsFilters}) => {
     const restructuredList = [];
 
     for (let key in countriesCodes) {
@@ -107,7 +107,7 @@ const RenderListOfAllAvailableCountries = ({handleNewsFilters}) => {
     const renderList = () => restructuredList?.map(item => <RenderOption key={item.code} item={item} />)
 
     return (
-        <select className='w-1/4' onChange={e => handleNewsFilters(e, "country")} name="countries" id="country-list" placeholder='Select Country For News'>
+        <select className='' onChange={e => handleNewsFilters(e, "country")} name="countries" id="country-list" placeholder='Select Country For News'>
             <option value={null}>Choose Country</option>
             {renderList()}
         </select>
