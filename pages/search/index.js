@@ -34,8 +34,10 @@ const NewsSearch = () => {
     return (
         <main>
             NewsSearch
-            <NewsSearchUI handleChanges={handleChanges} handleSearch={handleSearch} />
+            <NewsSearchUI searchType={searchData?.type} handleChanges={handleChanges} handleSearch={handleSearch} />
             {/* <RenderNewsArticles data={searchResults?.data.results} /> */}
+            {(searchNow && isLoading) ? <h2>Loading News....</h2> : null}
+            {isError ? <h2>Error Occured....</h2> : error?.message}
             <RenderNewsArticles data={searchNow ? [] : searchResults?.data.results} />
         </main>
     )
