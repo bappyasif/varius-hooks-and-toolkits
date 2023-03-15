@@ -50,7 +50,7 @@ export const NewsCustomization = ({handleNews}) => {
     customNews?.data?.results?.length && console.log(customNews, "<><>")
 
     return (
-        <div>
+        <div className='w-full'>
             <h1>Select All Three Options And Then Click Search For News</h1>
             <section className='flex gap-4 text-2xl my-6'>
                 <RenderListOfAllAvailableCountries handleNewsFilters={handleNewsFilters} />
