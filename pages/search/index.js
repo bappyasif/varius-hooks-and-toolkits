@@ -10,13 +10,15 @@ const NewsSearch = () => {
     const handleChanges = (evt, elem) => setSearchData(prev => ({ ...prev, [elem]: evt.target.value }))
 
     const handleSearch = () => {
-        console.log(searchData, "!!");
+        // console.log(searchData, "!!");
         setSearchNow(true);
     }
 
     const fetchNews = () => {
         const typeSelection = searchData?.type === "Search With Query String" ? "q" : searchData?.type === "Search By News Title" ? "qInTitle" : "q"
-        const params = { [typeSelection]: searchData?.searchStr }
+        const ccSpilts = searchData.countryCode.split(",");
+        const countryCodes = ccSpilts.map(v => v.trim()).join(",")
+        const params = { [typeSelection]: searchData?.searchStr, country: countryCodes }
         return news_data_request_interceptor({ url: "/news", params })
     }
 
@@ -32,8 +34,8 @@ const NewsSearch = () => {
     console.log(searchResults, "searchResults!!")
 
     return (
-        <main>
-            NewsSearch
+        <main className='w-full'>
+            {/* NewsSearch */}
             <NewsSearchUI searchType={searchData?.type} handleChanges={handleChanges} handleSearch={handleSearch} />
             {/* <RenderNewsArticles data={searchResults?.data.results} /> */}
             {(searchNow && isLoading) ? <h2>Loading News....</h2> : null}
