@@ -16,9 +16,13 @@ const NewsSearch = () => {
 
     const fetchNews = () => {
         const typeSelection = searchData?.type === "Search With Query String" ? "q" : searchData?.type === "Search By News Title" ? "qInTitle" : "q"
-        const ccSpilts = searchData.countryCode.split(",");
-        const countryCodes = ccSpilts.map(v => v.trim()).join(",")
-        const params = { [typeSelection]: searchData?.searchStr, country: countryCodes }
+        
+        const ccSpilts = searchData?.countryCode?.split(",");
+        const countryCodes = ccSpilts?.map(v => v.trim())?.join(",")
+
+        // const params = { [typeSelection]: encodeURIComponent(searchData?.searchStr), country: countryCodes }
+        const params = { [typeSelection]: `${searchData?.searchStr}`, country: countryCodes }
+
         return news_data_request_interceptor({ url: "/news", params })
     }
 

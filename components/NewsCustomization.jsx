@@ -1,12 +1,35 @@
 import { countriesCodes, newsCategories, possibleLanguages } from '@/forNewsList';
 import { news_data_request_interceptor, request_internal } from '@/utils/axios-interceptors';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import React, { useState } from 'react'
+import { getSession } from 'next-auth/react';
+import React, { useEffect, useState } from 'react'
 import { RenderNewsArticles } from './RenderNewsArticles';
 
 export const NewsCustomization = ({handleNews}) => {
     const [newsFilters, setNewsFilters] = useState({})
+    
     const [searchNow, setSearchNow] = useState(false)
+
+    const [sesisonUser, setSessionUser] = useState(null)
+
+    // const [presavedData, setPresavedData] = useState(null)
+    
+    const extractSessionData = () => {
+        getSession().then(data => setSessionUser(data)).catch(err => console.log(err))
+    }
+
+    const extractUserPresavedData = () => {
+        return request_internal({url: "customNews", method: "get"})
+        // .then(data => setPresavedData(data?.data)).catch(err => console.log(err))
+    }
+
+    const {data: presavedData} = useQuery({
+        queryKey: ["presaved filters data", `${sesisonUser?.user?.name}`],
+        queryFn: extractUserPresavedData,
+        enabled: (sesisonUser?.user || newsFilters) ? true : false,
+        // enabled: (newsFilters) ? true : false,
+        refetchOnWindowFocus: false
+    })
 
     const handleNewsFilters = (evt, elem) => setNewsFilters(prev => ({...prev, [elem]: evt.target.value}))
 
@@ -35,17 +58,41 @@ export const NewsCustomization = ({handleNews}) => {
         }
     }
 
+    const beforeStoringFiltersData = () => {
+        // if(Object.keys(presavedData?.data)[0] === sesisonUser?.user?.name)
+        const idx = Object.keys(presavedData?.data).findIndex(item => item === sesisonUser?.user?.name)
+        console.log(idx, "idx!!", presavedData?.data[sesisonUser?.user?.name], newsFilters)
+        if(idx !== -1) {
+            // presavedData?.data[sesisonUser?.user?.name].filter(item => console.log("country", item?.country, newsFilters.country, "langugae", item?.language, newsFilters.language, "category", item?.category, newsFilters.category))
+            // const filtered = presavedData?.data[sesisonUser?.user?.name].filter(item => item?.country !== newsFilters.country && item?.language !== newsFilters.language && item?.category !== newsFilters.category)
+            const filtered = presavedData?.data[sesisonUser?.user?.name].filter(item => item?.country !== newsFilters.country || item?.language !== newsFilters.language || item?.category !== newsFilters.category)
+            console.log(filtered, "!!")
+            const newData = [...filtered, newsFilters]
+            return newData
+        }
+    }
+
     const {mutate} = useMutation({
         mutationKey: ["save search"],
         mutationFn: () => {
-            return request_internal({url: "/customNews", data: newsFilters, method: "post"})
+            // console.log({ [sesisonUser?.expires]: [newsFilters]}, "!!<><>!!")
+            // console.log(presavedData?.data, "<><>!!!!", Object.keys(presavedData?.data)[0], Object.keys(presavedData?.data)[0] === sesisonUser?.user?.name)
+            // return request_internal({url: "/customNews", data: newsFilters, method: "post"})
+            // beforeStoringFiltersData()
+            return request_internal({url: "/customNews", data: { [sesisonUser?.user?.name]: beforeStoringFiltersData()}, method: "post"})
+            // return request_internal({url: "/customNews", data: { [sesisonUser?.user?.name]: [newsFilters]}, method: "post"})
         }
     })
 
     const handleSaveCustomNewsFilters = () => {
-        console.log(newsFilters, "save custom");
+        console.log(newsFilters, "save custom", sesisonUser, presavedData);
         mutate()
     }
+
+    useEffect(() => {
+        extractSessionData()
+        // extractUserPresavedData();
+    }, [])
     
     customNews?.data?.results?.length && console.log(customNews, "<><>")
 

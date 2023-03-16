@@ -1,18 +1,23 @@
 {
-  "customNews": [
-    {
-      "country": "bd",
-      "language": "bn",
-      "category": "top",
-      "id": 1
-    },
-    {
-      "country": "us",
-      "language": "en",
-      "category": "science",
-      "id": 2
-    }
-  ],
+  "customNews": {
+    "a.b.": [
+      {
+        "country": "bd",
+        "language": "bn",
+        "category": "world"
+      },
+      {
+        "country": "bd",
+        "language": "bn",
+        "category": "sports"
+      },
+      {
+        "country": "bd",
+        "language": "bn",
+        "category": "top"
+      }
+    ]
+  },
   "favourites": [],
   "playlists": {
     "Awesome Tracks": [
