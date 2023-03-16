@@ -37,11 +37,11 @@ const navs = [
         path: "/archive",
         icon: null
     },
-    {
-        name: "News Outlets",
-        path: "/outlets",
-        icon: null
-    },
+    // {
+    //     name: "News Outlets",
+    //     path: "/outlets",
+    //     icon: null
+    // },
     {
         name: "Presaved Filters",
         path: "/presaved",
