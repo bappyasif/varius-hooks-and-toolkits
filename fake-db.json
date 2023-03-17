@@ -15,6 +15,31 @@
         "country": "bd",
         "language": "bn",
         "category": "top"
+      },
+      {
+        "country": "us",
+        "language": "en",
+        "category": "world"
+      },
+      {
+        "country": "us",
+        "language": "en",
+        "category": "politics"
+      },
+      {
+        "country": "us",
+        "language": "en",
+        "category": "entertainment"
+      },
+      {
+        "country": "us",
+        "language": "en",
+        "category": "science"
+      },
+      {
+        "country": "us",
+        "language": "en",
+        "category": "technology"
       }
     ]
   },

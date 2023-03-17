@@ -5,39 +5,42 @@ import { getSession } from 'next-auth/react';
 import React, { useEffect, useState } from 'react'
 import { RenderNewsArticles } from './RenderNewsArticles';
 
-export const NewsCustomization = ({handleNews}) => {
+export const NewsCustomization = ({ handleNews }) => {
     const [newsFilters, setNewsFilters] = useState({})
-    
+
     const [searchNow, setSearchNow] = useState(false)
 
     const [sesisonUser, setSessionUser] = useState(null)
 
+    const [refetchPresaved, setRefetchPresaved] = useState(false);
+
     // const [presavedData, setPresavedData] = useState(null)
-    
+
     const extractSessionData = () => {
         getSession().then(data => setSessionUser(data)).catch(err => console.log(err))
     }
 
     const extractUserPresavedData = () => {
-        return request_internal({url: "customNews", method: "get"})
+        return request_internal({ url: "customNews", method: "get" })
         // .then(data => setPresavedData(data?.data)).catch(err => console.log(err))
     }
 
-    const {data: presavedData} = useQuery({
+    const { data: presavedData } = useQuery({
         queryKey: ["presaved filters data", `${sesisonUser?.user?.name}`],
         queryFn: extractUserPresavedData,
-        enabled: (sesisonUser?.user || newsFilters) ? true : false,
+        // enabled: (sesisonUser?.user || newsFilters) ? true : false,
         // enabled: (newsFilters) ? true : false,
+        enabled: refetchPresaved,
         refetchOnWindowFocus: false
     })
 
-    const handleNewsFilters = (evt, elem) => setNewsFilters(prev => ({...prev, [elem]: evt.target.value}))
+    const handleNewsFilters = (evt, elem) => setNewsFilters(prev => ({ ...prev, [elem]: evt.target.value }))
 
-    const {data: customNews} = useQuery({
+    const { data: customNews } = useQuery({
         queryKey: ["custom filtered news query"],
         queryFn: () => {
-            const params = {country: newsFilters["country"], category: newsFilters["category"], language: newsFilters["language"]}
-            return news_data_request_interceptor({url: "/news", params})
+            const params = { country: newsFilters["country"], category: newsFilters["category"], language: newsFilters["language"] }
+            return news_data_request_interceptor({ url: "/news", params })
         },
         refetchOnWindowFocus: false,
         enabled: searchNow,
@@ -51,7 +54,7 @@ export const NewsCustomization = ({handleNews}) => {
 
     const handleSearch = () => {
         console.log(newsFilters);
-        if(newsFilters["country"] && newsFilters["category"] && newsFilters["language"]) {
+        if (newsFilters["country"] && newsFilters["category"] && newsFilters["language"]) {
             setSearchNow(true)
         } else {
             alert("select all three options first and then click search for POSSIBLE news")
@@ -60,26 +63,30 @@ export const NewsCustomization = ({handleNews}) => {
 
     const beforeStoringFiltersData = () => {
         // if(Object.keys(presavedData?.data)[0] === sesisonUser?.user?.name)
-        const idx = Object.keys(presavedData?.data).findIndex(item => item === sesisonUser?.user?.name)
-        console.log(idx, "idx!!", presavedData?.data[sesisonUser?.user?.name], newsFilters)
-        if(idx !== -1) {
-            // presavedData?.data[sesisonUser?.user?.name].filter(item => console.log("country", item?.country, newsFilters.country, "langugae", item?.language, newsFilters.language, "category", item?.category, newsFilters.category))
-            // const filtered = presavedData?.data[sesisonUser?.user?.name].filter(item => item?.country !== newsFilters.country && item?.language !== newsFilters.language && item?.category !== newsFilters.category)
-            const filtered = presavedData?.data[sesisonUser?.user?.name].filter(item => item?.country !== newsFilters.country || item?.language !== newsFilters.language || item?.category !== newsFilters.category)
-            console.log(filtered, "!!")
-            const newData = [...filtered, newsFilters]
-            return newData
+        if (presavedData?.data) {
+            const idx = Object.keys(presavedData?.data).findIndex(item => item === sesisonUser?.user?.name)
+            console.log(idx, "idx!!", presavedData?.data[sesisonUser?.user?.name], newsFilters)
+            if (idx !== -1) {
+                // presavedData?.data[sesisonUser?.user?.name].filter(item => console.log("country", item?.country, newsFilters.country, "langugae", item?.language, newsFilters.language, "category", item?.category, newsFilters.category))
+                // const filtered = presavedData?.data[sesisonUser?.user?.name].filter(item => item?.country !== newsFilters.country && item?.language !== newsFilters.language && item?.category !== newsFilters.category)
+                const filtered = presavedData?.data[sesisonUser?.user?.name].filter(item => item?.country !== newsFilters.country || item?.language !== newsFilters.language || item?.category !== newsFilters.category)
+                console.log(filtered, "!!")
+                const newData = [...filtered, newsFilters]
+                console.log(newData, "newDAta!!")
+                return newData
+            }
         }
     }
 
-    const {mutate} = useMutation({
+    const { mutate } = useMutation({
         mutationKey: ["save search"],
         mutationFn: () => {
             // console.log({ [sesisonUser?.expires]: [newsFilters]}, "!!<><>!!")
             // console.log(presavedData?.data, "<><>!!!!", Object.keys(presavedData?.data)[0], Object.keys(presavedData?.data)[0] === sesisonUser?.user?.name)
             // return request_internal({url: "/customNews", data: newsFilters, method: "post"})
             // beforeStoringFiltersData()
-            return request_internal({url: "/customNews", data: { [sesisonUser?.user?.name]: beforeStoringFiltersData()}, method: "post"})
+            setRefetchPresaved(true)
+            return request_internal({ url: "/customNews", data: { [sesisonUser?.user?.name]: beforeStoringFiltersData() }, method: "post" })
             // return request_internal({url: "/customNews", data: { [sesisonUser?.user?.name]: [newsFilters]}, method: "post"})
         }
     })
@@ -93,12 +100,12 @@ export const NewsCustomization = ({handleNews}) => {
         extractSessionData()
         // extractUserPresavedData();
     }, [])
-    
+
     customNews?.data?.results?.length && console.log(customNews, "<><>")
 
     return (
         <div className='w-full'>
-            <h1>Select All Three Options And Then Click Search For News</h1>
+            <h1 style={{letterSpacing: "11px", wordSpacing: "8px"}} className='text-2xl text-center'>Select All Three Options And Then Click Search For News</h1>
             <section className='flex gap-4 text-2xl my-6'>
                 <RenderListOfAllAvailableCountries handleNewsFilters={handleNewsFilters} />
                 <RenderListOfPossibleNewsLanguages handleNewsFilters={handleNewsFilters} />
@@ -111,7 +118,7 @@ export const NewsCustomization = ({handleNews}) => {
     )
 }
 
-export const PossibleNewsCategoriesList = ({handleNewsFilters}) => {
+export const PossibleNewsCategoriesList = ({ handleNewsFilters }) => {
     const renderList = () => newsCategories?.map(item => <RenderCategory key={item} name={item} />)
     return (
         <select className='w-min-1/4' onChange={e => handleNewsFilters(e, "category")} name="categories" id="news-categories" placeholder='Select Preferred News Categories'>
@@ -125,7 +132,7 @@ const RenderCategory = ({ name }) => {
     return <option value={name}>{name}</option>
 }
 
-export const RenderListOfPossibleNewsLanguages = ({handleNewsFilters}) => {
+export const RenderListOfPossibleNewsLanguages = ({ handleNewsFilters }) => {
     const list = [];
 
     for (let key in possibleLanguages) {
@@ -143,7 +150,7 @@ export const RenderListOfPossibleNewsLanguages = ({handleNewsFilters}) => {
     )
 }
 
-export const RenderListOfAllAvailableCountries = ({handleNewsFilters}) => {
+export const RenderListOfAllAvailableCountries = ({ handleNewsFilters }) => {
     const restructuredList = [];
 
     for (let key in countriesCodes) {
