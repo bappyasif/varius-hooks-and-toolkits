@@ -12,7 +12,7 @@ export const NewsCustomization = ({ handleNews }) => {
 
     const [sesisonUser, setSessionUser] = useState(null)
 
-    const [refetchPresaved, setRefetchPresaved] = useState(false);
+    // const [refetchPresaved, setRefetchPresaved] = useState(false);
 
     // const [presavedData, setPresavedData] = useState(null)
 
@@ -30,7 +30,8 @@ export const NewsCustomization = ({ handleNews }) => {
         queryFn: extractUserPresavedData,
         // enabled: (sesisonUser?.user || newsFilters) ? true : false,
         // enabled: (newsFilters) ? true : false,
-        enabled: refetchPresaved,
+        // enabled: refetchPresaved,
+        // enabled: (newsFilters || refetchPresaved) ? true : false,
         refetchOnWindowFocus: false
     })
 
@@ -75,7 +76,10 @@ export const NewsCustomization = ({ handleNews }) => {
                 console.log(newData, "newDAta!!")
                 return newData
             }
-        }
+        } 
+        // else {
+        //     return presavedData?.data[sesisonUser?.user?.name]
+        // }
     }
 
     const { mutate } = useMutation({
@@ -85,13 +89,14 @@ export const NewsCustomization = ({ handleNews }) => {
             // console.log(presavedData?.data, "<><>!!!!", Object.keys(presavedData?.data)[0], Object.keys(presavedData?.data)[0] === sesisonUser?.user?.name)
             // return request_internal({url: "/customNews", data: newsFilters, method: "post"})
             // beforeStoringFiltersData()
-            setRefetchPresaved(true)
+            // setRefetchPresaved(true)
             return request_internal({ url: "/customNews", data: { [sesisonUser?.user?.name]: beforeStoringFiltersData() }, method: "post" })
             // return request_internal({url: "/customNews", data: { [sesisonUser?.user?.name]: [newsFilters]}, method: "post"})
         }
     })
 
     const handleSaveCustomNewsFilters = () => {
+        // setRefetchPresaved(true)
         console.log(newsFilters, "save custom", sesisonUser, presavedData);
         mutate()
     }
@@ -105,13 +110,13 @@ export const NewsCustomization = ({ handleNews }) => {
 
     return (
         <div className='w-full'>
-            <h1 style={{letterSpacing: "11px", wordSpacing: "8px"}} className='text-2xl text-center'>Select All Three Options And Then Click Search For News</h1>
+            <h1 style={{letterSpacing: "11px", wordSpacing: "4px"}} className='text-2xl text-center'>Select All Three Options And Then Click Search For News</h1>
             <section className='flex gap-4 text-2xl my-6'>
                 <RenderListOfAllAvailableCountries handleNewsFilters={handleNewsFilters} />
                 <RenderListOfPossibleNewsLanguages handleNewsFilters={handleNewsFilters} />
                 <PossibleNewsCategoriesList handleNewsFilters={handleNewsFilters} />
                 <button onClick={handleSearch} className='bg-blue-600 p-2 rounded-lg w-1/4 text-white hover:bg-blue-800'>Search</button>
-                <button onClick={handleSaveCustomNewsFilters} className='bg-blue-600 text-yellow-200 p-2 rounded-lg w-1/4 hover:bg-blue-800'>Save Search</button>
+                <button disabled={sesisonUser?.user?.name ? false : true} onClick={handleSaveCustomNewsFilters} className={`${sesisonUser?.user?.name ? "bg-blue-600 text-yellow-200" : "bg-blue-200 text-yellow-600"}  p-2 rounded-lg w-1/4 hover:${sesisonUser?.user?.name ? "bg-blue-800" : ""}`}>Save Search</button>
             </section>
             <RenderNewsArticles data={customNews?.data.results} />
         </div>
