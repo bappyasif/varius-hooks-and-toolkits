@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 export const NewsSearchUI = ({ searchType, handleChanges, handleSearch }) => {
     return (
-        <section className='flex justify-between gap-4 my-2 mb-11 h-11'>
+        <section className='flex justify-between gap-4 my-2 mb-11 h-11 px-2'>
             <ChooseSearchType handleChanges={handleChanges} />
             <AdditionalSearchLogic searchType={searchType} handleChanges={handleChanges} />
             <CountrySpecificSearchOptions handleChanges={handleChanges} />
@@ -179,7 +179,7 @@ export const SearchForm = ({ handleChanges, handleSearch }) => {
                 <label htmlFor='search'></label>
                 <input className='px-2 outline-double h-11 text-2xl' onChange={e => handleChanges(e, "searchStr")} type={"text"} id={"search"} placeholder={`Search News With Query....`} />
             </fieldset>
-            <button className='text-2xl outline-double bg-blue-600 text-white px-4 rounded-lg h-12 w-full' type='submit'>Search</button>
+            <button className='text-2xl outline-double bg-blue-600 text-white px-4 rounded-lg h-12 w-full hover:bg-blue-800' type='submit'>Search</button>
         </form>
     )
 }

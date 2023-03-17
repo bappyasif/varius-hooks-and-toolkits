@@ -36,7 +36,7 @@ const NewsArchive = () => {
 
     return (
         <main className='px-2'>
-            NewsArchive
+            {/* NewsArchive */}
             <NewsArchiveUI searchType={searchData?.type} handleChanges={handleChanges} handleSearch={handleSearch} />
             <div>
                 {(searchNow && isLoading) ? <h2>Loading News....</h2> : null}

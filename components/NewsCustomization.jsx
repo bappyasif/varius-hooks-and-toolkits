@@ -110,8 +110,8 @@ export const NewsCustomization = ({ handleNews }) => {
                 <RenderListOfAllAvailableCountries handleNewsFilters={handleNewsFilters} />
                 <RenderListOfPossibleNewsLanguages handleNewsFilters={handleNewsFilters} />
                 <PossibleNewsCategoriesList handleNewsFilters={handleNewsFilters} />
-                <button onClick={handleSearch} className='bg-blue-600 p-2 rounded-lg w-1/4'>Search</button>
-                <button onClick={handleSaveCustomNewsFilters} className='bg-blue-600 p-2 rounded-lg w-1/4'>Save Search</button>
+                <button onClick={handleSearch} className='bg-blue-600 p-2 rounded-lg w-1/4 text-white hover:bg-blue-800'>Search</button>
+                <button onClick={handleSaveCustomNewsFilters} className='bg-blue-600 text-yellow-200 p-2 rounded-lg w-1/4 hover:bg-blue-800'>Save Search</button>
             </section>
             <RenderNewsArticles data={customNews?.data.results} />
         </div>

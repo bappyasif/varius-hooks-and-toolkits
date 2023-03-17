@@ -8,7 +8,7 @@ export const NewsArchiveUI = ({ searchType, handleChanges, handleSearch }) => {
 
     return (
         <section className='text-2xl mb-11'>
-            <h1>Choose From These Filters To Extract Searched Query With Most Relevance!!</h1>
+            <h1 style={{letterSpacing: "4px", wordSpacing: "8px"}} className='text-2xl text-center'>Choose From These Filters To Extract Searched News Query With Most Relevance!!</h1>
             <div className='flex gap-4 text-2xl my-6 h-11 justify-between'>
                 <RenderListOfAllAvailableCountries handleNewsFilters={handleChanges} />
                 <RenderListOfPossibleNewsLanguages handleNewsFilters={handleChanges} />
