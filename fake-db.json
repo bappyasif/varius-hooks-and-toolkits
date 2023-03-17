@@ -1,48 +1,5 @@
 {
-  "customNews": {
-    "a.b.": [
-      {
-        "country": "bd",
-        "language": "bn",
-        "category": "world"
-      },
-      {
-        "country": "bd",
-        "language": "bn",
-        "category": "sports"
-      },
-      {
-        "country": "bd",
-        "language": "bn",
-        "category": "top"
-      },
-      {
-        "country": "us",
-        "language": "en",
-        "category": "world"
-      },
-      {
-        "country": "us",
-        "language": "en",
-        "category": "politics"
-      },
-      {
-        "country": "us",
-        "language": "en",
-        "category": "entertainment"
-      },
-      {
-        "country": "us",
-        "language": "en",
-        "category": "science"
-      },
-      {
-        "country": "us",
-        "language": "en",
-        "category": "technology"
-      }
-    ]
-  },
+  "customNews": {},
   "favourites": [],
   "playlists": {
     "Awesome Tracks": [
