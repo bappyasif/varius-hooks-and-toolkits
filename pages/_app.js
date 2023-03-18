@@ -15,7 +15,7 @@ export default function App({ Component, pageProps }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className='flex flex-row gap-6 min-h-screen'>
+      <div className='md:flex sm:block flex-row gap-6 min-h-screen'>
         <Sidebar />
         <Component {...pageProps} />
       </div>

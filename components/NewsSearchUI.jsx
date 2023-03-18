@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 export const NewsSearchUI = ({ searchType, handleChanges, handleSearch }) => {
     return (
         <>
-            <section className='flex justify-between text-xl gap-4 my-2 mb-8 h-11 p6-2 w-fit m-auto'>
+            <section className='flex xs:flex-col xs:h-fit lg:flex-row justify-between text-xl xs:gap-6 lg:gap-4 my-2 mb-8 h-11 p6-2 w-fit m-auto'>
                 <ChooseSearchType handleChanges={handleChanges} />
                 <AdditionalSearchLogic searchType={searchType} handleChanges={handleChanges} />
                 <CountrySpecificSearchOptions handleChanges={handleChanges} />
@@ -174,13 +174,13 @@ export const SearchForm = ({ handleChanges, handleSearch, forArchive }) => {
     }
     return (
         <form
-            className={`flex justify-between items-center gap-4 ${forArchive ? "w-full" : ''}`}
+            className={`flex xs:mt-4 lg:mt-0 justify-between items-center gap-4 ${forArchive ? "w-full xs:flex-col lg:flex-row" : ''}`}
             method='post'
             onSubmit={handleSubmit}
         >
-            <fieldset>
+            <fieldset className='xs:w-full'>
                 <label htmlFor='search'></label>
-                <input className='px-2 outline-double h-11 text-xl' onChange={e => handleChanges(e, "searchStr")} type={"text"} id={"search"} placeholder={`Search News With Query....`} />
+                <input className='px-2 outline-double h-11 text-xl xs:w-full' onChange={e => handleChanges(e, "searchStr")} type={"text"} id={"search"} placeholder={`Search News With Query....`} />
             </fieldset>
             { forArchive ? <button className='text-2xl outline-double bg-blue-600 text-white px-4 rounded-lg h-12 w-full hover:bg-blue-800' type='submit'>Search</button> : null}
         </form>

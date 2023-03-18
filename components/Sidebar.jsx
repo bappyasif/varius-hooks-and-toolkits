@@ -22,7 +22,7 @@ export const Sidebar = () => {
     }, [])
 
     return (
-        <nav className='flex flex-col' style={{ minWidth: "220px" }}>
+        <nav className='flex md:flex-col' style={{ minWidth: "220px" }}>
             {renderNavs()}
         </nav>
     )
@@ -34,9 +34,13 @@ const RenderNav = ({ item, handleActive, active, session }) => {
     return (
         ((session?.name && name !== "Login") || (!session?.name && name !== "Logout" && !session?.name && name !== "Presaved Filters"))
         ?
-        <Link onClick={() => handleActive(name)} href={`${path}`} className={`flex items-center gap-1 ${active === name ? "bg-blue-400" : "bg-slate-200"} rounded-lg px-2 text-2xl my-1 hover:bg-blue-400`}>
+        <Link 
+            onClick={() => handleActive(name)} 
+            href={`${path}`} 
+            className={`flex items-center gap-1 ${active === name ? "bg-blue-400" : "bg-slate-200"} rounded-lg px-2 text-2xl my-1 hover:bg-blue-400`}
+        >
             <span>{icon}</span>
-            <span>{name}</span>
+            <span className='min-[320px]:hidden md:block'>{name}</span>
         </Link>
         : null
     )

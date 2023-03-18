@@ -68,25 +68,25 @@ export const NewsCustomization = ({ handleNews }) => {
         mutationFn: () => {
             const keys = Object.keys(presavedData.data)
             const idx = keys.findIndex(key => key === sesisonUser?.user.name)
-            
+
             // console.log(presavedData.data, keys, idx)
 
             let newData = []
 
-            if(idx !== -1) {
+            if (idx !== -1) {
                 const userData = presavedData.data[sesisonUser?.user.name]
                 const filtered = userData.filter(item => item?.country !== newsFilters.country || item?.language !== newsFilters.language || item?.category !== newsFilters.category)
-                
+
                 const updatedUserData = [...filtered, newsFilters]
                 presavedData.data[sesisonUser.user.name] = updatedUserData
-                
+
                 newData = presavedData.data
             } else {
                 presavedData.data[sesisonUser.user.name] = [newsFilters]
                 newData = presavedData.data
             }
-            
-            return request_internal({url: "/customNews", data: newData, method: "post"})
+
+            return request_internal({ url: "/customNews", data: newData, method: "post" })
         }
     })
 
@@ -105,13 +105,15 @@ export const NewsCustomization = ({ handleNews }) => {
 
     return (
         <div className='w-full'>
-            <h1 style={{letterSpacing: "11px", wordSpacing: "4px"}} className='text-2xl text-center'>Select All Three Options And Then Click Search For News</h1>
-            <section className='flex gap-4 text-2xl my-6'>
+            <h1 style={{ letterSpacing: "11px", wordSpacing: "4px" }} className='text-2xl text-center min-[320px]:hidden md:block'>Select All Three Options And Then Click Search For News</h1>
+            <section className='flex min-[320px]:flex-col md:flex-row md:gap-2 text-2xl my-6'>
                 <RenderListOfAllAvailableCountries handleNewsFilters={handleNewsFilters} />
                 <RenderListOfPossibleNewsLanguages handleNewsFilters={handleNewsFilters} />
                 <PossibleNewsCategoriesList handleNewsFilters={handleNewsFilters} />
-                <button onClick={handleSearch} className='bg-blue-600 p-2 rounded-lg w-1/4 text-white hover:bg-blue-800'>Search</button>
-                <button disabled={sesisonUser?.user?.name ? false : true} onClick={handleSaveCustomNewsFilters} className={`${sesisonUser?.user?.name ? "bg-blue-600 text-yellow-200" : "bg-blue-200 text-yellow-600"}  p-2 rounded-lg w-1/4 hover:${sesisonUser?.user?.name ? "bg-blue-800" : ""}`}>Save Search</button>
+                <div className='flex gap-2 w-full min-[320px]:my-2 md:my-0'>
+                    <button onClick={handleSearch} className='bg-blue-600 w-full p-2 rounded-lg text-white hover:bg-blue-800'>Search</button>
+                    <button disabled={sesisonUser?.user?.name ? false : true} onClick={handleSaveCustomNewsFilters} className={`${sesisonUser?.user?.name ? "bg-blue-600 text-yellow-200" : "bg-blue-200 text-yellow-600"}  p-2 w-full rounded-lg hover:${sesisonUser?.user?.name ? "bg-blue-800" : ""}`}>Save Search</button>
+                </div>
             </section>
             <RenderNewsArticles data={customNews?.data.results} />
         </div>
