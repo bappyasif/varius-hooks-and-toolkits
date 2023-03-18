@@ -26,7 +26,8 @@ const PresavedCustomNewsFilters = () => {
 
     return (
         <main>
-            <h1 style={{letterSpacing: "3px", wordSpacing: "4px"}} className='text-2xl my-1 text-center'>You Currently Have These Filters Saved. Please Click Away To Read News From These Filters</h1>
+            <h1 style={{letterSpacing: "2px", wordSpacing: "4px"}} className='text-2xl my-1 text-center xs:hidden sm:block'>You Currently Have These Filters Saved. Please Click Away To Read News From These Filters</h1>
+            <h1 style={{letterSpacing: "3px", wordSpacing: "4px"}} className='text-2xl my-1 text-center xs:block sm:hidden'>You Currently Have These Filters Saved.</h1>
             <PresavedFilteredNewsUI data={presavedData?.data[user?.name]} user={user?.name} entireDataset={presavedData?.data} />
         </main>
     )

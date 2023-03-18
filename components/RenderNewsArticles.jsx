@@ -3,7 +3,7 @@ import React from 'react'
 export const RenderNewsArticles = ({data}) => {
     const renderData = () => data?.map((item, idx) => <RenderArticle key={item.title + idx} item={item} idx={idx} />)
   return (
-    <section className='gap-8 columns-3'>
+    <section className='gap-8 xs:columns-1 md:columns-2 lg:columns-3 px-2'>
         {renderData()}
     </section>
   )

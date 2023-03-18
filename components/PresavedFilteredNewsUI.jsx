@@ -19,7 +19,7 @@ export const PresavedFilteredNewsUI = ({ data, user, entireDataset }) => {
     // const renderFilters = () => data?.map((item, idx) => <RenderFilter key={idx} item={item} data={data} user={user} />)
 
     return (
-        <section className='flex gap-8 flex-wrap'>
+        <section className='flex gap-8 flex-wrap xs:justify-center lg:justify-start'>
             {/* <h1>PresavedFilteredNewsUI</h1> */}
             {renderFilters()}
         </section>

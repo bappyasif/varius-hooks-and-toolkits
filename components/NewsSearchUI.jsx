@@ -103,8 +103,8 @@ export const AdditionalSearchLogic = ({ searchType, handleChanges }) => {
 
     // className='flex flex-col gap-4 items-center'
     return (
-        <div className='relative'>
-            <select className='outline-double h-11' onChange={handleChange} name="additional search filter" id="additional filters">
+        <div className='relative xs:w-full'>
+            <select className='outline-double h-11 xs:w-full' onChange={handleChange} name="additional search filter" id="additional filters">
                 <option value={-1}>Choose Any Additional Filter</option>
                 {renderOptions()}
             </select>
@@ -146,7 +146,7 @@ const ShowAdditionalFilterExample = ({ filter }) => {
         decideFilterExample()
     }, [filter])
 
-    return <h2 className='absolute text-sm'><span>Example: </span><span>"{example}"</span></h2>
+    return <h2 className='absolute text-sm xs:mt-1 lg:mt-0'><span>Example: </span><span>"{example}"</span></h2>
 }
 
 export const ChooseSearchType = ({ handleChanges }) => {
