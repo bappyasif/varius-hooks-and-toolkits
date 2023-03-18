@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 export const NewsSearchUI = ({ searchType, handleChanges, handleSearch }) => {
     return (
         <>
-            <section className='flex xs:flex-col xs:h-fit lg:flex-row justify-between text-xl xs:gap-6 lg:gap-4 my-2 mb-8 h-11 p6-2 w-fit m-auto'>
+            <section className=' bg-slate-400 opacity-90 flex xs:flex-col xs:h-fit lg:flex-row justify-between text-xl xs:gap-6 lg:gap-4 my-2 mb-8 h-11 p6-2 w-fit m-auto'>
                 <ChooseSearchType handleChanges={handleChanges} />
                 <AdditionalSearchLogic searchType={searchType} handleChanges={handleChanges} />
                 <CountrySpecificSearchOptions handleChanges={handleChanges} />
@@ -146,7 +146,7 @@ const ShowAdditionalFilterExample = ({ filter }) => {
         decideFilterExample()
     }, [filter])
 
-    return <h2 className='absolute text-sm xs:mt-1 lg:mt-0'><span>Example: </span><span>"{example}"</span></h2>
+    return <h2 className='absolute text-sm xs:mt-0 lg:mt-0'><span>Example: </span><span>"{example}"</span></h2>
 }
 
 export const ChooseSearchType = ({ handleChanges }) => {

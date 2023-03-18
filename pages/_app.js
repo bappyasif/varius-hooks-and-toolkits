@@ -15,11 +15,21 @@ export default function App({ Component, pageProps }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className='xs:block lg:flex flex-row gap-6 min-h-screen'>
+      <div 
+        className='xs:block lg:flex flex-row gap-6 min-h-screen w-full'
+        style={{
+          background: `url(${"/abstract.jpg"})`,
+          backgroundSize: "cover",
+          backgroundBlendMode: "soft-light",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
         <Sidebar />
         <Component {...pageProps} />
       </div>
-
+      {/* Photo by Markus Winkler: https://www.pexels.com/photo/white-paper-on-a-green-typewriter-12199409/ */}
+      {/* Photo by Miguel Á. Padriñán: https://www.pexels.com/photo/close-up-shot-of-keyboard-buttons-2882634/ */}
+{/* Photo by Steve Johnson: https://www.pexels.com/photo/multicolored-abstract-painting-1509534/ */}
       {/* <SessionProvider baseUrl='http://localhost:3000/'>
         <div className='flex flex-row gap-6'>
           <Sidebar />

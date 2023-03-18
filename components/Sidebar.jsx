@@ -22,7 +22,13 @@ export const Sidebar = () => {
     }, [])
 
     return (
-        <nav className='flex lg:flex-col xs:mb-4 lg:mb-0' style={{ minWidth: "220px" }}>
+        <nav 
+            className='flex lg:flex-col xs:mb-4 lg:mb-0' 
+            style={{ 
+                minWidth: "220px",
+                background: `url(${"/sidebar.jpg"})`
+            }}
+        >
             {renderNavs()}
         </nav>
     )

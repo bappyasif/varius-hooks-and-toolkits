@@ -14,7 +14,7 @@ const RenderArticle = ({item, idx}) => {
 
     return (
         <article className='text-xl'>
-            <h2 className='text-4xl text-red-400'>{title}</h2>
+            <h2 className='text-4xl bg-slate-400 text-red-800 opacity-90'>{title}</h2>
             <p className='hover: bg-slate-200'>{description}</p>
             <img className='w-full aspect-square mb-6 m-auto' src={image_url ? image_url : `https://picsum.photos/500/300?random=${idx}`} alt={title} />
             <h3 className='bg-zinc-200'>{content}</h3>
