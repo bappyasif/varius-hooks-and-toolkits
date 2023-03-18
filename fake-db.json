@@ -55,6 +55,33 @@
         "country": "bd",
         "category": "environment",
         "language": "en"
+      },
+      {
+        "country": "bd",
+        "language": "bn",
+        "category": "health"
+      },
+      {
+        "country": "dz",
+        "language": "be",
+        "category": "business"
+      },
+      {
+        "country": "dz",
+        "language": "be",
+        "category": "entertainment"
+      }
+    ],
+    "Asifuzzaman Bappy": [
+      {
+        "country": "bd",
+        "language": "bn",
+        "category": "health"
+      },
+      {
+        "country": "bd",
+        "language": "bn",
+        "category": "food"
       }
     ]
   },

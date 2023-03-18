@@ -62,36 +62,177 @@ export const NewsCustomization = ({ handleNews }) => {
         }
     }
 
-    const beforeStoringFiltersData = () => {
-        // if(Object.keys(presavedData?.data)[0] === sesisonUser?.user?.name)
-        if (presavedData?.data) {
-            const idx = Object.keys(presavedData?.data).findIndex(item => item === sesisonUser?.user?.name)
-            console.log(idx, "idx!!", presavedData?.data[sesisonUser?.user?.name], newsFilters)
-            if (idx !== -1) {
-                // presavedData?.data[sesisonUser?.user?.name].filter(item => console.log("country", item?.country, newsFilters.country, "langugae", item?.language, newsFilters.language, "category", item?.category, newsFilters.category))
-                // const filtered = presavedData?.data[sesisonUser?.user?.name].filter(item => item?.country !== newsFilters.country && item?.language !== newsFilters.language && item?.category !== newsFilters.category)
-                const filtered = presavedData?.data[sesisonUser?.user?.name].filter(item => item?.country !== newsFilters.country || item?.language !== newsFilters.language || item?.category !== newsFilters.category)
-                console.log(filtered, "!!")
-                const newData = [...filtered, newsFilters]
-                console.log(newData, "newDAta!!")
-                return newData
-            }
-        } 
-        // else {
-        //     return presavedData?.data[sesisonUser?.user?.name]
-        // }
-    }
+    // const beforeStoringFiltersData = () => {
+    //     // if(Object.keys(presavedData?.data)[0] === sesisonUser?.user?.name)
+    //     if (presavedData?.data) {
+    //         const idx = Object.keys(presavedData?.data).findIndex(item => item === sesisonUser?.user?.name)
+    //         console.log(idx, "idx!!", presavedData?.data[sesisonUser?.user?.name], newsFilters)
+    //         if (idx !== -1) {
+    //             // presavedData?.data[sesisonUser?.user?.name].filter(item => console.log("country", item?.country, newsFilters.country, "langugae", item?.language, newsFilters.language, "category", item?.category, newsFilters.category))
+    //             // const filtered = presavedData?.data[sesisonUser?.user?.name].filter(item => item?.country !== newsFilters.country && item?.language !== newsFilters.language && item?.category !== newsFilters.category)
+    //             const filtered = presavedData?.data[sesisonUser?.user?.name].filter(item => item?.country !== newsFilters.country || item?.language !== newsFilters.language || item?.category !== newsFilters.category)
+    //             console.log(filtered, "!!")
+    //             const newData = [...filtered, newsFilters]
+    //             console.log(newData, "newDAta!!")
+    //             return { [sesisonUser?.user?.name]: newData }
+    //             // return newData
+    //         } else {
+    //             const newData = [presavedData?.data, { [sesisonUser?.user?.name]: [newsFilters] }]
+    //             console.log(newData, "NEW USER NEW DATA!!", { [sesisonUser?.user?.name]: [newsFilters] })
+    //             // return presavedData.data
+    //             return newData
+
+    //             // return {[sesisonUser?.user?.name]: newData}
+    //         }
+    //     }
+    //     // else {
+    //     //     return presavedData?.data[sesisonUser?.user?.name]
+    //     // }
+    // }
+
+    // const { mutate } = useMutation({
+    //     mutationKey: ["save search"],
+    //     mutationFn: () => {
+    //         // console.log({ [sesisonUser?.expires]: [newsFilters]}, "!!<><>!!")
+    //         // console.log(presavedData?.data, "<><>!!!!", Object.keys(presavedData?.data)[0], Object.keys(presavedData?.data)[0] === sesisonUser?.user?.name)
+    //         // return request_internal({url: "/customNews", data: newsFilters, method: "post"})
+    //         const data = beforeStoringFiltersData()
+    //         return data ? request_internal({ url: "/customNews", data: data, method: "post" }) : null
+
+    //         // setRefetchPresaved(true)
+    //         // return data ? request_internal({ url: "/customNews", data: { [sesisonUser?.user?.name]: beforeStoringFiltersData() }, method: "post" }) : null
+    //         // return request_internal({url: "/customNews", data: { [sesisonUser?.user?.name]: [newsFilters]}, method: "post"})
+    //     }
+    // })
+
+    // const { mutate } = useMutation({
+    //     mutationKey: ["add new data into customNews list", `${sesisonUser?.user.name}`],
+    //     mutationFn: () => {
+    //         const data = Object.values(presavedData?.data);
+    //         const idx = data.findIndex(item => Object.keys(item)[0] === sesisonUser?.user.name)
+            
+    //         console.log(data, idx);
+    //         let newData = [];
+
+    //         if (idx === -1) {
+    //             newData = [ ...presavedData?.data, { [sesisonUser?.user?.name]: [newsFilters] } ]
+    //             console.log(newData, "NEW DATA")
+    //         } else {
+    //             const userData = presavedData?.data[idx][sesisonUser?.user?.name]
+                
+    //             const filtered = userData.filter(item => item?.country !== newsFilters.country || item?.language !== newsFilters.language || item?.category !== newsFilters.category)
+    //             console.log(filtered, "filtered")
+                
+    //             const afterFilter = [...filtered, newsFilters]
+
+    //             presavedData.data.forEach(item => {
+    //                 if(Object.keys(item)[0] === sesisonUser?.user.name) {
+    //                     item[sesisonUser?.user.name] = afterFilter
+    //                 }
+    //             })
+
+    //             newData = presavedData.data
+
+    //             console.log(newData, "NEW DATA AFTER FILTER")
+    //         }
+
+    //         return request_internal({url: "/customNews", data: { [sesisonUser?.user?.name]: [newsFilters]}, method: "post"})
+
+    //         return request_internal({url: "/customNews", data: {newData}, method: "post"})
+    //     }
+    // })
+
+    // const { mutate } = useMutation({
+    //     mutationKey: ["add new data into customNews list", `${sesisonUser?.user.name}`],
+
+    //     mutationFn: () => {
+    //         const data = Object.values(presavedData?.data);
+    //         const idx = data.findIndex(item => Object.keys(item)[0] === sesisonUser?.user.name)
+            
+    //         console.log(data, idx, presavedData?.data);
+    //         let newData = [];
+
+    //         if (idx === -1) {
+    //             // newData = [ ...presavedData?.data, { [sesisonUser?.user?.name]: [newsFilters] } ]
+    //             newData = [newsFilters]
+    //             console.log(newData, "NEW DATA")
+    //         } else {
+    //             const userData = presavedData?.data[idx][sesisonUser?.user?.name]
+                
+    //             const filtered = userData.filter(item => item?.country !== newsFilters.country || item?.language !== newsFilters.language || item?.category !== newsFilters.category)
+    //             console.log(filtered, "filtered")
+                
+    //             const afterFilter = [...filtered, newsFilters]
+
+    //             // presavedData.data.forEach(item => {
+    //             //     if(Object.keys(item)[0] === sesisonUser?.user.name) {
+    //             //         item[sesisonUser?.user.name] = afterFilter
+    //             //     }
+    //             // })
+
+    //             newData = afterFilter
+
+    //             console.log(newData, "NEW DATA AFTER FILTER", { [sesisonUser?.user?.name]: newData})
+    //         }
+
+    //         // return request_internal({url: "/customNews", data: { [sesisonUser?.user?.name]: newData }, method: "post"})
+    //     }
+    // })
+
+    // const { mutate } = useMutation({
+    //     mutationKey: ["add new data into customNews list", `${sesisonUser?.user.name}`],
+
+    //     mutationFn: () => {
+    //         const keys = Object.keys(presavedData.data)
+    //         const idx = keys.findIndex(key => key === sesisonUser?.user.name)
+            
+    //         console.log(presavedData.data, keys, idx)
+
+    //         let newData = []
+
+    //         if(idx !== -1) {
+    //             const userData = presavedData.data[sesisonUser?.user.name]
+    //             const filtered = userData.filter(item => item?.country !== newsFilters.country || item?.language !== newsFilters.language || item?.category !== newsFilters.category)
+    //             newData = [...filtered, newsFilters]
+    //             console.log(userData, filtered, newData)
+    //         } else {
+    //             newData = [newsFilters]
+    //             console.log(newData)
+    //         }
+            
+    //         return request_internal({url: "/customNews", data: { [sesisonUser?.user?.name]: newData }, method: "post"})
+    //     }
+    // })
 
     const { mutate } = useMutation({
-        mutationKey: ["save search"],
+        mutationKey: ["add new data into customNews list", `${sesisonUser?.user.name}`],
+
         mutationFn: () => {
-            // console.log({ [sesisonUser?.expires]: [newsFilters]}, "!!<><>!!")
-            // console.log(presavedData?.data, "<><>!!!!", Object.keys(presavedData?.data)[0], Object.keys(presavedData?.data)[0] === sesisonUser?.user?.name)
-            // return request_internal({url: "/customNews", data: newsFilters, method: "post"})
-            // beforeStoringFiltersData()
-            // setRefetchPresaved(true)
-            return request_internal({ url: "/customNews", data: { [sesisonUser?.user?.name]: beforeStoringFiltersData() }, method: "post" })
-            // return request_internal({url: "/customNews", data: { [sesisonUser?.user?.name]: [newsFilters]}, method: "post"})
+            const keys = Object.keys(presavedData.data)
+            const idx = keys.findIndex(key => key === sesisonUser?.user.name)
+            
+            console.log(presavedData.data, keys, idx)
+
+            let newData = []
+
+            if(idx !== -1) {
+                const userData = presavedData.data[sesisonUser?.user.name]
+                const filtered = userData.filter(item => item?.country !== newsFilters.country || item?.language !== newsFilters.language || item?.category !== newsFilters.category)
+                const updatedUserData = [...filtered, newsFilters]
+                // newData = {[sesisonUser.user.name] : [...filtered, newsFilters]}
+                presavedData.data[sesisonUser.user.name] = updatedUserData
+                newData = presavedData.data
+                // newData = {[sesisonUser.user.name] : [...filtered, newsFilters]}
+                // console.log(userData, filtered, newData)
+            } else {
+                presavedData.data[sesisonUser.user.name] = [newsFilters]
+                newData = presavedData.data
+                // console.log(newData)
+            }
+            
+            // console.log(newData, presavedData.data, {...newData})
+            return request_internal({url: "/customNews", data: newData, method: "post"})
+            // return request_internal({url: "/customNews", data: newData, method: "post"})
         }
     })
 
