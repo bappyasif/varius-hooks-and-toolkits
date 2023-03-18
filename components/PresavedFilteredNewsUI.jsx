@@ -2,10 +2,10 @@ import { request_internal } from '@/utils/axios-interceptors'
 import { useMutation } from '@tanstack/react-query'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
-import {CiSquareRemove} from "react-icons/ci"
-import {countriesCodes, possibleLanguages} from "../forNewsList"
+import { CiSquareRemove } from "react-icons/ci"
+import { countriesCodes, possibleLanguages } from "../forNewsList"
 
-export const PresavedFilteredNewsUI = ({ data, user }) => {
+export const PresavedFilteredNewsUI = ({ data, user, entireDataset }) => {
     const [filters, setFilters] = useState([]);
     const handleFilters = data => setFilters(data);
 
@@ -14,10 +14,10 @@ export const PresavedFilteredNewsUI = ({ data, user }) => {
     }, [data])
 
     console.log(data, "DATA!!")
-    
-    const renderFilters = () => filters?.map((item, idx) => <RenderFilter key={idx} item={item} data={filters} user={user} handleFilters={handleFilters} />)
+
+    const renderFilters = () => filters?.map((item, idx) => <RenderFilter key={idx} item={item} data={filters} user={user} handleFilters={handleFilters} entireDataset={entireDataset} />)
     // const renderFilters = () => data?.map((item, idx) => <RenderFilter key={idx} item={item} data={data} user={user} />)
-    
+
     return (
         <section className='flex gap-8 flex-wrap'>
             {/* <h1>PresavedFilteredNewsUI</h1> */}
@@ -26,13 +26,13 @@ export const PresavedFilteredNewsUI = ({ data, user }) => {
     )
 }
 
-const RenderFilter = ({ item, data, user, handleFilters }) => {
+const RenderFilter = ({ item, data, user, handleFilters, entireDataset }) => {
     const { country, category, language } = item
 
     let lang = ""
 
-    for(let key in possibleLanguages) {
-        if(possibleLanguages[key] === language) {
+    for (let key in possibleLanguages) {
+        if (possibleLanguages[key] === language) {
             lang = key;
         }
     }
@@ -42,12 +42,20 @@ const RenderFilter = ({ item, data, user, handleFilters }) => {
         return filtered
     }
 
-    const {mutate} = useMutation({
+    const { mutate } = useMutation({
         mutationKey: ["remove from filters"],
         mutationFn: () => {
             const filtered = removedData()
             handleFilters(filtered)
-            return request_internal({url: "/customNews", method: "post", data: {[user]: filtered}})
+            const updatedUserData = { [user]: filtered }
+
+            entireDataset[user] = filtered
+
+            console.log(entireDataset, updatedUserData, "<><><><>")
+
+            return request_internal({ url: "/customNews", method: "post", data: entireDataset })
+
+            // return request_internal({url: "/customNews", method: "post", data: {[user]: filtered}})
         }
     })
 

@@ -82,6 +82,11 @@
         "country": "bd",
         "language": "bn",
         "category": "food"
+      },
+      {
+        "country": "dz",
+        "language": "be",
+        "category": "business"
       }
     ]
   },
