@@ -68,7 +68,14 @@ const RenderFilter = ({ item, data, user, handleFilters, entireDataset }) => {
     }
 
     return (
-        <article className='my-2 outline-1 outline px-4 rounded-lg relative bg-slate-400 pb-1'>
+        <article 
+            className='my-2 outline-1 outline px-4 rounded-lg relative bg-slate-400 pb-1'
+            style={{
+                background: `url(${"/siteBg2.jpg"})`,
+                // backgroundSize: "stretch",
+                opacity: ".9"
+            }}
+        >
             <CiSquareRemove onClick={removeFilter} className='text-4xl absolute right-0 text-slate-900  hover:text-red-900 hover:duration-1000 hover:animate-pulse' />
             <h2 className='flex flex-col gap-4 justify-center items-center mb-2 mt-8 px-2 pr-4'>
                 <span className='flex justify-between w-full'><span>Country:</span> <span className='text-xl'>{countriesCodes[country.toUpperCase()]}</span></span>

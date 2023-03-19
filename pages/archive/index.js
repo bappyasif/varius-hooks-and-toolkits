@@ -1,4 +1,5 @@
 import { NewsArchiveUI } from '@/components/NewsArchiveUI'
+import { RenderSearchedNewsResults } from '@/components/NewsCustomization'
 import { RenderNewsArticles } from '@/components/RenderNewsArticles'
 import { news_data_request_interceptor } from '@/utils/axios-interceptors'
 import { useQuery } from '@tanstack/react-query'
@@ -41,7 +42,8 @@ const NewsArchive = () => {
             <div>
                 {(searchNow && isLoading) ? <h2>Loading News....</h2> : null}
                 {isError ? <h2>Error Occured....</h2> : error?.message}
-                <RenderNewsArticles data={searchNow ? [] : searchResults?.data?.results} />
+                <RenderSearchedNewsResults searchNow={searchNow} newsResults={searchResults} />
+                {/* <RenderNewsArticles data={searchNow ? [] : searchResults?.data?.results} /> */}
             </div>
         </main>
     )

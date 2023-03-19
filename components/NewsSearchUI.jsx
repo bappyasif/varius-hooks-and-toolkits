@@ -3,13 +3,15 @@ import React, { useEffect, useState } from 'react'
 export const NewsSearchUI = ({ searchType, handleChanges, handleSearch }) => {
     return (
         <>
-            <section className=' bg-slate-400 opacity-90 flex xs:flex-col xs:h-fit lg:flex-row justify-between text-xl xs:gap-6 lg:gap-4 my-2 mb-8 h-11 p6-2 w-fit m-auto'>
+            <section className=' bg-slate-400 opacity-90 flex xs:flex-col xs:h-fit lg:flex-row justify-between text-xl xs:gap-6 lg:gap-4 my-2 mb-3 h-11 lg:pb-8 lg:pt-2 lg:p-2 w-fit m-auto'>
                 <ChooseSearchType handleChanges={handleChanges} />
                 <AdditionalSearchLogic searchType={searchType} handleChanges={handleChanges} />
                 <CountrySpecificSearchOptions handleChanges={handleChanges} />
                 <SearchForm handleChanges={handleChanges} handleSearch={handleSearch} />
             </section>
-            <button onClick={handleSearch} className='text-2xl outline-double bg-blue-600 text-white px-4 mb-8 rounded-lg h-12 w-full hover:bg-blue-800' type='submit'>Search</button>
+            <div className='w-full flex justify-center'>
+                <button onClick={handleSearch} className='lg:text-4xl xs:text-2xl outline-double bg-blue-600 text-white px-4 mb-8 rounded-lg h-12 lg:w-1/4 xs:w-2/4 xl:w-2/4 hover:bg-blue-800' type='submit'>Search</button>
+            </div>
         </>
     )
 }
@@ -103,8 +105,8 @@ export const AdditionalSearchLogic = ({ searchType, handleChanges }) => {
 
     // className='flex flex-col gap-4 items-center'
     return (
-        <div className='relative xs:w-full'>
-            <select className='outline-double h-11 xs:w-full' onChange={handleChange} name="additional search filter" id="additional filters">
+        <div className='relative xs:w-full lg:w-fit xl:w-2/4'>
+            <select className='outline-double h-11 xs:w-full xl:w-fit' onChange={handleChange} name="additional search filter" id="additional filters">
                 <option value={-1}>Choose Any Additional Filter</option>
                 {renderOptions()}
             </select>
@@ -154,7 +156,7 @@ export const ChooseSearchType = ({ handleChanges }) => {
     const renderOptions = () => options.map(name => <RenderOption key={name} name={name} />)
 
     return (
-        <select className='outline-double h-11' onChange={(e) => handleChanges(e, "type")}>
+        <select className='outline-double h-11 lg:w-fit' onChange={(e) => handleChanges(e, "type")}>
             <option value={-1}>Choose News Search Type</option>
             {renderOptions()}
         </select>
@@ -174,7 +176,7 @@ export const SearchForm = ({ handleChanges, handleSearch, forArchive }) => {
     }
     return (
         <form
-            className={`flex xs:mt-4 lg:mt-0 justify-between items-center gap-4 ${forArchive ? "w-full xs:flex-col lg:flex-row" : ''}`}
+            className={`flex xs:mt-4 lg:mt-0 justify-between items-center gap-4 ${forArchive ? "w-full xs:flex-col lg:flex-row" : 'w-full'}`}
             method='post'
             onSubmit={handleSubmit}
         >
@@ -182,7 +184,7 @@ export const SearchForm = ({ handleChanges, handleSearch, forArchive }) => {
                 <label htmlFor='search'></label>
                 <input className='px-2 outline-double h-11 text-xl xs:w-full' onChange={e => handleChanges(e, "searchStr")} type={"text"} id={"search"} placeholder={`Search News With Query....`} />
             </fieldset>
-            { forArchive ? <button className='text-2xl outline-double bg-blue-600 text-white px-4 rounded-lg h-12 w-full hover:bg-blue-800' type='submit'>Search</button> : null}
+            {forArchive ? <button className='text-2xl outline-double bg-blue-600 text-white px-4 rounded-lg h-12 w-full hover:bg-blue-800' type='submit'>Search</button> : null}
         </form>
     )
 }

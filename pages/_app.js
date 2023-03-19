@@ -22,6 +22,7 @@ export default function App({ Component, pageProps }) {
           backgroundSize: "cover",
           backgroundBlendMode: "soft-light",
           backgroundRepeat: "no-repeat",
+          opacity: ".9"
         }}
       >
         <Sidebar />

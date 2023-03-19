@@ -3,6 +3,7 @@ import { news_data_request_interceptor } from '@/utils/axios-interceptors'
 import { useQuery } from '@tanstack/react-query'
 import { RenderNewsArticles } from '../../components/RenderNewsArticles';
 import React, { useState } from 'react'
+import { RenderSearchedNewsResults } from '@/components/NewsCustomization';
 
 const NewsSearch = () => {
     const [searchNow, setSearchNow] = useState(false)
@@ -40,9 +41,10 @@ const NewsSearch = () => {
     return (
         <main className='w-full'>
             <NewsSearchUI searchType={searchData?.type} handleChanges={handleChanges} handleSearch={handleSearch} />
-            {(searchNow && isLoading) ? <h2>Loading News....</h2> : null}
-            {isError ? <h2>Error Occured....</h2> : error?.message}
-            <RenderNewsArticles data={searchNow ? [] : searchResults?.data.results} />
+            {(searchNow && isLoading) ? <h2 className='bg-slate-600 opacity-90 text-2xl'>Loading News....</h2> : null}
+            {isError ? <h2 className='bg-slate-600 opacity-90 text-2xl'>Error Occured....</h2> : error?.message}
+            <RenderSearchedNewsResults searchNow={searchNow} newsResults={searchResults} />
+            {/* <RenderNewsArticles data={searchNow ? [] : searchResults?.data.results} /> */}
         </main>
     )
 }

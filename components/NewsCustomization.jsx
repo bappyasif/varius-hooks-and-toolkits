@@ -117,8 +117,19 @@ export const NewsCustomization = ({ handleNews }) => {
                     </div>
                 </section>
             </div>
-            <RenderNewsArticles data={customNews?.data.results} />
+            <RenderSearchedNewsResults newsResults={customNews} searchNow={searchNow} />
+            {/* <RenderNewsArticles data={customNews?.data.results} /> */}
         </div>
+    )
+}
+
+export const RenderSearchedNewsResults = ({newsResults, searchNow}) => {
+    return (
+        newsResults?.data.results.length
+                    ? <RenderNewsArticles data={newsResults?.data.results} />
+                    : searchNow
+                        ? <h2 className='bg-slate-600 opacity-90 text-2xl text-white'>Loading Search Data</h2>
+                        : <h2 className='bg-slate-600 opacity-90 text-2xl text-white'>Searched News Data Will Show Up In Here....</h2>
     )
 }
 
