@@ -40,7 +40,7 @@ const NewsSearch = () => {
 
     return (
         <main className='w-full'>
-            <NewsSearchUI searchType={searchData?.type} handleChanges={handleChanges} handleSearch={handleSearch} />
+            <NewsSearchUI searchStr={searchData?.searchStr} searchType={searchData?.type} handleChanges={handleChanges} handleSearch={handleSearch} />
             {(searchNow && isLoading) ? <h2 className='bg-slate-600 opacity-90 text-2xl'>Loading News....</h2> : null}
             {isError ? <h2 className='bg-slate-600 opacity-90 text-2xl'>Error Occured....</h2> : error?.message}
             <RenderSearchedNewsResults searchNow={searchNow} newsResults={searchResults} />

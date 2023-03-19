@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { PossibleNewsCategoriesList, RenderListOfAllAvailableCountries, RenderListOfPossibleNewsLanguages } from './NewsCustomization'
 import { AdditionalSearchLogic, ChooseSearchType, SearchForm } from './NewsSearchUI';
 
-export const NewsArchiveUI = ({ searchType, handleChanges, handleSearch }) => {
+export const NewsArchiveUI = ({ searchStr, searchType, handleChanges, handleSearch }) => {
 
     return (
         <section className='text-2xl mb-11 bg-slate-400 opacity-90 xl:pb-1 px-1'>

@@ -12,9 +12,17 @@ export const NewsCustomization = ({ handleNews }) => {
 
     const [sesisonUser, setSessionUser] = useState(null)
 
+    const [showTooltip, setShowTooltip] = useState(false)
+
+    const [activateFunctionalities, setActivateFunctionlaities] = useState(false)
+
     // const [refetchPresaved, setRefetchPresaved] = useState(false);
 
     // const [presavedData, setPresavedData] = useState(null)
+
+    const handleTooltipShow = () => setShowTooltip(true)
+
+    const handleTooltipClose = () => setShowTooltip(false)
 
     const extractSessionData = () => {
         getSession().then(data => setSessionUser(data)).catch(err => console.log(err))
@@ -97,6 +105,19 @@ export const NewsCustomization = ({ handleNews }) => {
     }
 
     useEffect(() => {
+        if(
+            (newsFilters?.category && newsFilters?.language && newsFilters?.country)
+            &&
+            (newsFilters?.category !== "Choose Category" && newsFilters?.language !== "Choose Language" && newsFilters?.country !== "Choose Country")
+        ) {
+            setActivateFunctionlaities(true)
+        } else {
+            setActivateFunctionlaities(false)
+        }
+        console.log(newsFilters, "newsFilters")
+    }, [newsFilters])
+
+    useEffect(() => {
         extractSessionData()
         // extractUserPresavedData();
     }, [])
@@ -111,9 +132,15 @@ export const NewsCustomization = ({ handleNews }) => {
                     <RenderListOfAllAvailableCountries handleNewsFilters={handleNewsFilters} />
                     <RenderListOfPossibleNewsLanguages handleNewsFilters={handleNewsFilters} />
                     <PossibleNewsCategoriesList handleNewsFilters={handleNewsFilters} />
-                    <div className='flex gap-2 w-full'>
-                        <button onClick={handleSearch} className='bg-blue-600 w-full p-2 rounded-lg text-white hover:bg-blue-800'>Search</button>
-                        <button disabled={sesisonUser?.user?.name ? false : true} onClick={handleSaveCustomNewsFilters} className={`${sesisonUser?.user?.name ? "bg-blue-600 text-yellow-200" : "bg-blue-200 text-yellow-600"}  p-2 w-full rounded-lg hover:${sesisonUser?.user?.name ? "bg-blue-800" : ""}`}>Save Search</button>
+                    <div 
+                        style={{
+                            pointerEvents: activateFunctionalities ? "auto" : "none"
+                        }} 
+                        className='flex gap-2 w-full'
+                    >
+                        <button onClick={handleSearch} className={`${activateFunctionalities ? "bg-blue-600 text-white" : "bg-blue-200 text-red-800"} w-full p-2 rounded-lg ${(!searchNow && !customNews?.data.results.length && activateFunctionalities) ? "animate-pulse" : ""} hover:bg-blue-800`}>Search</button>
+                        <button disabled={sesisonUser?.user?.name ? false : true} onMouseEnter={handleTooltipShow} onMouseLeave={handleTooltipClose} onClick={handleSaveCustomNewsFilters} className={`${(sesisonUser?.user?.name && activateFunctionalities) ? "bg-blue-600 text-yellow-200" : "bg-blue-200 text-yellow-600"}  p-2 w-full rounded-lg relative hover:${sesisonUser?.user?.name ? "bg-blue-800" : ""}`}>Save Search</button>
+                        { showTooltip ? <span className='absolute bg-slate-400 top-6 right-4'>Save This Custom Filter</span> : null}
                     </div>
                 </section>
             </div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-export const NewsSearchUI = ({ searchType, handleChanges, handleSearch }) => {
+export const NewsSearchUI = ({ searchStr, searchType, handleChanges, handleSearch }) => {
     return (
         <>
             <section className=' bg-slate-400 opacity-90 flex xs:flex-col xs:h-fit lg:flex-row justify-between text-xl xs:gap-6 lg:gap-4 my-2 mb-3 h-11 lg:pb-8 lg:pt-2 lg:p-2 w-fit m-auto'>
@@ -9,8 +9,13 @@ export const NewsSearchUI = ({ searchType, handleChanges, handleSearch }) => {
                 <CountrySpecificSearchOptions handleChanges={handleChanges} />
                 <SearchForm handleChanges={handleChanges} handleSearch={handleSearch} />
             </section>
-            <div className='w-full flex justify-center'>
-                <button onClick={handleSearch} className='lg:text-4xl xs:text-2xl outline-double bg-blue-600 text-white px-4 mb-8 rounded-lg h-12 lg:w-1/4 xs:w-2/4 xl:w-2/4 hover:bg-blue-800' type='submit'>Search</button>
+            <div
+                style={{
+                    pointerEvents: searchStr?.length > 4 ? "auto" : "none"
+                }} 
+                className='w-full flex justify-center'
+            >
+                <button onClick={handleSearch} className={`lg:text-4xl xs:text-2xl outline-double ${searchStr?.length >= 4 ? "bg-blue-600 hover:bg-blue-800" : "bg-blue-200 text-yellow-600"} text-white px-4 mb-8 rounded-lg h-12 lg:w-1/4 xs:w-2/4 xl:w-2/4`} type='submit'>Search</button>
             </div>
         </>
     )
@@ -170,6 +175,13 @@ const RenderOption = ({ name }) => {
 }
 
 export const SearchForm = ({ handleChanges, handleSearch, forArchive }) => {
+    const [text, setText] = useState("")
+
+    const handleText = (e) => {
+        setText(e.target.value)
+        handleChanges(e, "searchStr")
+    }
+
     const handleSubmit = evt => {
         evt.preventDefault();
         handleSearch()
@@ -180,11 +192,11 @@ export const SearchForm = ({ handleChanges, handleSearch, forArchive }) => {
             method='post'
             onSubmit={handleSubmit}
         >
-            <fieldset className='xs:w-full'>
+            <fieldset className={`xs:w-full`}>
                 <label htmlFor='search'></label>
-                <input className='px-2 outline-double h-11 text-xl xs:w-full' onChange={e => handleChanges(e, "searchStr")} type={"text"} id={"search"} placeholder={`Search News With Query....`} />
+                <input className={`px-2 outline-double ${text?.length < 4 ? "outline-red-900" : ""} h-11 text-xl xs:w-full`} onChange={handleText} type={"text"} id={"search"} placeholder={`Query With Min 4 Characters...Search News With Query....`} />
             </fieldset>
-            {forArchive ? <button className='text-2xl outline-double bg-blue-600 text-white px-4 rounded-lg h-12 w-full hover:bg-blue-800' type='submit'>Search</button> : null}
+            {forArchive ? <button disabled={text?.length >= 4 ? false : true} className={`text-2xl outline-double ${text?.length >= 4 ? "bg-blue-600 hover:bg-blue-800" : "bg-blue-200 text-yellow-600"} text-white px-4 rounded-lg h-12 w-full`} type='submit'>Search</button> : null}
         </form>
     )
 }
