@@ -1,8 +1,8 @@
 import { countriesCodes, newsCategories, possibleLanguages } from '@/forNewsList';
-import { useExtractSearcResults } from '@/hooks';
-import { news_data_request_interceptor, request_internal } from '@/utils/axios-interceptors';
+import { useExtractPresavedFiltersForUser, useExtractSearcResults, useToAddPresavedFilters } from '@/hooks';
+import { request_internal } from '@/utils/axios-interceptors';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { getSession } from 'next-auth/react';
+import { getSession, useSession } from 'next-auth/react';
 import React, { useEffect, useState } from 'react'
 import { RenderNewsArticles } from './RenderNewsArticles';
 
@@ -11,56 +11,40 @@ export const NewsCustomization = ({ handleNews }) => {
 
     const [searchNow, setSearchNow] = useState(false)
 
-    const [sesisonUser, setSessionUser] = useState(null)
+    // const [sesisonUser, setSessionUser] = useState(null)
 
     const [showTooltip, setShowTooltip] = useState(false)
 
     const [activateFunctionalities, setActivateFunctionlaities] = useState(false)
 
-    // const [refetchPresaved, setRefetchPresaved] = useState(false);
-
-    // const [presavedData, setPresavedData] = useState(null)
+    const { data: sesisonUser, status} = useSession()
 
     const handleTooltipShow = () => setShowTooltip(true)
 
     const handleTooltipClose = () => setShowTooltip(false)
 
-    const extractSessionData = () => {
-        getSession().then(data => setSessionUser(data)).catch(err => console.log(err))
-    }
+    // const extractSessionData = () => {
+    //     getSession().then(data => setSessionUser(data)).catch(err => console.log(err))
+    // }
 
-    const extractUserPresavedData = () => {
-        return request_internal({ url: "customNews", method: "get" })
-        // .then(data => setPresavedData(data?.data)).catch(err => console.log(err))
-    }
+    // const extractUserPresavedData = () => {
+    //     return request_internal({ url: "customNews", method: "get" })
+    //     // .then(data => setPresavedData(data?.data)).catch(err => console.log(err))
+    // }
 
-    const { data: presavedData } = useQuery({
-        queryKey: ["presaved filters data", `${sesisonUser?.user?.name}`],
-        queryFn: extractUserPresavedData,
-        // enabled: (sesisonUser?.user || newsFilters) ? true : false,
-        // enabled: (newsFilters) ? true : false,
-        // enabled: refetchPresaved,
-        // enabled: (newsFilters || refetchPresaved) ? true : false,
-        refetchOnWindowFocus: false
-    })
+    // const { data: presavedData } = useQuery({
+    //     queryKey: ["presaved filters data", `${sesisonUser?.user?.name}`],
+    //     queryFn: extractUserPresavedData,
+    //     // enabled: (sesisonUser?.user || newsFilters) ? true : false,
+    //     // enabled: (newsFilters) ? true : false,
+    //     // enabled: refetchPresaved,
+    //     // enabled: (newsFilters || refetchPresaved) ? true : false,
+    //     refetchOnWindowFocus: false
+    // })
+
+    const {presavedData} = useExtractPresavedFiltersForUser(sesisonUser?.user.name)
 
     const handleNewsFilters = (evt, elem) => setNewsFilters(prev => ({ ...prev, [elem]: evt.target.value }))
-
-    // const { data: customNews } = useQuery({
-    //     queryKey: ["custom filtered news query"],
-    //     queryFn: () => {
-    //         const params = { country: newsFilters["country"], category: newsFilters["category"], language: newsFilters["language"] }
-    //         return news_data_request_interceptor({ url: "/news", params })
-    //     },
-    //     refetchOnWindowFocus: false,
-    //     enabled: searchNow,
-    //     onSuccess: () => {
-    //         setSearchNow(false)
-    //         // console.log(customNews?.data.results, "what what")
-    //         // handleNews(customNews)
-    //     },
-    //     onError: () => setSearchNow(false),
-    // })
 
     const {searchedResults, isError, isLoading, error} = useExtractSearcResults(searchNow, setSearchNow, newsFilters)
 
@@ -73,33 +57,35 @@ export const NewsCustomization = ({ handleNews }) => {
         }
     }
 
-    const { mutate } = useMutation({
-        mutationKey: ["add new data into customNews list", `${sesisonUser?.user.name}`],
+    // const { mutate } = useMutation({
+    //     mutationKey: ["add new data into customNews list", `${sesisonUser?.user.name}`],
 
-        mutationFn: () => {
-            const keys = Object.keys(presavedData.data)
-            const idx = keys.findIndex(key => key === sesisonUser?.user.name)
+    //     mutationFn: () => {
+    //         const keys = Object.keys(presavedData.data)
+    //         const idx = keys.findIndex(key => key === sesisonUser?.user.name)
 
-            // console.log(presavedData.data, keys, idx)
+    //         // console.log(presavedData.data, keys, idx)
 
-            let newData = []
+    //         let newData = []
 
-            if (idx !== -1) {
-                const userData = presavedData.data[sesisonUser?.user.name]
-                const filtered = userData.filter(item => item?.country !== newsFilters.country || item?.language !== newsFilters.language || item?.category !== newsFilters.category)
+    //         if (idx !== -1) {
+    //             const userData = presavedData.data[sesisonUser?.user.name]
+    //             const filtered = userData.filter(item => item?.country !== newsFilters.country || item?.language !== newsFilters.language || item?.category !== newsFilters.category)
 
-                const updatedUserData = [...filtered, newsFilters]
-                presavedData.data[sesisonUser.user.name] = updatedUserData
+    //             const updatedUserData = [...filtered, newsFilters]
+    //             presavedData.data[sesisonUser.user.name] = updatedUserData
 
-                newData = presavedData.data
-            } else {
-                presavedData.data[sesisonUser.user.name] = [newsFilters]
-                newData = presavedData.data
-            }
+    //             newData = presavedData.data
+    //         } else {
+    //             presavedData.data[sesisonUser.user.name] = [newsFilters]
+    //             newData = presavedData.data
+    //         }
 
-            return request_internal({ url: "/customNews", data: newData, method: "post" })
-        }
-    })
+    //         return request_internal({ url: "/customNews", data: newData, method: "post" })
+    //     }
+    // })
+
+    const {mutate} = useToAddPresavedFilters(sesisonUser?.user.name, newsFilters, presavedData)
 
     const handleSaveCustomNewsFilters = () => {
         // setRefetchPresaved(true)
@@ -121,7 +107,7 @@ export const NewsCustomization = ({ handleNews }) => {
     }, [newsFilters])
 
     useEffect(() => {
-        extractSessionData()
+        // extractSessionData()
         // extractUserPresavedData();
     }, [])
 
@@ -151,6 +137,8 @@ export const NewsCustomization = ({ handleNews }) => {
                     </div>
                 </section>
             </div>
+
+            {isError ? <h2>Error Occured....</h2> : error?.message}
             <RenderSearchedNewsResults newsResults={searchedResults} searchNow={searchNow} />
             {/* <RenderSearchedNewsResults newsResults={customNews} searchNow={searchNow} /> */}
             {/* <RenderNewsArticles data={customNews?.data.results} /> */}

@@ -42,11 +42,6 @@
         "category": "science"
       },
       {
-        "country": "bd",
-        "language": "bn",
-        "category": "environment"
-      },
-      {
         "country": "us",
         "language": "en",
         "category": "environment"
@@ -67,9 +62,19 @@
         "category": "business"
       },
       {
-        "country": "dz",
-        "language": "be",
-        "category": "entertainment"
+        "country": "bd",
+        "language": "bn",
+        "category": "environment"
+      },
+      {
+        "country": "ar",
+        "language": "en",
+        "category": "world"
+      },
+      {
+        "country": "au",
+        "language": "en",
+        "category": "world"
       }
     ],
     "Asifuzzaman Bappy": [

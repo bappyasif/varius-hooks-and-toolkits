@@ -1,4 +1,4 @@
-import { getSession } from 'next-auth/react';
+import { getSession, useSession } from 'next-auth/react';
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import {AiTwotoneHome, AiOutlineSearch, AiFillRead, AiTwotoneFilter, AiOutlineLogin, AiOutlineLogout, AiFillHome} from "react-icons/ai"
@@ -6,19 +6,23 @@ import {AiTwotoneHome, AiOutlineSearch, AiFillRead, AiTwotoneFilter, AiOutlineLo
 export const Sidebar = () => {
     const [active, setActive] = useState(null);
     
-    const [session, setSession] = useState(false);
+    // const [session, setSession] = useState(false);
+
+    const {data: session, status} = useSession()
 
     const handleActive = (name) => setActive(name)
 
-    const renderNavs = () => navs.map(item => <RenderNav key={item.name} item={item} handleActive={handleActive} active={active} session={session} />)
+    const renderNavs = () => navs.map(item => <RenderNav key={item.name} item={item} handleActive={handleActive} active={active} session={session?.user} />)
 
-    const getUserSession = () => {
-        getSession().then(data => setSession(data?.user)).catch(err => console.log(err))
-    }
+    // const getUserSession = () => {
+    //     getSession().then(data => setSession(data?.user)).catch(err => console.log(err))
+    // }
+
+    // console.log(session, "session!!")
 
     useEffect(() => {
         handleActive("Home")
-        getUserSession()
+        // getUserSession()
     }, [])
 
     return (
