@@ -108,7 +108,6 @@ export const AdditionalSearchLogic = ({ searchType, handleChanges }) => {
         setFilter(evt.target.value)
     }
 
-    // className='flex flex-col gap-4 items-center'
     return (
         <div className='relative xs:w-full lg:w-fit xl:w-2/4'>
             <select className='outline-double h-11 xs:w-full xl:w-fit' onChange={handleChange} name="additional search filter" id="additional filters">
@@ -186,6 +185,7 @@ export const SearchForm = ({ handleChanges, handleSearch, forArchive }) => {
         evt.preventDefault();
         handleSearch()
     }
+    
     return (
         <form
             className={`flex xs:mt-4 lg:mt-0 justify-between items-center gap-4 ${forArchive ? "w-full xs:flex-col lg:flex-row" : 'w-full'}`}

@@ -5,7 +5,6 @@ export function useExtractSearcResults(searchNow, setSearchNow, newsFilters, opt
     const { data: searchedResults, isError, isLoading, error } = useQuery({
         queryKey: ["news query"],
         queryFn: () => {
-            // const params = { country: newsFilters["country"], category: newsFilters["category"], language: newsFilters["language"], ...options }
             const params = fsrOnly ? { ...options } : { country: newsFilters["country"], category: newsFilters["category"], language: newsFilters["language"], ...options }
 
             return news_data_request_interceptor({ url: "/news", params })
@@ -41,22 +40,24 @@ export function useToAddPresavedFilters (userName, newsFilters, presavedData) {
 
         mutationFn: () => {
             const keys = Object.keys(presavedData.data)
+            
             const idx = keys.findIndex(key => key === userName)
-
-            // console.log(presavedData.data, keys, idx)
 
             let newData = []
 
             if (idx !== -1) {
                 const userData = presavedData.data[userName]
+                
                 const filtered = userData.filter(item => item?.country !== newsFilters.country || item?.language !== newsFilters.language || item?.category !== newsFilters.category)
 
                 const updatedUserData = [...filtered, newsFilters]
+
                 presavedData.data[userName] = updatedUserData
 
                 newData = presavedData.data
             } else {
                 presavedData.data[userName] = [newsFilters]
+                
                 newData = presavedData.data
             }
 
@@ -77,16 +78,12 @@ export function useToDeletePresavedFilters (data, options, handleFilters, entire
         mutationKey: ["remove from filters"],
         mutationFn: () => {
             const filtered = removedData()
+
             handleFilters(filtered)
-            // const updatedUserData = { [user]: filtered }
 
             entireDataset[user] = filtered
 
-            // console.log(entireDataset, updatedUserData, "<><><><>")
-
             return request_internal({ url: "/customNews", method: "post", data: entireDataset })
-
-            // return request_internal({url: "/customNews", method: "post", data: {[user]: filtered}})
         }
     })
 

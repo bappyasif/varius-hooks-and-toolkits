@@ -22,8 +22,6 @@ const PresavedCustomNewsFilters = () => {
         extractSessionData()
     }, [])
 
-    console.log(presavedData?.data, presavedData?.data[user?.name])
-
     return (
         <main>
             <div className='bg-slate-400 opacity-90 pb-1'>

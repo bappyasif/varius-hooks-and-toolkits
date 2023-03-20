@@ -1,12 +1,10 @@
-import { getSession, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import {AiTwotoneHome, AiOutlineSearch, AiFillRead, AiTwotoneFilter, AiOutlineLogin, AiOutlineLogout, AiFillHome} from "react-icons/ai"
 
 export const Sidebar = () => {
     const [active, setActive] = useState(null);
-    
-    // const [session, setSession] = useState(false);
 
     const {data: session, status} = useSession()
 
@@ -14,15 +12,8 @@ export const Sidebar = () => {
 
     const renderNavs = () => navs.map(item => <RenderNav key={item.name} item={item} handleActive={handleActive} active={active} session={session?.user} />)
 
-    // const getUserSession = () => {
-    //     getSession().then(data => setSession(data?.user)).catch(err => console.log(err))
-    // }
-
-    // console.log(session, "session!!")
-
     useEffect(() => {
         handleActive("Home")
-        // getUserSession()
     }, [])
 
     return (
@@ -72,26 +63,11 @@ const navs = [
         path: "/archive",
         icon: <AiFillRead />
     },
-    // {
-    //     name: "News Outlets",
-    //     path: "/outlets",
-    //     icon: null
-    // },
     {
         name: "Presaved Filters",
         path: "/presaved",
         icon: <AiTwotoneFilter />
     },
-    // {
-    //     name: "Add Outlets",
-    //     path: "/outlets",
-    //     icon: null
-    // },
-    // {
-    //     name: "Outlets List",
-    //     path: "/outlets",
-    //     icon: null
-    // },
     {
         name: "Login",
         path: "/api/auth/signin",

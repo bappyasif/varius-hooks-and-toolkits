@@ -33,21 +33,6 @@ export default function App({ Component, pageProps }) {
       {/* Photo by Markus Winkler: https://www.pexels.com/photo/white-paper-on-a-green-typewriter-12199409/ */}
       {/* Photo by Miguel Á. Padriñán: https://www.pexels.com/photo/close-up-shot-of-keyboard-buttons-2882634/ */}
       {/* Photo by Steve Johnson: https://www.pexels.com/photo/multicolored-abstract-painting-1509534/ */}
-      {/* <SessionProvider baseUrl='http://localhost:3000/'>
-        <div className='flex flex-row gap-6'>
-          <Sidebar />
-          <Component {...pageProps} />
-        </div>
-      </SessionProvider> */}
-
-      {/* <SidebarNavs />
-      <Component {...pageProps} /> */}
-      {/* session={pageProps.session} */}
-      {/* <SessionProvider>
-        <div className='flex flex-row gap-6'>
-          <Component {...pageProps} />
-        </div>
-      </SessionProvider> */}
       <ReactQueryDevtools />
     </QueryClientProvider>
   )

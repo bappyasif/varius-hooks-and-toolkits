@@ -1,17 +1,13 @@
 import { countriesCodes, newsCategories, possibleLanguages } from '@/forNewsList';
 import { useExtractPresavedFiltersForUser, useExtractSearcResults, useToAddPresavedFilters } from '@/hooks';
-import { request_internal } from '@/utils/axios-interceptors';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { getSession, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import React, { useEffect, useState } from 'react'
 import { RenderNewsArticles } from './RenderNewsArticles';
 
-export const NewsCustomization = ({ handleNews }) => {
+export const NewsCustomization = () => {
     const [newsFilters, setNewsFilters] = useState({})
 
     const [searchNow, setSearchNow] = useState(false)
-
-    // const [sesisonUser, setSessionUser] = useState(null)
 
     const [showTooltip, setShowTooltip] = useState(false)
 
@@ -23,25 +19,6 @@ export const NewsCustomization = ({ handleNews }) => {
 
     const handleTooltipClose = () => setShowTooltip(false)
 
-    // const extractSessionData = () => {
-    //     getSession().then(data => setSessionUser(data)).catch(err => console.log(err))
-    // }
-
-    // const extractUserPresavedData = () => {
-    //     return request_internal({ url: "customNews", method: "get" })
-    //     // .then(data => setPresavedData(data?.data)).catch(err => console.log(err))
-    // }
-
-    // const { data: presavedData } = useQuery({
-    //     queryKey: ["presaved filters data", `${sesisonUser?.user?.name}`],
-    //     queryFn: extractUserPresavedData,
-    //     // enabled: (sesisonUser?.user || newsFilters) ? true : false,
-    //     // enabled: (newsFilters) ? true : false,
-    //     // enabled: refetchPresaved,
-    //     // enabled: (newsFilters || refetchPresaved) ? true : false,
-    //     refetchOnWindowFocus: false
-    // })
-
     const {presavedData} = useExtractPresavedFiltersForUser(sesisonUser?.user.name)
 
     const handleNewsFilters = (evt, elem) => setNewsFilters(prev => ({ ...prev, [elem]: evt.target.value }))
@@ -49,7 +26,6 @@ export const NewsCustomization = ({ handleNews }) => {
     const {searchedResults, isError, isLoading, error} = useExtractSearcResults(searchNow, setSearchNow, newsFilters)
 
     const handleSearch = () => {
-        console.log(newsFilters);
         if (newsFilters["country"] && newsFilters["category"] && newsFilters["language"]) {
             setSearchNow(true)
         } else {
@@ -57,39 +33,9 @@ export const NewsCustomization = ({ handleNews }) => {
         }
     }
 
-    // const { mutate } = useMutation({
-    //     mutationKey: ["add new data into customNews list", `${sesisonUser?.user.name}`],
-
-    //     mutationFn: () => {
-    //         const keys = Object.keys(presavedData.data)
-    //         const idx = keys.findIndex(key => key === sesisonUser?.user.name)
-
-    //         // console.log(presavedData.data, keys, idx)
-
-    //         let newData = []
-
-    //         if (idx !== -1) {
-    //             const userData = presavedData.data[sesisonUser?.user.name]
-    //             const filtered = userData.filter(item => item?.country !== newsFilters.country || item?.language !== newsFilters.language || item?.category !== newsFilters.category)
-
-    //             const updatedUserData = [...filtered, newsFilters]
-    //             presavedData.data[sesisonUser.user.name] = updatedUserData
-
-    //             newData = presavedData.data
-    //         } else {
-    //             presavedData.data[sesisonUser.user.name] = [newsFilters]
-    //             newData = presavedData.data
-    //         }
-
-    //         return request_internal({ url: "/customNews", data: newData, method: "post" })
-    //     }
-    // })
-
     const {mutate} = useToAddPresavedFilters(sesisonUser?.user.name, newsFilters, presavedData)
 
     const handleSaveCustomNewsFilters = () => {
-        // setRefetchPresaved(true)
-        console.log(newsFilters, "save custom", sesisonUser, presavedData);
         mutate()
     }
 
@@ -103,17 +49,8 @@ export const NewsCustomization = ({ handleNews }) => {
         } else {
             setActivateFunctionlaities(false)
         }
-        console.log(newsFilters, "newsFilters")
+
     }, [newsFilters])
-
-    useEffect(() => {
-        // extractSessionData()
-        // extractUserPresavedData();
-    }, [])
-
-    // customNews?.data?.results?.length && console.log(customNews, "<><>")
-
-    // console.log((!sesisonUser?.user?.name && activateFunctionalities), "CHECK CHECK!!", showTooltip)
 
     return (
         <div className='w-full'>
@@ -140,15 +77,13 @@ export const NewsCustomization = ({ handleNews }) => {
 
             {isError ? <h2>Error Occured....</h2> : error?.message}
             <RenderSearchedNewsResults newsResults={searchedResults} searchNow={searchNow} />
-            {/* <RenderSearchedNewsResults newsResults={customNews} searchNow={searchNow} /> */}
-            {/* <RenderNewsArticles data={customNews?.data.results} /> */}
         </div>
     )
 }
 
 export const RenderSearchedNewsResults = ({newsResults, searchNow}) => {
     return (
-        newsResults?.data.results.length
+        newsResults?.data?.results.length
                     ? <RenderNewsArticles data={newsResults?.data.results} />
                     : searchNow
                         ? <h2 className='bg-slate-600 opacity-90 text-2xl text-white'>Loading Search Data</h2>

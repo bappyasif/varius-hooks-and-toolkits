@@ -9,7 +9,6 @@ const NewsSearch = () => {
     const handleChanges = (evt, elem) => setSearchData(prev => ({ ...prev, [elem]: evt.target.value }))
 
     const handleSearch = () => {
-        // console.log(searchData, "!!");
         setSearchNow(true);
     }
 
@@ -27,16 +26,12 @@ const NewsSearch = () => {
 
     const {searchedResults, isError, isLoading, error} = useExtractSearcResults(searchNow, setSearchNow, searchData, fetchNewsOptions(), true)
 
-    // console.log(searchResults, "searchResults!!")
-
     return (
         <main className='w-full'>
             <NewsSearchUI searchStr={searchData?.searchStr} searchType={searchData?.type} handleChanges={handleChanges} handleSearch={handleSearch} />
             {(searchNow && isLoading) ? <h2 className='bg-slate-600 opacity-90 text-2xl'>Loading News....</h2> : null}
             {isError ? <h2 className='bg-slate-600 opacity-90 text-2xl'>Error Occured....</h2> : error?.message}
             <RenderSearchedNewsResults searchNow={searchNow} newsResults={searchedResults} />
-            {/* <RenderSearchedNewsResults searchNow={searchNow} newsResults={searchResults} /> */}
-            {/* <RenderNewsArticles data={searchNow ? [] : searchResults?.data.results} /> */}
         </main>
     )
 }

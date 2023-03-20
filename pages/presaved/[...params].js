@@ -21,8 +21,6 @@ const DynamicNewsFilter = () => {
         refetchOnWindowFocus: false
     })
 
-    console.log(newsData?.data)
-
     return (
         <main>
             <h1 className='my-2 text-2xl mb-4'>Filter In Use:____ {`country: ${params[0]}, category: ${params[1]}, language: ${params[2]}`}</h1>

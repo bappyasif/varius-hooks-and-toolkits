@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { PossibleNewsCategoriesList, RenderListOfAllAvailableCountries, RenderListOfPossibleNewsLanguages } from './NewsCustomization'
 import { AdditionalSearchLogic, ChooseSearchType, SearchForm } from './NewsSearchUI';
 
-export const NewsArchiveUI = ({ searchStr, searchType, handleChanges, handleSearch }) => {
+export const NewsArchiveUI = ({ searchType, handleChanges, handleSearch }) => {
 
     return (
         <section className='text-2xl mb-11 bg-slate-400 opacity-90 xl:pb-1 px-1'>
@@ -13,7 +13,6 @@ export const NewsArchiveUI = ({ searchStr, searchType, handleChanges, handleSear
                 <PossibleNewsCategoriesList handleNewsFilters={handleChanges} />
                 <TimeAndDateComponent handleChanges={handleChanges} />
             </div>
-            {/* <TimeAndDateComponent handleChanges={handleChanges} /> */}
             <div className='flex xs:flex-col xl:flex-row justify-center gap-4 text-2xl my-6 xs:h-fit xl:h-11 w-full'>
                 <div className='flex xs:flex-col lg:flex-row gap-4 lg:mb-2'>
                     <ChooseSearchType handleChanges={handleChanges} />
@@ -26,7 +25,6 @@ export const NewsArchiveUI = ({ searchStr, searchType, handleChanges, handleSear
 }
 
 const TimeAndDateComponent = ({ handleChanges }) => {
-    // const [stamp, setStamp] = useState("");
     const items = ["From", "To"];
     const renderItems = () => items?.map(item => <RenderStamp key={item} handleChanges={handleChanges} item={item} />)
     return (

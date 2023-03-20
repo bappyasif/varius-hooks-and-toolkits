@@ -1,6 +1,4 @@
 import { useToDeletePresavedFilters } from '@/hooks'
-import { request_internal } from '@/utils/axios-interceptors'
-import { useMutation } from '@tanstack/react-query'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { CiSquareRemove } from "react-icons/ci"
@@ -14,14 +12,10 @@ export const PresavedFilteredNewsUI = ({ data, user, entireDataset }) => {
         handleFilters(data)
     }, [data])
 
-    console.log(data, "DATA!!")
-
     const renderFilters = () => filters?.map((item, idx) => <RenderFilter key={idx} item={item} data={filters} user={user} handleFilters={handleFilters} entireDataset={entireDataset} />)
-    // const renderFilters = () => data?.map((item, idx) => <RenderFilter key={idx} item={item} data={data} user={user} />)
 
     return (
         <section className='flex gap-8 flex-wrap xs:justify-center lg:justify-start'>
-            {/* <h1>PresavedFilteredNewsUI</h1> */}
             {renderFilters()}
         </section>
     )
@@ -38,36 +32,10 @@ const RenderFilter = ({ item, data, user, handleFilters, entireDataset }) => {
         }
     }
 
-    // const removedData = () => {
-    //     const filtered = data.filter(item => !(item.country === country && item.category === category && item.language === language) ? item : null).filter(item => item)
-    //     return filtered
-    // }
-
-    // const { mutate } = useMutation({
-    //     mutationKey: ["remove from filters"],
-    //     mutationFn: () => {
-    //         const filtered = removedData()
-    //         handleFilters(filtered)
-    //         const updatedUserData = { [user]: filtered }
-
-    //         entireDataset[user] = filtered
-
-    //         console.log(entireDataset, updatedUserData, "<><><><>")
-
-    //         return request_internal({ url: "/customNews", method: "post", data: entireDataset })
-
-    //         // return request_internal({url: "/customNews", method: "post", data: {[user]: filtered}})
-    //     }
-    // })
-
     const {mutate} = useToDeletePresavedFilters(data, {country, category, language}, handleFilters, entireDataset, user)
 
     const removeFilter = () => {
-        // const filtered = data.filter(item => !(item.country === country && item.category === category && item.language === language) ? item : null).filter(item => item)
-        // const filtered = removedData()
-        // console.log(filtered, "filtered!!", item)
         mutate()
-        // handleFilters(filtered)
     }
 
     return (
@@ -75,7 +43,6 @@ const RenderFilter = ({ item, data, user, handleFilters, entireDataset }) => {
             className='my-2 outline-1 outline px-4 rounded-lg relative bg-slate-400 pb-1'
             style={{
                 background: `url(${"/siteBg2.jpg"})`,
-                // backgroundSize: "stretch",
                 opacity: ".9"
             }}
         >
