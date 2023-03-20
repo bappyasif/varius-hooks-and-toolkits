@@ -66,7 +66,7 @@ export const NewsCustomization = () => {
                         }} 
                         className='flex gap-2 w-full'
                     >
-                        <button disabled={activateFunctionalities ? false : true} onClick={handleSearch} className={`${activateFunctionalities ? "bg-blue-600 text-white hover:bg-blue-800" : "bg-blue-200 text-red-800"} w-full p-2 rounded-lg ${(!searchNow && !searchedResults?.data.results.length && activateFunctionalities) ? "animate-pulse" : ""}`}>Search</button>
+                        <button disabled={activateFunctionalities ? false : true} onClick={handleSearch} className={`${activateFunctionalities ? "bg-blue-600 text-white hover:bg-blue-800" : "bg-blue-200 text-red-800"} w-full p-2 rounded-lg ${(!searchNow && !searchedResults?.data?.results.length && activateFunctionalities) ? "animate-pulse" : ""}`}>Search</button>
 
                         <button disabled={(sesisonUser?.user?.name && activateFunctionalities) ? false : true} onMouseEnter={handleTooltipShow} onMouseLeave={handleTooltipClose} onClick={handleSaveCustomNewsFilters} className={`${(sesisonUser?.user?.name && activateFunctionalities) ? "bg-blue-600 text-yellow-200 hover:bg-blue-800" : "bg-blue-200 text-yellow-600"}  p-2 w-full rounded-lg relative`}>Save Search</button>
 
