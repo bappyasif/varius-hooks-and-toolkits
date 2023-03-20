@@ -1,3 +1,4 @@
+import { useToDeletePresavedFilters } from '@/hooks'
 import { request_internal } from '@/utils/axios-interceptors'
 import { useMutation } from '@tanstack/react-query'
 import Link from 'next/link'
@@ -37,27 +38,29 @@ const RenderFilter = ({ item, data, user, handleFilters, entireDataset }) => {
         }
     }
 
-    const removedData = () => {
-        const filtered = data.filter(item => !(item.country === country && item.category === category && item.language === language) ? item : null).filter(item => item)
-        return filtered
-    }
+    // const removedData = () => {
+    //     const filtered = data.filter(item => !(item.country === country && item.category === category && item.language === language) ? item : null).filter(item => item)
+    //     return filtered
+    // }
 
-    const { mutate } = useMutation({
-        mutationKey: ["remove from filters"],
-        mutationFn: () => {
-            const filtered = removedData()
-            handleFilters(filtered)
-            const updatedUserData = { [user]: filtered }
+    // const { mutate } = useMutation({
+    //     mutationKey: ["remove from filters"],
+    //     mutationFn: () => {
+    //         const filtered = removedData()
+    //         handleFilters(filtered)
+    //         const updatedUserData = { [user]: filtered }
 
-            entireDataset[user] = filtered
+    //         entireDataset[user] = filtered
 
-            console.log(entireDataset, updatedUserData, "<><><><>")
+    //         console.log(entireDataset, updatedUserData, "<><><><>")
 
-            return request_internal({ url: "/customNews", method: "post", data: entireDataset })
+    //         return request_internal({ url: "/customNews", method: "post", data: entireDataset })
 
-            // return request_internal({url: "/customNews", method: "post", data: {[user]: filtered}})
-        }
-    })
+    //         // return request_internal({url: "/customNews", method: "post", data: {[user]: filtered}})
+    //     }
+    // })
+
+    const {mutate} = useToDeletePresavedFilters(data, {country, category, language}, handleFilters, entireDataset, user)
 
     const removeFilter = () => {
         // const filtered = data.filter(item => !(item.country === country && item.category === category && item.language === language) ? item : null).filter(item => item)
