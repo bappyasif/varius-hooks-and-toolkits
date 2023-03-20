@@ -1,4 +1,5 @@
 import { countriesCodes, newsCategories, possibleLanguages } from '@/forNewsList';
+import { useExtractSearcResults } from '@/hooks';
 import { news_data_request_interceptor, request_internal } from '@/utils/axios-interceptors';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { getSession } from 'next-auth/react';
@@ -45,21 +46,23 @@ export const NewsCustomization = ({ handleNews }) => {
 
     const handleNewsFilters = (evt, elem) => setNewsFilters(prev => ({ ...prev, [elem]: evt.target.value }))
 
-    const { data: customNews } = useQuery({
-        queryKey: ["custom filtered news query"],
-        queryFn: () => {
-            const params = { country: newsFilters["country"], category: newsFilters["category"], language: newsFilters["language"] }
-            return news_data_request_interceptor({ url: "/news", params })
-        },
-        refetchOnWindowFocus: false,
-        enabled: searchNow,
-        onSuccess: () => {
-            setSearchNow(false)
-            // console.log(customNews?.data.results, "what what")
-            // handleNews(customNews)
-        },
-        onError: () => setSearchNow(false),
-    })
+    // const { data: customNews } = useQuery({
+    //     queryKey: ["custom filtered news query"],
+    //     queryFn: () => {
+    //         const params = { country: newsFilters["country"], category: newsFilters["category"], language: newsFilters["language"] }
+    //         return news_data_request_interceptor({ url: "/news", params })
+    //     },
+    //     refetchOnWindowFocus: false,
+    //     enabled: searchNow,
+    //     onSuccess: () => {
+    //         setSearchNow(false)
+    //         // console.log(customNews?.data.results, "what what")
+    //         // handleNews(customNews)
+    //     },
+    //     onError: () => setSearchNow(false),
+    // })
+
+    const {searchedResults, isError, isLoading, error} = useExtractSearcResults(searchNow, setSearchNow, newsFilters)
 
     const handleSearch = () => {
         console.log(newsFilters);
@@ -122,9 +125,9 @@ export const NewsCustomization = ({ handleNews }) => {
         // extractUserPresavedData();
     }, [])
 
-    customNews?.data?.results?.length && console.log(customNews, "<><>")
+    // customNews?.data?.results?.length && console.log(customNews, "<><>")
 
-    console.log((!sesisonUser?.user?.name && activateFunctionalities), "CHECK CHECK!!", showTooltip)
+    // console.log((!sesisonUser?.user?.name && activateFunctionalities), "CHECK CHECK!!", showTooltip)
 
     return (
         <div className='w-full'>
@@ -140,19 +143,16 @@ export const NewsCustomization = ({ handleNews }) => {
                         }} 
                         className='flex gap-2 w-full'
                     >
-                        <button disabled={activateFunctionalities ? false : true} onClick={handleSearch} className={`${activateFunctionalities ? "bg-blue-600 text-white hover:bg-blue-800" : "bg-blue-200 text-red-800"} w-full p-2 rounded-lg ${(!searchNow && !customNews?.data.results.length && activateFunctionalities) ? "animate-pulse" : ""}`}>Search</button>
-                        {/* <button disabled={sesisonUser?.user?.name ? false : true} onMouseEnter={handleTooltipShow} onMouseLeave={handleTooltipClose} onClick={handleSaveCustomNewsFilters} className={`${(sesisonUser?.user?.name && activateFunctionalities) ? "bg-blue-600 text-yellow-200" : "bg-blue-200 text-yellow-600"}  p-2 w-full rounded-lg relative hover:${sesisonUser?.user?.name ? "bg-blue-800" : ""}`}>Save Search</button> */}                        {/* { showTooltip ? <span className='absolute bg-slate-400 top-6 right-4'>Save This Custom Filter</span> : null} */}
+                        <button disabled={activateFunctionalities ? false : true} onClick={handleSearch} className={`${activateFunctionalities ? "bg-blue-600 text-white hover:bg-blue-800" : "bg-blue-200 text-red-800"} w-full p-2 rounded-lg ${(!searchNow && !searchedResults?.data.results.length && activateFunctionalities) ? "animate-pulse" : ""}`}>Search</button>
+
                         <button disabled={(sesisonUser?.user?.name && activateFunctionalities) ? false : true} onMouseEnter={handleTooltipShow} onMouseLeave={handleTooltipClose} onClick={handleSaveCustomNewsFilters} className={`${(sesisonUser?.user?.name && activateFunctionalities) ? "bg-blue-600 text-yellow-200 hover:bg-blue-800" : "bg-blue-200 text-yellow-600"}  p-2 w-full rounded-lg relative`}>Save Search</button>
-                        {/* { showTooltip ? <span className='absolute bg-slate-400 top-6 right-4'>Save This Custom Filter</span> : null} */}
+
                         { ( sesisonUser?.user?.name && activateFunctionalities && showTooltip) ? <span className='absolute bg-slate-400 top-6 right-4'>Save This Custom Filter</span> : ( !sesisonUser?.user?.name && activateFunctionalities ) ?  <span className='absolute bg-slate-400 top-6 right-8'>Login First To Save!!</span> : null}
-                        
-                        {/* { showTooltip ? <span className='absolute bg-slate-400 top-6 right-4'>Save This Custom Filter</span> : (!sesisonUser?.user?.name && !activateFunctionalities && !showTooltip) ? null : <span className='absolute bg-slate-400 top-6 right-9'>Login First To Save!!</span>} */}
-                        {/* { showTooltip ? <span className='absolute bg-slate-400 top-6 right-4'>{` ${(!sesisonUser?.user?.name && !activateFunctionalities)  ? "Save This Custom Filter" : "Login First To Save!!"}`}</span> : null} */}
-                        {/* { (!sesisonUser?.user?.name && !activateFunctionalities) ? null : <span className='absolute bg-slate-400 top-6 right-9'>Login First To Save!!</span>} */}
                     </div>
                 </section>
             </div>
-            <RenderSearchedNewsResults newsResults={customNews} searchNow={searchNow} />
+            <RenderSearchedNewsResults newsResults={searchedResults} searchNow={searchNow} />
+            {/* <RenderSearchedNewsResults newsResults={customNews} searchNow={searchNow} /> */}
             {/* <RenderNewsArticles data={customNews?.data.results} /> */}
         </div>
     )
