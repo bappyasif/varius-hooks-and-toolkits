@@ -9,12 +9,11 @@ const NewsArchive = () => {
     const handleChanges = (evt, elem) => setSearchData(prev => ({ ...prev, [elem]: evt.target.value }))
 
     const handleSearch = () => {
-        console.log(searchData, "!!");
         setSearchNow(true);
     }
 
     const fetchNewsDataOptions = () => {
-        const typeSelection = searchData?.type === "Search With Query String" ? "q" : searchData?.type === "Search By News Title" ? "qInTitle" : null
+        const typeSelection = searchData?.type === "Search With Query String" ? "q" : searchData?.type === "Search By News Title" ? "qInTitle" : "q"
         const params = { [typeSelection]: searchData?.searchStr, from_date: searchData?.From, to_date: searchData?.To }
         return params
     }
