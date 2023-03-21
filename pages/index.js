@@ -1,4 +1,5 @@
 import { Inter } from 'next/font/google'
+import Link from 'next/link'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -10,6 +11,7 @@ export default function Home({ rawg }) {
 
   return (
     <main className='flex flex-col w-full px-2'>
+      <Link href={"/blog"}>Blog</Link>
       halooooooo!!!!
     </main>
   )
