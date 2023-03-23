@@ -19,7 +19,7 @@ export default function Home({ rawg }) {
     </Head>
       <main className='flex flex-col w-full px-2'>
         <Link href={"/blog"}>Blog</Link>
-        halooooooo!!!!
+        halooooooo!!!! {process.env.NEXT_PUBLIC_TEST}
       </main>
     </>
   )
