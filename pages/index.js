@@ -1,4 +1,5 @@
 import { Inter } from 'next/font/google'
+import Head from 'next/head'
 import Link from 'next/link'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -10,10 +11,17 @@ export default function Home({ rawg }) {
   // console.log(news, "!!")
 
   return (
-    <main className='flex flex-col w-full px-2'>
-      <Link href={"/blog"}>Blog</Link>
-      halooooooo!!!!
-    </main>
+    <>
+    <Head>
+      <title>Hallo NextJs!!</title>
+      {/* <meta name='core concepts' content='learning and solidifying concepts' /> */}
+      <meta name='description' content='learning and solidifying concepts' />
+    </Head>
+      <main className='flex flex-col w-full px-2'>
+        <Link href={"/blog"}>Blog</Link>
+        halooooooo!!!!
+      </main>
+    </>
   )
 }
 

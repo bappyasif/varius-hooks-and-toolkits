@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
+    // this would make root folder to denote as @ instead of "."
+    "baseUrl": ".",
     "paths": {
+      // path aliases
+      "@/layouts/*": ["components/layouts/*"],
       "@/*": ["./*"]
     }
   }
