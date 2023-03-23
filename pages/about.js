@@ -1,8 +1,12 @@
 import React from 'react'
+import styles from "../styles/About.module.css"
 
 const AboutPage = () => {
   return (
-    <div>About Us</div>
+    <>
+      <h2>About Us</h2>
+      <button className={styles.highlight}>Demo</button>
+    </>
   )
 }
 
