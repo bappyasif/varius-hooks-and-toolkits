@@ -27,7 +27,7 @@ export const Navbar = () => {
 const RenderNav = ({ item, status }) => {
   const { name, path, clickHandler } = item
 
-  console.log(status, "status")
+  // console.log(status, "status")
 
   return (
     // status === "authenticated" && (name !== "Sign In") || status === "unauthenticated" && (name !== "Sign Out")

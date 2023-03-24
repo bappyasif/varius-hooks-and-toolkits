@@ -15,6 +15,8 @@ export default function Home({ rawg }) {
 
   // const {data: session} = useSession()
 
+  console.log(session, "session!!")
+
   return (
     <>
     <Head>
