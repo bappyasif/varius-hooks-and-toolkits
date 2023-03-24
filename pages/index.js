@@ -13,6 +13,8 @@ export default function Home({ rawg }) {
 
   const {data: session, status} = useSession()
 
+  // const {data: session} = useSession()
+
   return (
     <>
     <Head>
@@ -22,6 +24,7 @@ export default function Home({ rawg }) {
     </Head>
       <main className='flex flex-col w-full px-2'>
         <h1>Welcome Dear {status === "authenticated" ? session.user.name : "User"}</h1>
+        {/* <h1>(No Flicker Due To useSession and no loading status check) Welcome Dear {session?.user?.name ? session.user.name : "User"}</h1> */}
         <Link href={"/blog"}>Blog</Link>
         halooooooo!!!! {process.env.NEXT_PUBLIC_TEST}
       </main>

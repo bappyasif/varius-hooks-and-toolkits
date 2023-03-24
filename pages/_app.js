@@ -33,7 +33,9 @@ export default function App({ Component, pageProps }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <SessionProvider>
+      {/* session will reduce netwirk calls as this will be done from server side */}
+      {/* Provider will reduce netwrok call in Client Side */}
+      <SessionProvider session={pageProps.session}>
         <Navbar />
         <Component {...pageProps} />
       </SessionProvider>

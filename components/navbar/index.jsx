@@ -11,6 +11,12 @@ export const Navbar = () => {
       <h1 className='logo'>
         <a href="#">NextAuth</a>
       </h1>
+      
+      {/* as we are now handling session from Server Side (in blogs.js page), we dont have to wait and fetch session data on each request and thus no need to worry about ui flickers on refresh or requests */}
+      {/* <ul className={`main-nav`}>
+        {renderNavs()}
+      </ul> */}
+
       <ul className={`main-nav ${status === "loading" ? "loading" : "loaded"}`}>
         {renderNavs()}
       </ul>
@@ -20,6 +26,8 @@ export const Navbar = () => {
 
 const RenderNav = ({ item, status }) => {
   const { name, path, clickHandler } = item
+
+  console.log(status, "status")
 
   return (
     // status === "authenticated" && (name !== "Sign In") || status === "unauthenticated" && (name !== "Sign Out")
