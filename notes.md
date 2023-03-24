@@ -19,3 +19,21 @@ however its not suitable when we're creating a draft in our cms and want to prev
 we would want nextjs to bypass static generation for this scenario
 
 we would deploy our app and then when making changes in opur CMS those chnages wont be reflected as pages, rather those pages are just generated for "view" purpose, untill they are part of "build" process
+
+# authentication in nextjs
+User
+identity and access
+identity verifies who a user is
+access verifies what permission a user has
+identity - authentication
+access - authorization
+
+## authentication needs to be considered in these contexts
+client side authentication
+server side authentication
+api routes authentication
+
+once authenticated we might need to answer whether we need user data or not
+* no need to persists: for authentication we can use github, facebook and etc
+* when need to persist: then we need to make use of Database
+

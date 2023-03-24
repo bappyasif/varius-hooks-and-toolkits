@@ -1,3 +1,4 @@
+import { useSession } from 'next-auth/react'
 import { Inter } from 'next/font/google'
 import Head from 'next/head'
 import Link from 'next/link'
@@ -10,6 +11,8 @@ export default function Home({ rawg }) {
 
   // console.log(news, "!!")
 
+  const {data: session, status} = useSession()
+
   return (
     <>
     <Head>
@@ -18,6 +21,7 @@ export default function Home({ rawg }) {
       <meta name='description' content='learning and solidifying concepts' />
     </Head>
       <main className='flex flex-col w-full px-2'>
+        <h1>Welcome Dear {status === "authenticated" ? session.user.name : "User"}</h1>
         <Link href={"/blog"}>Blog</Link>
         halooooooo!!!! {process.env.NEXT_PUBLIC_TEST}
       </main>

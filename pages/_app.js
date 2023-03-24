@@ -10,7 +10,8 @@ import Head from 'next/head'
 import "@/styles/layout.css"
 import { Header } from '@/layouts/header'
 import { Footer } from '@/layouts/footer'
-
+import { Navbar } from '@/components/navbar'
+import "@/components/navbar/Navbar.css"
 const theme = {
   colors: {
     primary: "#355C7D"
@@ -19,10 +20,10 @@ const theme = {
 
 export default function App({ Component, pageProps }) {
   // when custom layout is defined we then use that layout instead of what's been defined here globally
-  if(Component.getLayout) {
+  if (Component.getLayout) {
     return Component.getLayout(<Component {...pageProps} />)
   }
-  
+
   return (
     <ThemeProvider theme={theme}>
       <Head>
@@ -32,7 +33,10 @@ export default function App({ Component, pageProps }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <Component {...pageProps} />
+      <SessionProvider>
+        <Navbar />
+        <Component {...pageProps} />
+      </SessionProvider>
       <Footer />
     </ThemeProvider>
   )
