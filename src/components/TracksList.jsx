@@ -12,7 +12,7 @@ export const TracksList = ({ data }) => {
         data?.length && updateDataInContext()
     }, [data])
 
-    const renderTracks = () => data?.map(track => track?.images && <RenderTrackMinimalView key={track.key} track={track} />)
+    const renderTracks = () => (data || appCtx.topTracks)?.map(track => track?.images && <RenderTrackMinimalView key={track.key} track={track} />)
     
     return (
         <>
@@ -32,7 +32,7 @@ const RenderTrackMinimalView = ({ track }) => {
         <article>
             <Link href={`/top-tracks/track-details/${key}`}>See Details</Link>
             <img src={background} width={400} height={400} />
-            <caption>{title} -- {subtitle}</caption>
+            <p>{title} -- {subtitle}</p>
         </article>
     )
 }

@@ -9,7 +9,7 @@ import React, { useContext } from 'react'
 const fetchTracks = (options) => shazamApiInterceptor(options)
 
 const TopTracksInCountry = ({country}) => {
-  // const appContext = useContext(AppContext)
+  const appCtx = useContext(AppContext)
 
   const manageFetching = () => {
     const url = "/top_country_tracks"
@@ -21,24 +21,29 @@ const TopTracksInCountry = ({country}) => {
     queryKey: ["top-tracks", `${country}`],
     queryFn: manageFetching,
     refetchOnWindowFocus: false,
-    enabled: country ? true : false,
+    enabled: appCtx.country != country ? true : false,
+    // enabled: country ? true : false,
     // onSuccess: () => {
     //   appContext.handleTopTracks(tracks?.data?.result?.tracks)
     //   console.log(tracks?.data?.result?.tracks, "WHWTWHWTW")
     // }
   })
 
-  if(isLoading) {
-    return <h2>Loading Data....</h2>
-  } else if(isError) {
+  // if(isLoading) {
+  //   return <h2>Loading Data....</h2>
+  // } else 
+  if(isError) {
     return <h2>Error Occured.... {error.message}</h2>
   }
+
+  console.log(appCtx.country, country, appCtx.country!=country)
 
   // console.log(tracks?.data?.result?.tracks, "tracks!!")
 
   return (
     <>
     <div>TopTracksInCountry -- {country}</div>
+    {isLoading && (appCtx.country != country) ? <h2>Loading Data....</h2> : null}
     <TracksList data={tracks?.data?.result?.tracks} />
     </>
   )
