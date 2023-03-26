@@ -117,7 +117,7 @@ export const countriesCodes = {
 export const countriesConversions = () => {
     const countries = [];
     for (let key in countriesCodes) {
-        const obj = { code: key.toLocaleLowerCase(), name: countriesCodes[key] }
+        const obj = { code: key, name: countriesCodes[key] }
         countries.push(obj)
     }
     
