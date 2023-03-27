@@ -13,11 +13,12 @@ export const TracksList = ({ data }) => {
     }, [data])
 
     const renderTracks = () => (data || appCtx.topTracks)?.map(track => track?.images && <RenderTrackMinimalView key={track.key} track={track} />)
-    
+
     return (
         <>
-            <div>TracksList</div>
-            <section>
+            <Link className='text-2xl bg-blue-400 p-2 rounded-lg' href={"/top-tracks"}>Choose Again Another Country</Link>
+            <h2 className='text-2xl my-2'>TracksList</h2>
+            <section className='flex flex-wrap gap-4 justify-evenly'>
                 {renderTracks()}
             </section>
         </>
@@ -29,10 +30,10 @@ const RenderTrackMinimalView = ({ track }) => {
     const { background } = images
 
     return (
-        <article>
-            <Link href={`/top-tracks/track-details/${key}`}>See Details</Link>
+        <article className='w-1/4'>
+            <Link className='text-xl' href={`/top-tracks/track-details/${key}`}>Click Here To See More Details</Link>
             <img src={background} width={400} height={400} />
-            <p>{title} -- {subtitle}</p>
+            <p className='text-2xl break-words'>{title} -- {subtitle}</p>
         </article>
     )
 }

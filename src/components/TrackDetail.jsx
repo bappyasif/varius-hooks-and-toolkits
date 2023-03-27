@@ -1,3 +1,5 @@
+import { shazamApiInterceptor } from '@/utils/interceptor';
+import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react'
 import { AppContext } from './appContext'
 
@@ -5,12 +7,25 @@ const TrackDetail = ({ track_key }) => {
     const appCtx = useContext(AppContext);
     const foundTrack = appCtx?.topTracks.find(track => track.key === track_key)
     console.log(foundTrack, "foundTrack", appCtx?.topTracks)
+
+    const {data} = useQuery({
+        queryKey: ["search track details", `${track_key}`],
+        queryFn: () => {
+            const params = {track_id: `${track_key}`}
+            return shazamApiInterceptor({ url: "/track_about", params})
+        },
+        refetchOnWindowFocus: false,
+        enabled: foundTrack == undefined ? true : false
+    })
+
+    console.log(data?.data.result, "!!")
+
     return (
         <>
             <div>TrackDetail</div>
             {
-                foundTrack
-                    ? <RenderTrackDetails data={foundTrack} />
+                foundTrack || data?.data.result
+                    ? <RenderTrackDetails data={foundTrack !== undefined ? foundTrack : data?.data.result} />
                     : null
             }
         </>

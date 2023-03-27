@@ -5,10 +5,10 @@ import React from 'react'
 const TopTracksByCountry = ({ countryCode, data }) => {
     // console.log(data, "DATA<><>!!")
     return (
-        <>
-            <div>TopTracksByCountry -- {countryCode}</div>
+        <main>
+            <div className='text-center'>TopTracksByCountry -- {countryCode}</div>
             <TracksList data={data} />
-        </>
+        </main>
     )
 }
 
@@ -17,6 +17,7 @@ const fetchTracks = (options) => shazamApiInterceptor(options)
 export const getServerSideProps = async (context) => {
     const { params } = context
     const { countryCode } = params
+    
     console.log(countryCode, "countryCode")
 
     const manageFetching = () => {
