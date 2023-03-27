@@ -2,21 +2,23 @@ import Link from 'next/link';
 import React, { useContext, useEffect } from 'react'
 import { AppContext } from './appContext'
 
-export const TracksList = ({ data }) => {
+export const TracksList = ({ data, countryCode }) => {
     console.log(data, "DATA!!")
     const appCtx = useContext(AppContext);
 
-    const updateDataInContext = () => appCtx.handleTopTracks(data)
+    // const updateDataInContext = () => appCtx.handleTopTracks(data)
+    const updateDataInContext = () => appCtx.handleTopTracks(data, countryCode)
 
     useEffect(() => {
         data?.length && updateDataInContext()
     }, [data])
 
-    const renderTracks = () => (data || appCtx.topTracks)?.map(track => track?.images && <RenderTrackMinimalView key={track.key} track={track} />)
+    // const renderTracks = () => (data || appCtx.topTracks)?.map(track => track?.images && <RenderTrackMinimalView key={track.key} track={track} />)
+    const renderTracks = () => (data || appCtx.topTracks[countryCode])?.map(track => track?.images && <RenderTrackMinimalView key={track.key} track={track} />)
 
     return (
         <>
-            <Link className='text-2xl bg-blue-400 p-2 rounded-lg' href={"/top-tracks"}>Choose Again Another Country</Link>
+            <Link className='text-xl bg-blue-400 p-2 rounded-lg' href={"/top-tracks"}>Choose Again Another Country</Link>
             <h2 className='text-2xl my-2'>TracksList</h2>
             <section className='flex flex-wrap gap-4 justify-evenly'>
                 {renderTracks()}

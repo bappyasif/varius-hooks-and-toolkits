@@ -1,4 +1,5 @@
 import { AppContext } from '@/components/appContext';
+import { Navbar } from '@/components/navbar';
 import '@/styles/globals.css'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
@@ -7,21 +8,26 @@ import { useState } from 'react'
 export default function App({ Component, pageProps }) {
   const [topTracks, setTopTracks] = useState([]);
 
-  const [country, setCountry] = useState("BD");
+  const [country, setCountry] = useState("");
 
   const handleCountry = name => setCountry(name)
 
-  const handleTopTracks = data => {
-    setTopTracks(data)
+  const handleTopTracks = (data, countryCode) => {
+    // setTopTracks(data)
+    setTopTracks({[countryCode]: data})
+    
     console.log(data, "<<>>")
   }
 
   const clientQuery = new QueryClient()
 
   return (
-    <AppContext.Provider value={{handleTopTracks, topTracks, handleCountry, country}}>
+    <AppContext.Provider value={{ handleTopTracks, topTracks, handleCountry, country }}>
       <QueryClientProvider client={clientQuery}>
-        <Component {...pageProps} />
+        <div className='flex gap-9'>
+          <Navbar />
+          <Component {...pageProps} />
+        </div>
         <ReactQueryDevtools />
       </QueryClientProvider>
     </AppContext.Provider>
