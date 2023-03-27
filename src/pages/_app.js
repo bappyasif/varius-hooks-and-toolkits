@@ -7,7 +7,7 @@ import { useState } from 'react'
 export default function App({ Component, pageProps }) {
   const [topTracks, setTopTracks] = useState([]);
 
-  const [country, setCountry] = useState("bd");
+  const [country, setCountry] = useState("BD");
 
   const handleCountry = name => setCountry(name)
 
