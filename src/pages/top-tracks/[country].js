@@ -21,7 +21,7 @@ const TopTracksInCountry = ({country}) => {
     queryKey: ["top-tracks", `${country}`],
     queryFn: manageFetching,
     refetchOnWindowFocus: false,
-    enabled: appCtx.country != country ? true : false,
+    // enabled: (appCtx.country != country && !appCtx.topTracks.length) ? true : false,
     // enabled: country ? true : false,
     // onSuccess: () => {
     //   appContext.handleTopTracks(tracks?.data?.result?.tracks)
