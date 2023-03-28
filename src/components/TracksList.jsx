@@ -15,10 +15,10 @@ export const TracksList = ({ data, countryCode }) => {
     //     data?.length && updateDataInContext()
     // }, [data])
 
-    console.log(appCtx?.topTracks, "appCtx.topTracks", tracksData)
+    // console.log(appCtx?.topTracks, "appCtx.topTracks", tracksData)
     const performAlreadyExistingTopTracksData = () => {
         appCtx?.topTracks.forEach(item => {
-            console.log(item)
+            // console.log(item)
             const foundItem = Object.keys(item).findIndex(val => val == countryCode)
             if(foundItem !== -1) {
                 setTracksData(Object.values(item)[0])

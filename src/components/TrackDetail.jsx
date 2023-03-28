@@ -7,7 +7,7 @@ const TrackDetail = ({ track_key }) => {
     const appCtx = useContext(AppContext);
     // console.log(appCtx?.topTracks[appCtx.country], "appCtx?.topTracks[appCtx.country]")
     const foundTrack = appCtx?.topTracks[appCtx.country]?.find(track => track.key === track_key)
-    console.log(foundTrack, "foundTrack", appCtx?.topTracks)
+    // console.log(foundTrack, "foundTrack", appCtx?.topTracks)
 
     const { data } = useQuery({
         queryKey: ["search track details", `${track_key}`],
@@ -43,7 +43,7 @@ const RenderTrackDetails = ({ data }) => {
             <RenderHubInfo hub={hub} /> */}
             <div className='flex justify-around'>
                 <RenderShareInfo share={share} />
-                <RenderHubInfo hub={hub} url={url} />
+                <RenderHubInfo hub={hub} url={url} share={share} />
                 {/* <a className='text-xl bg-blue-200 h-fit px-2' href={url}>Open Track In Shazam</a> */}
             </div>
             {/* <a href={url}>Open Track In Shazam</a> */}
@@ -57,10 +57,10 @@ const RenderShareInfo = ({ share }) => {
 
     return (
         <div className='flex gap-4'>
-            <div className='flex flex-col w-1/4'>
+            {/* <div className='flex flex-col w-1/4'>
                 <img src={avatar || image} width={200} height={130} alt={subject} />
-                <h2 className='text-2xl'>{subject}</h2>
-            </div>
+                <h2 className='text-2xl bg-blue-200 rounded-md'>{subject}</h2>
+            </div> */}
             <div>
                 <img src={image} />
                 <div className='flex gap-1 flex-col text-xl'>
@@ -73,7 +73,7 @@ const RenderShareInfo = ({ share }) => {
     )
 }
 
-const RenderHubInfo = ({ hub, url }) => {
+const RenderHubInfo = ({ hub, url, share }) => {
     const { actions, displayname, explicit, name } = hub
     const { uri } = actions[1]
 
@@ -81,6 +81,11 @@ const RenderHubInfo = ({ hub, url }) => {
 
     return (
         <div className='text-xl'>
+            <div className='flex flex-col mt-2 mb-8'>
+                <img src={share?.avatar || share?.image} width={200} height={130} alt={share?.subject} />
+                <h2 className='text-2xl bg-blue-200 rounded-md'>{share?.subject}</h2>
+            </div>
+
             <h2>Music Hub: <span className='text-2xl'>{displayname}</span></h2>
             <h4>Explicit Content: <span className='text-2xl'>{explicit ? "Include" : "None"}</span></h4>
             <div className='flex flex-col gap-2 text-2xl'>
