@@ -7,7 +7,7 @@ const TrackDetail = ({ track_key }) => {
     const appCtx = useContext(AppContext);
     // console.log(appCtx?.topTracks[appCtx.country], "appCtx?.topTracks[appCtx.country]")
     const foundTrack = appCtx?.topTracks[appCtx.country]?.find(track => track.key === track_key)
-    console.log(foundTrack, "foundTrack", appCtx?.topTracks)
+    // console.log(foundTrack, "foundTrack", appCtx?.topTracks)
 
     const { data } = useQuery({
         queryKey: ["search track details", `${track_key}`],
@@ -19,14 +19,14 @@ const TrackDetail = ({ track_key }) => {
         enabled: foundTrack == undefined ? true : false
     })
 
-    console.log(data?.data.result, "!!")
+    // console.log(data?.data.result, "!!")
 
     return (
         <>
             <div className='text-2xl bg-blue-200 my-4'>TrackDetail</div>
             {
                 foundTrack || data?.data.result
-                    ? <RenderTrackDetails data={foundTrack !== undefined ? foundTrack : data?.data.result} />
+                    ? <RenderTrackDetails data={foundTrack !== undefined ? foundTrack : data?.data?.result} />
                     : null
             }
         </>
@@ -77,7 +77,7 @@ const RenderHubInfo = ({ hub, url }) => {
     const { actions, displayname, explicit, name } = hub
     const { uri } = actions[1]
 
-    console.log(explicit, uri, name, "WHHWHWHW")
+    // console.log(explicit, uri, name, "WHHWHWHW")
 
     return (
         <div className='text-xl'>

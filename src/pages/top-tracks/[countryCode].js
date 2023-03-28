@@ -5,7 +5,7 @@ import { shazamApiInterceptor } from '@/utils/interceptor'
 import { useQuery } from '@tanstack/react-query'
 import React, { useContext } from 'react'
 
-const fetchTracks = (options) => shazamApiInterceptor(options)
+export const fetchTracks = (options) => shazamApiInterceptor(options)
 
 const TopTracksByCountry = ({ countryCode }) => {
     const appCtx = useContext(AppContext)
@@ -31,7 +31,7 @@ const TopTracksByCountry = ({ countryCode }) => {
         return <h2>Error Occured.... {error.message}</h2>
     }
 
-    console.log(appCtx.country != countryCode, appCtx.country, countryCode, "checks!!")
+    // console.log(appCtx.country != countryCode, appCtx.country, countryCode, "checks!!")
 
     return (
         <main>
@@ -44,7 +44,7 @@ export const getServerSideProps = async (context) => {
     const { params } = context
     const { countryCode } = params
 
-    console.log(countryCode, "countryCode")
+    // console.log(countryCode, "countryCode")
 
     // const manageFetching = () => {
     //     const url = "/top_country_tracks"

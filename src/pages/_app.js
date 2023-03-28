@@ -8,8 +8,14 @@ import { useState } from 'react'
 
 export default function App({ Component, pageProps }) {
   const [topTracks, setTopTracks] = useState([]);
+  
+  const [relatedTracks, setRelatedTracks] = useState([]);
 
   const [country, setCountry] = useState("");
+
+  const handleRelatedTracks = (data, trackId) => {
+    setRelatedTracks(prev => ([...prev, {[trackId]: data}]))
+  }
 
   const handleCountry = name => setCountry(name)
 
@@ -23,7 +29,7 @@ export default function App({ Component, pageProps }) {
   const clientQuery = new QueryClient()
 
   return (
-    <AppContext.Provider value={{ handleTopTracks, topTracks, handleCountry, country }}>
+    <AppContext.Provider value={{ handleTopTracks, topTracks, handleCountry, country, handleRelatedTracks, relatedTracks }}>
       <QueryClientProvider client={clientQuery}>
         <div className='flex gap-9'>
           <Navbar />

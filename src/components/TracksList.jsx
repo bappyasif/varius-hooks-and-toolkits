@@ -3,7 +3,7 @@ import React, { useContext, useEffect } from 'react'
 import { AppContext } from './appContext'
 
 export const TracksList = ({ data, countryCode }) => {
-    console.log(data, "DATA!!")
+    // console.log(data, "DATA!!")
     const appCtx = useContext(AppContext);
 
     // const updateDataInContext = () => appCtx.handleTopTracks(data)
@@ -27,7 +27,8 @@ export const TracksList = ({ data, countryCode }) => {
     )
 }
 
-const RenderTrackMinimalView = ({ track }) => {
+export const RenderTrackMinimalView = ({ track }) => {
+    // console.log(track, "TRACK!!!!")
     const { images, subtitle, title, key } = track
     const { background } = images
 
