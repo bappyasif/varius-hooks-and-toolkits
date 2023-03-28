@@ -1,20 +1,38 @@
 import Link from 'next/link';
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { AppContext } from './appContext'
 
 export const TracksList = ({ data, countryCode }) => {
     // console.log(data, "DATA!!")
+    const [tracksData, setTracksData] = useState([]);
+
     const appCtx = useContext(AppContext);
 
     // const updateDataInContext = () => appCtx.handleTopTracks(data)
-    const updateDataInContext = () => appCtx.handleTopTracks(data, countryCode)
+    // const updateDataInContext = () => appCtx.handleTopTracks(data, countryCode)
+
+    // useEffect(() => {
+    //     data?.length && updateDataInContext()
+    // }, [data])
+
+    console.log(appCtx?.topTracks, "appCtx.topTracks", tracksData)
+    const performAlreadyExistingTopTracksData = () => {
+        appCtx?.topTracks.forEach(item => {
+            console.log(item)
+            const foundItem = Object.keys(item).findIndex(val => val == countryCode)
+            if(foundItem !== -1) {
+                setTracksData(Object.values(item)[0])
+            }
+        })
+    }
 
     useEffect(() => {
-        data?.length && updateDataInContext()
-    }, [data])
+        performAlreadyExistingTopTracksData()
+    }, [])
 
     // const renderTracks = () => (data || appCtx.topTracks)?.map(track => track?.images && <RenderTrackMinimalView key={track.key} track={track} />)
-    const renderTracks = () => (data || appCtx.topTracks[countryCode])?.map(track => track?.images && <RenderTrackMinimalView key={track.key} track={track} />)
+    // const renderTracks = () => (data || appCtx.topTracks[countryCode])?.map(track => track?.images && <RenderTrackMinimalView key={track.key} track={track} />)
+    const renderTracks = () => (data || tracksData)?.map(track => track?.images && <RenderTrackMinimalView key={track.key} track={track} />)
 
     return (
         <>

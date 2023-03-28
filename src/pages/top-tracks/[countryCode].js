@@ -16,12 +16,23 @@ const TopTracksByCountry = ({ countryCode }) => {
         return fetchTracks({ url, params })
     }
 
+    const decideFetching = () => {
+        const chkIdx = appCtx?.topTracks.findIndex(item => Object.keys(item)[0] == countryCode)
+        return chkIdx !== -1 ? false : true
+    }
+
     const { data: tracks, isError, isLoading, error } = useQuery({
         queryKey: ["top-tracks", `${countryCode}`],
         queryFn: manageFetching,
         refetchOnWindowFocus: false,
-        enabled: appCtx.country != Object.keys(appCtx.topTracks)[0] ? true : false,
+        // enabled: appCtx.country != Object.keys(appCtx.topTracks)[0] ? true : false,
         // enabled: appCtx.country != countryCode ? true : false,
+
+        enabled: decideFetching(),
+        onSuccess: data => {
+            appCtx.handleTopTracks(data?.data?.result?.tracks, countryCode)
+            console.log(data, "data!! success -- Top Tracks")
+        }
     })
 
     // if(isLoading) {
@@ -35,7 +46,8 @@ const TopTracksByCountry = ({ countryCode }) => {
 
     return (
         <main>
-            <div className='text-center text-4xl my-2'>Currently Viewing: Top Tracks In {countriesCodes[countryCode]}</div>            <TracksList data={tracks?.data?.result?.tracks} countryCode={countryCode} />
+            <div className='text-center text-4xl my-2'>Currently Viewing: Top Tracks In {countriesCodes[countryCode]}</div>
+            <TracksList data={tracks?.data?.result?.tracks} countryCode={countryCode} />
         </main>
     )
 }

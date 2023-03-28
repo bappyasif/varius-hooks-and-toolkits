@@ -21,7 +21,8 @@ export default function App({ Component, pageProps }) {
 
   const handleTopTracks = (data, countryCode) => {
     // setTopTracks(data)
-    setTopTracks({[countryCode]: data})
+    // setTopTracks({[countryCode]: data})
+    setTopTracks(prev => ([...prev, {[countryCode]: data}]))
     
     console.log(data, "<<>>")
   }
