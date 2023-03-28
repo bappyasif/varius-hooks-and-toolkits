@@ -5,14 +5,15 @@ import { AppContext } from './appContext'
 
 const TrackDetail = ({ track_key }) => {
     const appCtx = useContext(AppContext);
-    const foundTrack = appCtx?.topTracks.find(track => track.key === track_key)
+    // console.log(appCtx?.topTracks[appCtx.country], "appCtx?.topTracks[appCtx.country]")
+    const foundTrack = appCtx?.topTracks[appCtx.country]?.find(track => track.key === track_key)
     console.log(foundTrack, "foundTrack", appCtx?.topTracks)
 
-    const {data} = useQuery({
+    const { data } = useQuery({
         queryKey: ["search track details", `${track_key}`],
         queryFn: () => {
-            const params = {track_id: `${track_key}`}
-            return shazamApiInterceptor({ url: "/track_about", params})
+            const params = { track_id: `${track_key}` }
+            return shazamApiInterceptor({ url: "/track_about", params })
         },
         refetchOnWindowFocus: false,
         enabled: foundTrack == undefined ? true : false
@@ -22,7 +23,7 @@ const TrackDetail = ({ track_key }) => {
 
     return (
         <>
-            <div>TrackDetail</div>
+            <div className='text-2xl bg-blue-200 my-4'>TrackDetail</div>
             {
                 foundTrack || data?.data.result
                     ? <RenderTrackDetails data={foundTrack !== undefined ? foundTrack : data?.data.result} />
@@ -37,11 +38,16 @@ const RenderTrackDetails = ({ data }) => {
     // const {actions, displayname } = hub
     // const {avatar, href, html, image, snapchat, subject} = share
     return (
-        <main>
-            <RenderShareInfo share={share} />
-            <RenderHubInfo hub={hub} />
-            <a href={url}>Open Track In Shazam</a>
-        </main>
+        <section>
+            {/* <RenderShareInfo share={share} />
+            <RenderHubInfo hub={hub} /> */}
+            <div className='flex justify-around'>
+                <RenderShareInfo share={share} />
+                <RenderHubInfo hub={hub} url={url} />
+                {/* <a className='text-xl bg-blue-200 h-fit px-2' href={url}>Open Track In Shazam</a> */}
+            </div>
+            {/* <a href={url}>Open Track In Shazam</a> */}
+        </section>
     )
 
 }
@@ -50,27 +56,37 @@ const RenderShareInfo = ({ share }) => {
     const { avatar, href, html, image, snapchat, subject } = share
 
     return (
-        <div>
-            <img src={avatar} width={290} height={220} alt={subject} />
-            <h2>{subject}</h2>
-            <img src={image} />
+        <div className='flex gap-4'>
+            <div className='flex flex-col w-1/4'>
+                <img src={avatar || image} width={200} height={130} alt={subject} />
+                <h2 className='text-2xl'>{subject}</h2>
+            </div>
             <div>
-                <a href={snapchat}>Open Track In SnapChat</a>
-                <a href={href}>Listen To This Track</a>
-                <a href={html}>Share Track</a>
+                <img src={image} />
+                <div className='flex gap-1 flex-col text-xl'>
+                    <a className='bg-blue-200 rounded-md' href={snapchat}>Open Track In SnapChat</a>
+                    <a className='bg-blue-200 rounded-md' href={href}>Listen To This Track</a>
+                    <a className='bg-blue-200 rounded-md' href={html}>Share Track</a>
+                </div>
             </div>
         </div>
     )
 }
 
-const RenderHubInfo = ({ hub }) => {
+const RenderHubInfo = ({ hub, url }) => {
     const { actions, displayname, explicit, name } = hub
     const { uri } = actions[1]
 
+    console.log(explicit, uri, name, "WHHWHWHW")
+
     return (
-        <div>
-            <h2>{displayname}</h2>
-            <a href={uri}>Open in {name}</a>
+        <div className='text-xl'>
+            <h2>Music Hub: <span className='text-2xl'>{displayname}</span></h2>
+            <h4>Explicit Content: <span className='text-2xl'>{explicit ? "Include" : "None"}</span></h4>
+            <div className='flex flex-col gap-2 text-2xl'>
+                <a className='bg-blue-200 h-fit px-2 py-1 rounded-sm' href={uri}>Open in: <span className='text-2xl'>{name || displayname}</span></a>
+                <a className='bg-blue-200 h-fit px-2 py-1 rounded-sm' href={url}>Open Track In Shazam</a>
+            </div>
         </div>
     )
 }

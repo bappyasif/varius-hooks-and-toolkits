@@ -19,7 +19,7 @@ export const TracksList = ({ data, countryCode }) => {
     return (
         <>
             <Link className='text-xl bg-blue-400 p-2 rounded-lg' href={"/top-tracks"}>Choose Again Another Country</Link>
-            <h2 className='text-2xl my-2'>TracksList</h2>
+            <h2 className='text-2xl bg-blue-200 my-4'>TracksList</h2>
             <section className='flex flex-wrap gap-4 justify-evenly'>
                 {renderTracks()}
             </section>

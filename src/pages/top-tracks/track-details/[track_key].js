@@ -10,11 +10,11 @@ const TrackDetailPage = ({ track_key }) => {
     const router = useRouter()
     
     return (
-        <>
-            <div>TrackDetail -- {track_key}</div>
-            <Link href={`/top-tracks/${appCtx.country}`}>Go To Tracks List</Link>
+        <main className='flex flex-col w-full'>
+            <div className='text-2xl w-full text-center'>TrackDetail -- {track_key}</div>
+            <Link className='text-xl bg-blue-400 px-4 py-1 rounded-lg w-fit' href={`/top-tracks/${appCtx.country}`}>Go To Tracks List</Link>
             <TrackDetail track_key={track_key} />
-        </>
+        </main>
     )
 }
 
