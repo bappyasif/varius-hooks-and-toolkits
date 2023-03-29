@@ -40,7 +40,9 @@ export const InputElement = ({handleSearchText, searchType}) => {
 export const ButtonElement = ({handleClick, query, type}) => {
     return (
         <button
-            className={`${!(query?.length >= 4 && type != -1) ? "bg-red-200" : "bg-blue-400"} p-1 px-4 rounded-lg`} 
+            // className={`${!(query?.length >= 4 && type != -1) ? "bg-red-200" : "bg-blue-400"} p-1 px-4 rounded-lg`} 
+            className={`${!(query && type != -1) ? "bg-red-200" : "bg-blue-400"} p-1 px-4 rounded-lg`} 
+            // onClick={() => handleClick()}
             onClick={handleClick}
             disabled={!(query && type != -1) ? true : false} 
         >Search</button>

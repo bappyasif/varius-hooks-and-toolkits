@@ -55,12 +55,12 @@ export const TracksList = ({ data, countryCode }) => {
 export const RenderTrackMinimalView = ({ track }) => {
     // console.log(track, "TRACK!!!!")
     const { images, subtitle, title, key } = track
-    const { background } = images
+    const { background, coverart } = images
 
     return (
         <article className='w-1/4'>
             <Link className='text-xl' href={`/top-tracks/track-details/${key}`}>Click Here To See More Details</Link>
-            <img src={background} width={400} height={400} />
+            <img src={background || coverart} width={400} height={400} />
             <p className='text-2xl break-words'>{title} -- {subtitle}</p>
         </article>
     )
