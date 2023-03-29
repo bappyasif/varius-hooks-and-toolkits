@@ -16,14 +16,21 @@ export const TracksList = ({ data, countryCode }) => {
     // }, [data])
 
     // console.log(appCtx?.topTracks, "appCtx.topTracks", tracksData)
+    // const performAlreadyExistingTopTracksData = () => {
+    //     appCtx?.topTracks.forEach(item => {
+    //         // console.log(item)
+    //         const foundItem = Object.keys(item).findIndex(val => val == countryCode)
+    //         if(foundItem !== -1) {
+    //             setTracksData(Object.values(item)[0])
+    //         }
+    //     })
+    // }
+
     const performAlreadyExistingTopTracksData = () => {
-        appCtx?.topTracks.forEach(item => {
-            // console.log(item)
-            const foundItem = Object.keys(item).findIndex(val => val == countryCode)
-            if(foundItem !== -1) {
-                setTracksData(Object.values(item)[0])
-            }
-        })
+        const findCountryTopTracks = appCtx.topTracks.find(item => item.countryCode == appCtx.country)
+        if (findCountryTopTracks !== undefined) {
+            setTracksData(findCountryTopTracks.data)
+        }
     }
 
     useEffect(() => {

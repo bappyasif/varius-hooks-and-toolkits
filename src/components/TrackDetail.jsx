@@ -6,8 +6,11 @@ import { AppContext } from './appContext'
 const TrackDetail = ({ track_key }) => {
     const appCtx = useContext(AppContext);
     // console.log(appCtx?.topTracks[appCtx.country], "appCtx?.topTracks[appCtx.country]")
-    const foundTrack = appCtx?.topTracks[appCtx.country]?.find(track => track.key === track_key)
-    // console.log(foundTrack, "foundTrack", appCtx?.topTracks)
+    // const foundTrack = appCtx?.topTracks[appCtx.country]?.find(track => track.key === track_key)
+
+    const findCountryTopTracks = appCtx.topTracks.find(item => item.countryCode == appCtx.country)
+    const foundTrack = findCountryTopTracks.data?.find(track => track.key === track_key)
+    console.log(foundTrack, "foundTrack", appCtx?.topTracks, findCountryTopTracks)
 
     const { data } = useQuery({
         queryKey: ["search track details", `${track_key}`],
@@ -16,7 +19,8 @@ const TrackDetail = ({ track_key }) => {
             return shazamApiInterceptor({ url: "/track_about", params })
         },
         refetchOnWindowFocus: false,
-        enabled: foundTrack == undefined ? true : false
+        enabled: false
+        // enabled: foundTrack == undefined ? true : false
     })
 
     // console.log(data?.data.result, "!!")

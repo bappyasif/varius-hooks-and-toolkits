@@ -14,7 +14,9 @@ export default function App({ Component, pageProps }) {
   const [country, setCountry] = useState("");
 
   const handleRelatedTracks = (data, trackId) => {
-    setRelatedTracks(prev => ([...prev, {[trackId]: data}]))
+    data?.length ? setRelatedTracks(prev => ([...prev, {data: data, key: trackId}])) : null
+    // setRelatedTracks(prev => ([...prev, {[trackId]: data}]))
+    console.log(relatedTracks, "relatedTracks!!")
   }
 
   const handleCountry = name => setCountry(name)
@@ -22,7 +24,8 @@ export default function App({ Component, pageProps }) {
   const handleTopTracks = (data, countryCode) => {
     // setTopTracks(data)
     // setTopTracks({[countryCode]: data})
-    setTopTracks(prev => ([...prev, {[countryCode]: data}]))
+    // setTopTracks(prev => ([...prev, {[countryCode]: data}]))
+    setTopTracks(prev => ([...prev, {data, countryCode}]))
     
     console.log(data, "<<>>")
   }

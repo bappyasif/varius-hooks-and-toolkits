@@ -17,8 +17,14 @@ const TopTracksByCountry = ({ countryCode }) => {
     }
 
     const decideFetching = () => {
-        const chkIdx = appCtx?.topTracks.findIndex(item => Object.keys(item)[0] == countryCode)
-        return chkIdx !== -1 ? false : true
+        // const chkIdx = appCtx?.topTracks.findIndex(item => Object.keys(item)[0] == countryCode)
+        // return chkIdx !== -1 ? false : true
+        if(!appCtx.topTracks?.length) return true
+
+        const findCountryTopTracks = appCtx.topTracks.find(item => item.countryCode == countryCode)
+        console.log(findCountryTopTracks, findCountryTopTracks !== undefined, appCtx.topTracks)
+        
+        return findCountryTopTracks !== undefined ? false : true
     }
 
     const { data: tracks, isError, isLoading, error } = useQuery({

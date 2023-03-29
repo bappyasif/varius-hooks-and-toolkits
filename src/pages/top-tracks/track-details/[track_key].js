@@ -18,24 +18,53 @@ const TrackDetailPage = ({ track_key }) => {
         return fetchTracks({ url, params })
     }
 
+    // const decideFetching = () => {
+    //     const chkIdx = appCtx.relatedTracks.findIndex(item => item.key == track_key)
+
+    //     if (chkIdx !== -1) {
+    //         const timer = setTimeout(() => {
+    //             console.log(appCtx.relatedTracks[chkIdx], "<><><><>", Object.values(appCtx.relatedTracks[chkIdx])[0], Object.values(appCtx.relatedTracks[chkIdx])[0]?.length)
+    //             if(timer > 2000) {
+    //              clearTimeout(timer)
+    //             }
+    //             return Object.values(appCtx.relatedTracks[chkIdx])[0]?.length ? false : true
+    //         }, 1800)
+
+    //     } else {
+    //         return chkIdx !== -1 ? false : true
+    //     }
+    // }
+
     const decideFetching = () => {
-        const chkIdx = appCtx.relatedTracks.findIndex(item => Object.keys(item)[0] == track_key)
-        return chkIdx !== -1 ? false : true
+        const chkIdx = appCtx.relatedTracks.findIndex(item => (item.key == track_key) && (item?.data.length))
+
+        if (chkIdx !== -1) {
+            console.log("DONT FETCH DATA")
+            return false
+        } else {
+            // return true
+            setTimeout(() => {
+                console.log("FETCH DATA", appCtx.relatedTracks)
+                return true
+                // return chkIdx !== -1 ? false : true
+            }, 4000)
+        }
     }
 
-    const {data} = useQuery({
+    const { data } = useQuery({
         queryKey: ["related tracks", `${track_key}`],
         queryFn: manageFetching,
         refetchOnWindowFocus: false,
+        // enabled: false,
         enabled: decideFetching(),
         onSuccess: data => {
             appCtx.handleRelatedTracks(data?.data?.result?.tracks, track_key)
-            console.log(data, "data!! success")
+            console.log(data, "data!! success - related tracks!!", data?.data?.result?.tracks)
         }
     })
 
     // console.log(data?.data, "DATA!!<><>!!")
-    
+
     return (
         <main className='flex flex-col w-full'>
             <div className='text-2xl w-full text-center'>TrackDetail -- {track_key}</div>
