@@ -1,10 +1,15 @@
+import { AppContext } from '@/components/appContext';
 import { ButtonElement, InputElement, SelectWhichSearchType } from '@/components/forSearch';
-import React, { useState } from 'react'
+import { PrepareForDataRendering } from '@/components/forSearch/renderResults';
+import React, { useContext, useState } from 'react'
 
 const SearchThings = () => {
-    const [searchFor, setSearchFor] = useState({type: "-1"});
+    const [searchFor, setSearchFor] = useState({ type: "-1" });
     const handleSearchText = (evt) => setSearchFor(prev => ({ ...prev, query: evt.target.value }))
     const handleWhichSearchType = (val) => setSearchFor(prev => ({ ...prev, type: val }))
+    const handleSearch = () => setSearchFor(prev => ({ ...prev, ready: !prev["ready"] }))
+
+    const appCtx = useContext(AppContext);
 
     console.log(searchFor, "searchFor!!")
 
@@ -14,8 +19,14 @@ const SearchThings = () => {
             <div className='flex gap-4 text-4xl'>
                 <SelectWhichSearchType handleWhichSearchType={handleWhichSearchType} />
                 <InputElement handleSearchText={handleSearchText} searchType={searchFor?.type} />
-                <ButtonElement handleClick={null} query={searchFor?.query} type={searchFor?.type} />
+                <ButtonElement handleClick={handleSearch} query={searchFor?.query} type={searchFor?.type} />
             </div>
+            {
+                // (searchFor?.ready || appCtx?.searchedData?.length)
+                (searchFor?.ready)
+                    ? <PrepareForDataRendering query={searchFor?.query} type={searchFor?.type} handleSearch={handleSearch} />
+                    : null
+            }
         </main>
     )
 }
