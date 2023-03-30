@@ -1,7 +1,8 @@
 import { shazamApiInterceptor } from '@/utils/interceptor';
 import { useQuery } from '@tanstack/react-query';
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { AppContext } from './appContext'
+import { ShowPlaylists } from './TracksList';
 
 const TrackDetail = ({ track_key }) => {
     const appCtx = useContext(AppContext);
@@ -57,21 +58,40 @@ const RenderTrackDetails = ({ data }) => {
 }
 
 const RenderShareInfo = ({ share }) => {
+    const [show, setShow] = useState(false);
+
     const { avatar, href, html, image, snapchat, subject } = share
 
     return (
-        <div className='flex gap-4'>
+        <div className='flex pb-4'>
             {/* <div className='flex flex-col w-1/4'>
                 <img src={avatar || image} width={200} height={130} alt={subject} />
                 <h2 className='text-2xl bg-blue-200 rounded-md'>{subject}</h2>
             </div> */}
-            <div>
+            <div className='relative'>
                 <img src={image} />
                 <div className='flex gap-1 flex-col text-xl'>
                     <a className='bg-blue-200 rounded-md' href={snapchat}>Open Track In SnapChat</a>
                     <a className='bg-blue-200 rounded-md' href={href}>Listen To This Track</a>
                     <a className='bg-blue-200 rounded-md' href={html}>Share Track</a>
+                    {/* <a onClick={() => setShow(prev => !prev)} className='text-2xl bg-blue-200 px-4 py-1 rounded-md shadow-lg' href={"#"}>Add To Playlist</a> */}
                 </div>
+                <button onClick={() => setShow(prev => !prev)} className='text-2xl bg-blue-200 px-4 py-1 rounded-md shadow-lg w-full my-1 text-left'>Add To Playlist</button>
+                <div className='absolute'>
+                    {
+                        show
+                        ? <ShowPlaylists />
+                        : null
+                    }
+                </div>
+                {/* {
+                    show
+                        // ? <ShowPlaylists />
+                        ? <div className='w-full mt-4 absolute top-0'>
+                            <ShowPlaylists />
+                        </div>
+                        : null
+                } */}
             </div>
         </div>
     )

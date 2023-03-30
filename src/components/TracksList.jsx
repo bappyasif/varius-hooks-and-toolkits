@@ -53,12 +53,14 @@ export const TracksList = ({ data, countryCode }) => {
 }
 
 export const RenderTrackMinimalView = ({ track, fromSearch }) => {
+    const [show, setShow] = useState(false);
+
     // console.log(track, "TRACK!!!!")
     const { images, subtitle, title, key, url } = track
     const { background, coverart } = images
 
     return (
-        <article className='w-1/4'>
+        <article className='w-1/4 relative'>
             {
                 fromSearch
                     ? <a target={"_blank"} className='text-xl' href={`${url}`}>Click Here To Listen To This Track</a>
@@ -66,6 +68,46 @@ export const RenderTrackMinimalView = ({ track, fromSearch }) => {
             }
             <img src={background || coverart} width={400} height={400} />
             <p className='text-2xl break-words'>{title} -- {subtitle}</p>
+            {
+                !fromSearch
+                    ? <button onClick={() => setShow(prev => !prev)} className='text-2xl bg-blue-200 px-4 py-1 rounded-md shadow-lg w-full'>Add to Playlist</button>
+                    : null
+            }
+            <div className='absolute bottom-1'>
+                {
+                    show
+                        ? <ShowPlaylists setShow={setShow} />
+                        : null
+                }
+            </div>
+            {/* {
+                show
+                    ? <ShowPlaylists setShow={setShow} />
+                    : null
+            } */}
         </article>
+    )
+}
+
+export const ShowPlaylists = ({ setShow }) => {
+    const appCtx = useContext(AppContext);
+
+    const userFound = appCtx.playlists.find(item => item.userId == "user1")
+
+    const renderPlaylists = () => userFound?.lists?.map(item => <PlaylistsDropdowns key={item.name} item={item} setShow={setShow} />)
+
+    return (
+        <div className='bg-blue-200'>
+            <button onClick={setShow}>Create A New Playlist</button>
+            {renderPlaylists()}
+        </div>
+    )
+}
+
+const PlaylistsDropdowns = ({ item, setShow }) => {
+    const { name } = item;
+
+    return (
+        <div onClick={setShow}>{name}</div>
     )
 }

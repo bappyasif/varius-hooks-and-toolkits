@@ -15,6 +15,12 @@ export default function App({ Component, pageProps }) {
 
   const [searchedData, setSearchedData] = useState([]);
 
+  const [playlists, setPlaylists] = useState([]);
+
+  const handlePlaylists = (newData) => {
+    setPlaylists(prev => [...prev, newData])
+  }
+
   const handleRelatedTracks = (data, trackId) => {
     data?.length ? setRelatedTracks(prev => ([...prev, {data: data, key: trackId}])) : null
     // setRelatedTracks(prev => ([...prev, {[trackId]: data}]))
@@ -39,7 +45,7 @@ export default function App({ Component, pageProps }) {
   const clientQuery = new QueryClient()
 
   return (
-    <AppContext.Provider value={{ handleSearchData, searchedData, handleTopTracks, topTracks, handleCountry, country, handleRelatedTracks, relatedTracks }}>
+    <AppContext.Provider value={{ handlePlaylists, playlists, handleSearchData, searchedData, handleTopTracks, topTracks, handleCountry, country, handleRelatedTracks, relatedTracks }}>
       <QueryClientProvider client={clientQuery}>
         <div className='flex gap-9'>
           <Navbar />

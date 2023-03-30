@@ -12,7 +12,7 @@ export const RelatedTracks = ({ data, trackId }) => {
 
     // const renderData = () => (renderableData?.data || [])?.map((item, idx) => <RenderRelatedTrack key={idx} item={item} trackId={trackId} />)
 
-    const renderTracks = () => (renderableData?.data || [])?.map((item, idx) => <RenderTrackMinimalView key={idx} track={item} />)
+    const renderTracks = () => (renderableData?.data || [])?.map((item, idx) => item?.images && <RenderTrackMinimalView key={idx} track={item} fromSearch={true} />)
 
     return (
         <>
