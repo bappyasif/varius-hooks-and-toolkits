@@ -52,14 +52,18 @@ export const TracksList = ({ data, countryCode }) => {
     )
 }
 
-export const RenderTrackMinimalView = ({ track }) => {
+export const RenderTrackMinimalView = ({ track, fromSearch }) => {
     // console.log(track, "TRACK!!!!")
-    const { images, subtitle, title, key } = track
+    const { images, subtitle, title, key, url } = track
     const { background, coverart } = images
 
     return (
         <article className='w-1/4'>
-            <Link className='text-xl' href={`/top-tracks/track-details/${key}`}>Click Here To See More Details</Link>
+            {
+                fromSearch
+                    ? <a target={"_blank"} className='text-xl' href={`${url}`}>Click Here To Listen To This Track</a>
+                    : <Link className='text-xl' href={`/top-tracks/track-details/${key}`}>Click Here To See More Details</Link>
+            }
             <img src={background || coverart} width={400} height={400} />
             <p className='text-2xl break-words'>{title} -- {subtitle}</p>
         </article>

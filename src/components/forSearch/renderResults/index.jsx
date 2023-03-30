@@ -23,7 +23,7 @@ const SearchArtists = ({query, type, handleSearch, ready}) => {
 
     const data = useFetchSearchData("/search_artist", query, type, handleSearch, decideRefetching2)
 
-    console.log(data, "DATA SEARCHED For Artist!!", dataset)
+    // console.log(data, "DATA SEARCHED For Artist!!", dataset)
 
     useEffect(() => {
         data?.length && setDataset(data)
@@ -50,12 +50,13 @@ const RenderArtist = ({item}) => {
     )
 }
 
-const decideRefetching = (appCtx, ready, dataset, setDataset, type) => {
+const decideRefetching = (appCtx, ready, dataset, setDataset, type, query) => {
     if (ready) {
         const found = appCtx?.searchedData?.find(item => item.type === type && item.query === query && item.data?.length)
-        console.log(found, "FOUND!!", appCtx?.searchedData)
+        // console.log(found, "FOUND!!", appCtx?.searchedData, ready, !dataset.length, dataset.length)
         if (found) {
             !dataset.length && setDataset(found?.data)
+            // setDataset(found?.data)
         }
         return found === undefined ? true : false
     } else {
@@ -68,17 +69,18 @@ const SearchTracks = ({ query, type, handleSearch, ready }) => {
 
     const appCtx = useContext(AppContext);
 
-    const decideRefetching2 = () => decideRefetching(appCtx, ready, dataset, setDataset, type)
+    const decideRefetching2 = () => decideRefetching(appCtx, ready, dataset, setDataset, type, query)
 
     const data = useFetchSearchData("/search_track", query, type, handleSearch, decideRefetching2)
 
-    console.log(data, "DATA SEARCHED!! for tracks", dataset)
+    // console.log(data, "DATA SEARCHED!! for tracks", dataset)
 
     useEffect(() => {
+        data?.length && setDataset([])
         data?.length && setDataset(data)
     }, [data])
 
-    const renderTracks = () => (dataset || data)?.map((item, idx) => item?.track?.images && <RenderTrackMinimalView key={idx} track={item?.track} />)
+    const renderTracks = () => (dataset || data)?.map((item, idx) => item?.track?.images && <RenderTrackMinimalView key={idx} track={item?.track} fromSearch={true} />)
 
     return (
         <section>
