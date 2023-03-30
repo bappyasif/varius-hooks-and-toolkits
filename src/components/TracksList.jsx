@@ -60,6 +60,8 @@ export const RenderTrackMinimalView = ({ track, fromSearch }) => {
     const { images, subtitle, title, key, url } = track
     const { background, coverart } = images
 
+    // console.log(key,"TRACK!!!!")
+
     return (
         <article className='w-1/4 relative'>
             {
@@ -77,7 +79,7 @@ export const RenderTrackMinimalView = ({ track, fromSearch }) => {
             <div className='absolute bottom-1'>
                 {
                     show
-                        ? <ShowPlaylists show={show} setShow={setShow} />
+                        ? <ShowPlaylists show={show} setShow={setShow} trackId={key} />
                         : null
                 }
             </div>
@@ -90,7 +92,7 @@ export const RenderTrackMinimalView = ({ track, fromSearch }) => {
     )
 }
 
-export const ShowPlaylists = ({ show, setShow }) => {
+export const ShowPlaylists = ({ show, setShow, trackId }) => {
     const [createNew, setCreateNew] = useState(false);
     const openCreateNew = () => setCreateNew(true);
     const closeCreateNew = () => setCreateNew(false);
@@ -98,9 +100,9 @@ export const ShowPlaylists = ({ show, setShow }) => {
 
     const userFound = appCtx.playlists.find(item => item.userId == "user1")
 
-    console.log(appCtx.playlists, "appCtx.playlists")
+    console.log(appCtx.playlists, "appCtx.playlists", trackId)
 
-    const renderPlaylists = () => userFound?.lists?.map(item => <PlaylistsDropdowns key={item.name} item={item} setShow={setShow} />)
+    const renderPlaylists = () => userFound?.lists?.map(item => <PlaylistsDropdowns key={item.name} item={item} setShow={setShow} trackId={trackId} />)
 
     return (
         <div className='bg-blue-200'>
@@ -143,11 +145,19 @@ const PlayListUserInput = ({ closeCreateNew }) => {
     )
 }
 
-const PlaylistsDropdowns = ({ item, setShow }) => {
+const PlaylistsDropdowns = ({ item, setShow, trackId }) => {
+    const appCtx = useContext(AppContext);
+
     const { name } = item;
 
+    const handleClick = () => {
+        // const data = {name, }
+        appCtx.handleAddToPlaylist("user1", name, trackId)
+        setShow(false)
+    }
+
     return (
-        <div style={{cursor: "pointer"}} className="flex gap-2 items-center" onClick={() => setShow(false)}>
+        <div style={{cursor: "pointer"}} className="flex gap-2 items-center" onClick={handleClick}>
             {name}
             {<AiOutlineReconciliation />}
         </div>

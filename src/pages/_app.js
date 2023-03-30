@@ -17,9 +17,40 @@ export default function App({ Component, pageProps }) {
 
   const [playlists, setPlaylists] = useState([]);
 
+  const handleAddToPlaylist = (userId, playlistName, trackId) => {
+    const userPlaylists = playlists.find(item => item.userId == userId)
+    const otherLists = userPlaylists?.lists.filter(item => item.name !== playlistName)
+
+    const specificList = userPlaylists?.lists.find(item => item.name === playlistName)
+    // const checkIfExistAlready = specificList.lists?.findIndex(item => item?.tracks.includes(trackId))
+    // const checkIfExistAlready = specificList.lists?.findIndex(item => console.log(item?.tracks.includes(trackId), item.tracks))
+    
+    const checkIfExistAlready = specificList.tracks.includes(trackId)
+    console.log(specificList, "SPECIFIC!!", specificList.tracks, checkIfExistAlready)
+
+    // console.log(userPlaylists, specificList, userId, playlistName, trackId, checkIfExistAlready)
+
+    if(checkIfExistAlready === false) {
+      specificList.tracks.push(trackId)
+    } else   if (checkIfExistAlready === undefined) {
+      specificList.tracks = [trackId]
+    }
+
+    // if(checkIfExistAlready === -1) {
+    //  console.log(userPlaylists, specificList, userId, playlistName, trackId, "not found!!", otherLists)
+    //  specificList.tracks.push(trackId)
+    // } else if (checkIfExistAlready === undefined) {
+    //   specificList.tracks = [trackId];
+    //   console.log(userPlaylists, specificList, userId, playlistName, trackId, "undefined", otherLists)
+    // } else if (checkIfExistAlready === false) {
+    //   specificList.tracks.push(trackId)
+    //   // specificList.tracks.push(trackId)
+    // }
+  }
+
   const handlePlaylists = (newData, userId) => {
     const userPlaylists = playlists.find(item => item.userId == userId)
-    const chk = userPlaylists?.lists.find(item => item.name === newData?.name)
+    const chk = userPlaylists?.lists.findIndex(item => item.name === newData?.name)
     const newList = chk === -1 ? [newData] : userPlaylists?.lists.push(newData)
 
     if(userPlaylists === undefined) {
@@ -57,7 +88,7 @@ export default function App({ Component, pageProps }) {
   const clientQuery = new QueryClient()
 
   return (
-    <AppContext.Provider value={{ handlePlaylists, playlists, handleSearchData, searchedData, handleTopTracks, topTracks, handleCountry, country, handleRelatedTracks, relatedTracks }}>
+    <AppContext.Provider value={{ handleAddToPlaylist, handlePlaylists, playlists, handleSearchData, searchedData, handleTopTracks, topTracks, handleCountry, country, handleRelatedTracks, relatedTracks }}>
       <QueryClientProvider client={clientQuery}>
         <div className='flex gap-9'>
           <Navbar />
