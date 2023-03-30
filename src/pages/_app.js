@@ -17,8 +17,20 @@ export default function App({ Component, pageProps }) {
 
   const [playlists, setPlaylists] = useState([]);
 
-  const handlePlaylists = (newData) => {
-    setPlaylists(prev => [...prev, newData])
+  const handlePlaylists = (newData, userId) => {
+    const userPlaylists = playlists.find(item => item.userId == userId)
+    const chk = userPlaylists?.lists.find(item => item.name === newData?.name)
+    const newList = chk === -1 ? [newData] : userPlaylists?.lists.push(newData)
+
+    if(userPlaylists === undefined) {
+      setPlaylists(prev => [...prev, {userId, lists: [newData]}])
+    } else {
+      setPlaylists(prev => chk === -1 ? [...prev, {userId: userId, lists: newList}] : [...prev])
+    }
+
+    console.log(userPlaylists, chk, newList, newData, userId)
+
+    // setPlaylists(prev => [...prev, newData])
   }
 
   const handleRelatedTracks = (data, trackId) => {

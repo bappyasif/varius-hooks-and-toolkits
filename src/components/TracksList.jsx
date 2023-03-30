@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import React, { useContext, useEffect, useState } from 'react'
+import { AiOutlineReconciliation } from 'react-icons/ai';
 import { AppContext } from './appContext'
 
 export const TracksList = ({ data, countryCode }) => {
@@ -76,7 +77,7 @@ export const RenderTrackMinimalView = ({ track, fromSearch }) => {
             <div className='absolute bottom-1'>
                 {
                     show
-                        ? <ShowPlaylists setShow={setShow} />
+                        ? <ShowPlaylists show={show} setShow={setShow} />
                         : null
                 }
             </div>
@@ -89,17 +90,55 @@ export const RenderTrackMinimalView = ({ track, fromSearch }) => {
     )
 }
 
-export const ShowPlaylists = ({ setShow }) => {
+export const ShowPlaylists = ({ show, setShow }) => {
+    const [createNew, setCreateNew] = useState(false);
+    const openCreateNew = () => setCreateNew(true);
+    const closeCreateNew = () => setCreateNew(false);
     const appCtx = useContext(AppContext);
 
     const userFound = appCtx.playlists.find(item => item.userId == "user1")
+
+    console.log(appCtx.playlists, "appCtx.playlists")
 
     const renderPlaylists = () => userFound?.lists?.map(item => <PlaylistsDropdowns key={item.name} item={item} setShow={setShow} />)
 
     return (
         <div className='bg-blue-200'>
-            <button onClick={setShow}>Create A New Playlist</button>
+            {
+                createNew
+                    ? <PlayListUserInput closeCreateNew={closeCreateNew} />
+                    : <button onClick={openCreateNew}>Create A New Playlist</button>
+            }
             {renderPlaylists()}
+        </div>
+    )
+}
+
+const PlayListUserInput = ({ closeCreateNew }) => {
+    const [text, setText] = useState("")
+
+    const appCtx = useContext(AppContext);
+
+    const handleText = evt => setText(evt.target.value)
+
+    const handleCreate = () => {
+        console.log(text)
+        const data = { name: text }
+        appCtx?.handlePlaylists(data, "user1")
+        closeCreateNew()
+    }
+
+    return (
+        <div className=''>
+            <input
+                type={"text"}
+                onChange={handleText}
+                placeholder={"Enter Your Playlist Name"}
+            />
+            <div className='flex gap-2'>
+                <button onClick={handleCreate} className='bg-teal-200 py-1 px-4 w-full'>Create Playlist</button>
+                <button onClick={closeCreateNew} className='bg-teal-200 py-1 px-4 w-full'>Cancel</button>
+            </div>
         </div>
     )
 }
@@ -108,6 +147,9 @@ const PlaylistsDropdowns = ({ item, setShow }) => {
     const { name } = item;
 
     return (
-        <div onClick={setShow}>{name}</div>
+        <div style={{cursor: "pointer"}} className="flex gap-2 items-center" onClick={() => setShow(false)}>
+            {name}
+            {<AiOutlineReconciliation />}
+        </div>
     )
 }

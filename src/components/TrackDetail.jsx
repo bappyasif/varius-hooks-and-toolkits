@@ -9,8 +9,8 @@ const TrackDetail = ({ track_key }) => {
     // console.log(appCtx?.topTracks[appCtx.country], "appCtx?.topTracks[appCtx.country]")
     // const foundTrack = appCtx?.topTracks[appCtx.country]?.find(track => track.key === track_key)
 
-    const findCountryTopTracks = appCtx.topTracks.find(item => item.countryCode == appCtx.country)
-    const foundTrack = findCountryTopTracks.data?.find(track => track.key === track_key)
+    const findCountryTopTracks = appCtx?.topTracks.find(item => item.countryCode == appCtx.country)
+    const foundTrack = findCountryTopTracks?.data?.find(track => track.key === track_key)
     console.log(foundTrack, "foundTrack", appCtx?.topTracks, findCountryTopTracks)
 
     const { data } = useQuery({
@@ -74,8 +74,8 @@ const RenderShareInfo = ({ share }) => {
                     <a className='bg-blue-200 rounded-md' href={snapchat}>Open Track In SnapChat</a>
                     <a className='bg-blue-200 rounded-md' href={href}>Listen To This Track</a>
                     <a className='bg-blue-200 rounded-md' href={html}>Share Track</a>
-                    {/* <a onClick={() => setShow(prev => !prev)} className='text-2xl bg-blue-200 px-4 py-1 rounded-md shadow-lg' href={"#"}>Add To Playlist</a> */}
                 </div>
+                
                 <button onClick={() => setShow(prev => !prev)} className='text-2xl bg-blue-200 px-4 py-1 rounded-md shadow-lg w-full my-1 text-left'>Add To Playlist</button>
                 <div className='absolute'>
                     {
@@ -84,14 +84,6 @@ const RenderShareInfo = ({ share }) => {
                         : null
                     }
                 </div>
-                {/* {
-                    show
-                        // ? <ShowPlaylists />
-                        ? <div className='w-full mt-4 absolute top-0'>
-                            <ShowPlaylists />
-                        </div>
-                        : null
-                } */}
             </div>
         </div>
     )
