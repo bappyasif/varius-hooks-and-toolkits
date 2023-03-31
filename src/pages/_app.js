@@ -25,14 +25,14 @@ export default function App({ Component, pageProps }) {
     // const checkIfExistAlready = specificList.lists?.findIndex(item => item?.tracks.includes(trackId))
     // const checkIfExistAlready = specificList.lists?.findIndex(item => console.log(item?.tracks.includes(trackId), item.tracks))
     
-    const checkIfExistAlready = specificList.tracks.includes(trackId)
+    const checkIfExistAlready = specificList?.tracks?.includes(trackId)
     console.log(specificList, "SPECIFIC!!", specificList.tracks, checkIfExistAlready)
 
     // console.log(userPlaylists, specificList, userId, playlistName, trackId, checkIfExistAlready)
 
     if(checkIfExistAlready === false) {
       specificList.tracks.push(trackId)
-    } else   if (checkIfExistAlready === undefined) {
+    } else if (checkIfExistAlready === undefined) {
       specificList.tracks = [trackId]
     }
 
@@ -51,7 +51,8 @@ export default function App({ Component, pageProps }) {
   const handlePlaylists = (newData, userId) => {
     const userPlaylists = playlists.find(item => item.userId == userId)
     const chk = userPlaylists?.lists.findIndex(item => item.name === newData?.name)
-    const newList = chk === -1 ? [newData] : userPlaylists?.lists.push(newData)
+    // const newList = chk === -1 ? [newData] : userPlaylists?.lists.push(newData)
+    const newList = chk === -1 ? userPlaylists?.lists.push(newData) : [newData];
 
     if(userPlaylists === undefined) {
       setPlaylists(prev => [...prev, {userId, lists: [newData]}])

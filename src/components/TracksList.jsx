@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import React, { useContext, useEffect, useState } from 'react'
-import { AiOutlineReconciliation } from 'react-icons/ai';
+import { AiOutlineCheck, AiOutlineReconciliation } from 'react-icons/ai';
 import { AppContext } from './appContext'
 
 export const TracksList = ({ data, countryCode }) => {
@@ -146,6 +146,8 @@ const PlayListUserInput = ({ closeCreateNew }) => {
 }
 
 const PlaylistsDropdowns = ({ item, setShow, trackId }) => {
+    const [added,setAdded] = useState(false);
+
     const appCtx = useContext(AppContext);
 
     const { name } = item;
@@ -156,10 +158,24 @@ const PlaylistsDropdowns = ({ item, setShow, trackId }) => {
         setShow(false)
     }
 
+    const checkInWhichPlaylist = () => {
+        const filtered = appCtx.playlists?.filter(item => item.userId === "user1" && item?.lists?.length)
+        console.log(appCtx.playlists, filtered)
+        filtered[0]?.lists?.forEach(item => {
+            if(item?.name == name && item?.tracks?.length) {
+                setAdded(item.tracks.includes(trackId))
+            }
+        })
+    }
+
+    useEffect(() => {
+        trackId && checkInWhichPlaylist()
+    }, [trackId])
+
     return (
         <div style={{cursor: "pointer"}} className="flex gap-2 items-center" onClick={handleClick}>
             {name}
-            {<AiOutlineReconciliation />}
+            { added ? <AiOutlineCheck /> : <AiOutlineReconciliation />}
         </div>
     )
 }
