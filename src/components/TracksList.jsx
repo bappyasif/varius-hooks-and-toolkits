@@ -76,7 +76,7 @@ export const RenderTrackMinimalView = ({ track, fromSearch }) => {
                     ? <button onClick={() => setShow(prev => !prev)} className='text-2xl bg-blue-200 px-4 py-1 rounded-md shadow-lg w-full'>Add to Playlist</button>
                     : null
             }
-            <div className='absolute bottom-1'>
+            <div className='absolute bottom-1 z-10'>
                 {
                     show
                         ? <ShowPlaylists show={show} setShow={setShow} trackId={key} />
@@ -109,7 +109,7 @@ export const ShowPlaylists = ({ show, setShow, trackId }) => {
             {
                 createNew
                     ? <PlayListUserInput closeCreateNew={closeCreateNew} />
-                    : <button onClick={openCreateNew}>Create A New Playlist</button>
+                    : <button className='text-2xl' onClick={openCreateNew}>Create Playlist</button>
             }
             {renderPlaylists()}
         </div>
@@ -133,12 +133,13 @@ const PlayListUserInput = ({ closeCreateNew }) => {
     return (
         <div className=''>
             <input
+                className='w-full text-xl'
                 type={"text"}
                 onChange={handleText}
                 placeholder={"Enter Your Playlist Name"}
             />
-            <div className='flex gap-2'>
-                <button onClick={handleCreate} className='bg-teal-200 py-1 px-4 w-full'>Create Playlist</button>
+            <div className='flex gap-2 text-2xl'>
+                <button onClick={handleCreate} className='bg-teal-200 py-1 px-4 w-full'>Create</button>
                 <button onClick={closeCreateNew} className='bg-teal-200 py-1 px-4 w-full'>Cancel</button>
             </div>
         </div>
@@ -173,9 +174,9 @@ const PlaylistsDropdowns = ({ item, setShow, trackId }) => {
     }, [trackId])
 
     return (
-        <div style={{cursor: "pointer"}} className="flex gap-2 items-center" onClick={handleClick}>
-            {name}
-            { added ? <AiOutlineCheck /> : <AiOutlineReconciliation />}
+        <div style={{cursor: "pointer"}} className="flex gap-2 items-center text-xl justify-between outline outline-1 outline-red-200 px-2 mt-2" onClick={handleClick}>
+            <span className='text-ellipsis overflow-hidden w-1/2'>{name}</span>
+            <span className='w-1/2 flex justify-center text-4xl'>{ added ? <AiOutlineCheck /> : <AiOutlineReconciliation />}</span>
         </div>
     )
 }

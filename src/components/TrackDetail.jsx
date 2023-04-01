@@ -39,7 +39,7 @@ const TrackDetail = ({ track_key }) => {
 }
 
 const RenderTrackDetails = ({ data }) => {
-    const { hub, share, url } = data
+    const { hub, share, url, key } = data
     // const {actions, displayname } = hub
     // const {avatar, href, html, image, snapchat, subject} = share
     return (
@@ -47,7 +47,7 @@ const RenderTrackDetails = ({ data }) => {
             {/* <RenderShareInfo share={share} />
             <RenderHubInfo hub={hub} /> */}
             <div className='flex justify-around'>
-                <RenderShareInfo share={share} />
+                <RenderShareInfo share={share} trackId={key} />
                 <RenderHubInfo hub={hub} url={url} share={share} />
                 {/* <a className='text-xl bg-blue-200 h-fit px-2' href={url}>Open Track In Shazam</a> */}
             </div>
@@ -57,7 +57,7 @@ const RenderTrackDetails = ({ data }) => {
 
 }
 
-const RenderShareInfo = ({ share }) => {
+const RenderShareInfo = ({ share, trackId }) => {
     const [show, setShow] = useState(false);
 
     const { avatar, href, html, image, snapchat, subject } = share
@@ -77,10 +77,10 @@ const RenderShareInfo = ({ share }) => {
                 </div>
                 
                 <button onClick={() => setShow(prev => !prev)} className='text-2xl bg-blue-200 px-4 py-1 rounded-md shadow-lg w-full my-1 text-left'>Add To Playlist</button>
-                <div className='absolute'>
+                <div className='absolute z-10'>
                     {
                         show
-                        ? <ShowPlaylists />
+                        ? <ShowPlaylists setShow={setShow} trackId={trackId} />
                         : null
                     }
                 </div>
