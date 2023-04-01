@@ -53,7 +53,7 @@ export const TracksList = ({ data, countryCode }) => {
     )
 }
 
-export const RenderTrackMinimalView = ({ track, fromSearch }) => {
+export const RenderTrackMinimalView = ({ track, fromSearch, fromPlaylist }) => {
     const [show, setShow] = useState(false);
 
     // console.log(track, "TRACK!!!!")
@@ -63,10 +63,10 @@ export const RenderTrackMinimalView = ({ track, fromSearch }) => {
     // console.log(key,"TRACK!!!!")
 
     return (
-        <article className='w-1/4 relative'>
+        <article className={`${fromPlaylist ? "w-full" : "w-1/4"} relative`}>
             {
                 fromSearch
-                    ? <a target={"_blank"} className='text-xl' href={`${url}`}>Click Here To Listen To This Track</a>
+                    ? <a target={"_blank"} className='text-xl' href={`${url}`}>{fromPlaylist ? "Listen To This Track" : "Click Here To Listen To This Track"}</a>
                     : <Link className='text-xl' href={`/top-tracks/track-details/${key}`}>Click Here To See More Details</Link>
             }
             <img src={background || coverart} width={400} height={400} />
