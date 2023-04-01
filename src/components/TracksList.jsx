@@ -98,7 +98,7 @@ export const ShowPlaylists = ({ show, setShow, trackId }) => {
     const closeCreateNew = () => setCreateNew(false);
     const appCtx = useContext(AppContext);
 
-    const userFound = appCtx.playlists.find(item => item.userId == "user1")
+    const userFound = appCtx?.playlists?.find(item => item.userId == "user1")
 
     console.log(appCtx.playlists, "appCtx.playlists", trackId)
 

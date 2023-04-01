@@ -19,13 +19,13 @@ const RenderPlaylist = ({ item }) => {
     <div>
       <RenderNameCard name={name} />
       <p>Lists Of Tracks In This Playlist</p>
-      <RenderTracks tracks={tracks} />
+      <RenderTracks tracks={tracks} name={name} />
     </div>
   )
 }
 
-const RenderTracks = ({ tracks }) => {
-  const renderItems = () => tracks?.map(item => <RenderTrack key={item} keyId={item} />)
+const RenderTracks = ({ tracks, name }) => {
+  const renderItems = () => tracks?.map(item => <RenderTrack key={item} keyId={item} name={name} />)
 
   return (
     <div className='flex gap-4'>
@@ -34,25 +34,23 @@ const RenderTracks = ({ tracks }) => {
   )
 }
 
-const RenderTrack = ({ keyId }) => {
+const RenderTrack = ({ keyId, name }) => {
   const appCtx = useContext(AppContext);
 
   const foundTrack = appCtx?.topTracks[0]?.data.find(item => item.key == keyId)
 
   console.log(appCtx?.topTracks?.data, keyId, foundTrack)
 
-  return (
-    // <RenderTrackMinimalView track={foundTrack} fromSearch={true} />
-    // <div className=''>
-    //   <div className=''>
-    //     <RenderTrackMinimalView track={foundTrack} fromSearch={true} />
-    //   </div>
-    //   <AiOutlineScissor />
-    // </div>
+  const handleRemoveTrack = () => {
+    console.log(keyId, "!!delete!!")
+    // appCtx?.topTracks[0]?.data.filter(item => item.key == keyId)
+    appCtx.handleRemoveFromPlaylist("user1", name, keyId)
+  }
 
+  return (
     <div style={{minHeight: "342px"}} className='flex flex-col justify-between'>
         <RenderTrackMinimalView track={foundTrack} fromSearch={true} fromPlaylist={true} />
-        <button className='text-md flex gap-2 items-center'><AiOutlineScissor /> <span>Remove From Playlist</span></button>
+        <button onClick={handleRemoveTrack} className='text-md flex gap-2 items-center'><AiOutlineScissor /> <span>Remove From Playlist</span></button>
     </div>
   )
 }
