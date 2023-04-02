@@ -1,11 +1,11 @@
 import { AppContext } from '@/components/appContext'
 import { shazamApiInterceptor } from '@/utils/interceptor'
 import { useQuery } from '@tanstack/react-query'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 
 const beginFetch = (options) => shazamApiInterceptor(options)
 
-export function useFetchSearchData (url, query, type, handleSearch, decideRefetching) {
+export function useFetchSearchData(url, query, type, handleSearch, decideRefetching) {
     const appCtx = useContext(AppContext);
 
     const fetchTracks = () => {
@@ -28,4 +28,36 @@ export function useFetchSearchData (url, query, type, handleSearch, decideRefetc
     })
 
     return data?.data?.result?.hits
+}
+
+
+export function useWhenClickedOutside(ref, handler) {
+    // console.log("close hook", ref.current)
+    useEffect(() => {
+        let listener = event => {
+            if (!ref.current || ref.current.contains(event.target)) return
+            handler(event)
+        }
+
+        document.addEventListener('mousedown', listener)
+
+        return () => document.removeEventListener('mousedown', listener)
+
+    }, [ref, handler])
+
+    // useEffect(() => {
+    //     const listener = event => {
+    //         if (ref.current && !ref.curent.contains(event.target)) {
+    //             console.log("should close")
+    //             handler()
+    //         } else {
+    //             console.log("stay open")
+    //             return
+    //         }
+
+    //         document.addEventListener("mousedown", listener);
+
+    //         return () => document.removeEventListener("mousedown", listener)
+    //     }
+    // }, [ref, handler])
 }

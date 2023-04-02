@@ -1,8 +1,9 @@
 import { shazamApiInterceptor } from '@/utils/interceptor';
 import { useQuery } from '@tanstack/react-query';
-import React, { useContext, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { AppContext } from './appContext'
 import { ShowPlaylists } from './TracksList';
+import { useWhenClickedOutside } from '@/hooks';
 
 const TrackDetail = ({ track_key }) => {
     const appCtx = useContext(AppContext);
@@ -60,6 +61,9 @@ const RenderTrackDetails = ({ data }) => {
 const RenderShareInfo = ({ share, trackId }) => {
     const [show, setShow] = useState(false);
 
+    const ref = useRef()
+    useWhenClickedOutside(ref, () => setShow(false));
+
     const { avatar, href, html, image, snapchat, subject } = share
 
     return (
@@ -77,7 +81,7 @@ const RenderShareInfo = ({ share, trackId }) => {
                 </div>
                 
                 <button onClick={() => setShow(prev => !prev)} className='text-2xl bg-blue-200 px-4 py-1 rounded-md shadow-lg w-full my-1 text-left'>Add To Playlist</button>
-                <div className='absolute z-10'>
+                <div className='absolute z-10 w-full' ref={ref}>
                     {
                         show
                         ? <ShowPlaylists setShow={setShow} trackId={trackId} />

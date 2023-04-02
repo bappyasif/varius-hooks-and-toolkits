@@ -1,7 +1,8 @@
 import Link from 'next/link';
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { AiOutlineCheck, AiOutlineReconciliation } from 'react-icons/ai';
 import { AppContext } from './appContext'
+import { useWhenClickedOutside } from '@/hooks';
 
 export const TracksList = ({ data, countryCode }) => {
     const [tracksData, setTracksData] = useState([]);
@@ -35,11 +36,14 @@ export const TracksList = ({ data, countryCode }) => {
 export const RenderTrackMinimalView = ({ track, fromSearch, fromPlaylist }) => {
     const [show, setShow] = useState(false);
 
+    const ref = useRef()
+    useWhenClickedOutside(ref, () => setShow(false));
+
     const { images, subtitle, title, key, url } = track
     const { background, coverart } = images
 
     return (
-        <article className={`${fromPlaylist ? "w-full" : "w-1/4"} flex flex-col justify-between relative bg-stone-200 p-1 rounded-lg`} style={{height: fromPlaylist ? "327px" : "472px"}}>
+        <article ref={ref} className={`${fromPlaylist ? "w-full" : "w-1/4"} flex flex-col justify-between relative bg-stone-200 p-1 rounded-lg`} style={{height: fromPlaylist ? "327px" : "472px"}}>
             <div className='bg-teal-200 px-4 rounded-md text-xl font-bold text-center'>
                 {
                     fromSearch
@@ -80,6 +84,9 @@ export const ShowPlaylists = ({ show, setShow, trackId }) => {
     const openCreateNew = () => setCreateNew(true);
     const closeCreateNew = () => setCreateNew(false);
     const appCtx = useContext(AppContext);
+    // const ref = useRef()
+    // useWhenClickedOutside(ref, () => setShow(false));
+    // useWhenClickedOutside(ref, closeCreateNew);
 
     const userFound = appCtx?.playlists?.find(item => item.userId == "user1")
 
@@ -104,6 +111,9 @@ const PlayListUserInput = ({ closeCreateNew }) => {
 
     const appCtx = useContext(AppContext);
 
+    // const ref = useRef()
+    // useWhenClickedOutside(ref, () => setShow(false));
+
     const handleText = evt => setText(evt.target.value)
 
     const handleCreate = () => {
@@ -116,7 +126,7 @@ const PlayListUserInput = ({ closeCreateNew }) => {
     return (
         <div className=''>
             <input
-                className='w-full text-xl'
+                className='w-full text-2xl'
                 type={"text"}
                 onChange={handleText}
                 placeholder={"Enter Your Playlist Name"}
