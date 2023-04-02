@@ -4,28 +4,9 @@ import { AiOutlineCheck, AiOutlineReconciliation } from 'react-icons/ai';
 import { AppContext } from './appContext'
 
 export const TracksList = ({ data, countryCode }) => {
-    // console.log(data, "DATA!!")
     const [tracksData, setTracksData] = useState([]);
 
     const appCtx = useContext(AppContext);
-
-    // const updateDataInContext = () => appCtx.handleTopTracks(data)
-    // const updateDataInContext = () => appCtx.handleTopTracks(data, countryCode)
-
-    // useEffect(() => {
-    //     data?.length && updateDataInContext()
-    // }, [data])
-
-    // console.log(appCtx?.topTracks, "appCtx.topTracks", tracksData)
-    // const performAlreadyExistingTopTracksData = () => {
-    //     appCtx?.topTracks.forEach(item => {
-    //         // console.log(item)
-    //         const foundItem = Object.keys(item).findIndex(val => val == countryCode)
-    //         if(foundItem !== -1) {
-    //             setTracksData(Object.values(item)[0])
-    //         }
-    //     })
-    // }
 
     const performAlreadyExistingTopTracksData = () => {
         const findCountryTopTracks = appCtx.topTracks.find(item => item.countryCode == appCtx.country)
@@ -38,15 +19,13 @@ export const TracksList = ({ data, countryCode }) => {
         performAlreadyExistingTopTracksData()
     }, [])
 
-    // const renderTracks = () => (data || appCtx.topTracks)?.map(track => track?.images && <RenderTrackMinimalView key={track.key} track={track} />)
-    // const renderTracks = () => (data || appCtx.topTracks[countryCode])?.map(track => track?.images && <RenderTrackMinimalView key={track.key} track={track} />)
     const renderTracks = () => (data || tracksData)?.map(track => track?.images && <RenderTrackMinimalView key={track.key} track={track} />)
 
     return (
         <>
-            <Link className='text-xl bg-blue-400 p-2 rounded-lg' href={"/top-tracks"}>Choose Again Another Country</Link>
-            <h2 className='text-2xl bg-blue-200 my-4'>TracksList</h2>
-            <section className='flex flex-wrap gap-4 justify-evenly'>
+            <Link className='text-xl bg-blue-400 p-2 rounded-lg font-bold' href={"/top-tracks"}>Choose Another Country List</Link>
+            <h2 className='text-2xl bg-blue-200 my-4 font-extrabold'>Trending Tracks</h2>
+            <section className='flex flex-wrap gap-4 justify-between pr-8'>
                 {renderTracks()}
             </section>
         </>
@@ -56,19 +35,19 @@ export const TracksList = ({ data, countryCode }) => {
 export const RenderTrackMinimalView = ({ track, fromSearch, fromPlaylist }) => {
     const [show, setShow] = useState(false);
 
-    // console.log(track, "TRACK!!!!")
     const { images, subtitle, title, key, url } = track
     const { background, coverart } = images
 
-    // console.log(key,"TRACK!!!!")
-
     return (
-        <article className={`${fromPlaylist ? "w-full" : "w-1/4"} relative`}>
-            {
-                fromSearch
-                    ? <a target={"_blank"} className='text-xl bg-teal-200 px-4 rounded-md' href={`${url}`}>{fromPlaylist ? "Listen To This Track" : "Click Here To Listen To This Track"}</a>
-                    : <Link className='text-xl' href={`/top-tracks/track-details/${key}`}>Click Here To See More Details</Link>
-            }
+        <article className={`${fromPlaylist ? "w-full" : "w-1/4"} flex flex-col justify-between relative bg-stone-200 p-1 rounded-lg`} style={{height: fromPlaylist ? "327px" : "472px"}}>
+            <div className='bg-teal-200 px-4 rounded-md text-xl font-bold text-center'>
+                {
+                    fromSearch
+                        ? <a target={"_blank"} className='' href={`${url}`}>{fromPlaylist ? "Listen To This Track" : "Click To Listen To This Track"}</a>
+                        : <Link className='' href={`/top-tracks/track-details/${key}`}>Click To See More Details</Link>
+                }
+            </div>
+
             <img src={background || coverart} width={400} height={400} />
             <p className='text-2xl overflow-hidden text-ellipsis' style={{
                 lineHeight: "1em",
@@ -77,7 +56,7 @@ export const RenderTrackMinimalView = ({ track, fromSearch, fromPlaylist }) => {
             }}>{title} -- {subtitle}</p>
             {
                 !fromSearch
-                    ? <button onClick={() => setShow(prev => !prev)} className='text-2xl bg-blue-200 px-4 py-1 rounded-md shadow-lg w-full'>Add to Playlist</button>
+                    ? <button onClick={() => setShow(prev => !prev)} className='text-2xl bg-blue-200 px-4 py-1 rounded-md shadow-lg w-full font-bold'>Add to Playlist</button>
                     : null
             }
             <div className='absolute bottom-1 z-10'>
@@ -104,7 +83,7 @@ export const ShowPlaylists = ({ show, setShow, trackId }) => {
 
     const userFound = appCtx?.playlists?.find(item => item.userId == "user1")
 
-    console.log(appCtx.playlists, "appCtx.playlists", trackId)
+    // console.log(appCtx.playlists, "appCtx.playlists", trackId)
 
     const renderPlaylists = () => userFound?.lists?.map(item => <PlaylistsDropdowns key={item.name} item={item} setShow={setShow} trackId={trackId} />)
 
@@ -151,7 +130,7 @@ const PlayListUserInput = ({ closeCreateNew }) => {
 }
 
 const PlaylistsDropdowns = ({ item, setShow, trackId }) => {
-    const [added,setAdded] = useState(false);
+    const [added, setAdded] = useState(false);
 
     const appCtx = useContext(AppContext);
 
@@ -167,7 +146,7 @@ const PlaylistsDropdowns = ({ item, setShow, trackId }) => {
         const filtered = appCtx.playlists?.filter(item => item.userId === "user1" && item?.lists?.length)
         console.log(appCtx.playlists, filtered)
         filtered[0]?.lists?.forEach(item => {
-            if(item?.name == name && item?.tracks?.length) {
+            if (item?.name == name && item?.tracks?.length) {
                 setAdded(item.tracks.includes(trackId))
             }
         })
@@ -178,9 +157,9 @@ const PlaylistsDropdowns = ({ item, setShow, trackId }) => {
     }, [trackId])
 
     return (
-        <div style={{cursor: "pointer"}} className="flex gap-2 items-center text-xl justify-between outline outline-1 outline-red-200 px-2 mt-2" onClick={handleClick}>
+        <div style={{ cursor: "pointer" }} className="flex gap-2 items-center text-xl justify-between outline outline-1 outline-red-200 px-2 mt-2" onClick={handleClick}>
             <span className='text-ellipsis overflow-hidden w-1/2'>{name}</span>
-            <span className='w-1/2 flex justify-center text-4xl'>{ added ? <AiOutlineCheck /> : <AiOutlineReconciliation />}</span>
+            <span className='w-1/2 flex justify-center text-4xl'>{added ? <AiOutlineCheck /> : <AiOutlineReconciliation />}</span>
         </div>
     )
 }

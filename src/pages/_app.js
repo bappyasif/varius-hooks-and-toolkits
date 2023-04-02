@@ -17,82 +17,6 @@ export default function App({ Component, pageProps }) {
 
   const [playlists, setPlaylists] = useState([]);
 
-  // const handleRemoveFromPlaylist = (userId, playlistName, trackId) => {
-  //   const userPlaylists = playlists.find(item => item.userId == userId)
-  //   const specificList = userPlaylists?.lists?.find(item => item.name === playlistName)
-  //   const othersList = userPlaylists?.lists?.find(item => item.name !== playlistName)
-  //   const filteredList = specificList?.tracks?.filter(item => item !== trackId)
-
-  //   const updatedList = {name: playlistName, tracks: filteredList}
-
-  //   const newList = {userId, lists: [updatedList, othersList]}
-
-  //   const restList = playlists.filter(item => item.userId !== userId)
-
-  //   // setPlaylists(prev => [...prev, {userId: userId, lists: newList}])
-
-  //   // setPlaylists(prev => [{...prev, userId: userId, lists: newList}])
-
-  //   // this works but it also changes original index which was used for rendering
-
-  //   setPlaylists([{userId: userId, lists: newList.lists}, restList])
-
-  //   // console.log([{userId: userId, lists: newList.lists}, restList])
-
-  //   // console.log(userPlaylists, specificList, filteredList, othersList, updatedList, newList, restList)
-  // }
-
-  // const handleRemoveFromPlaylist = (userId, playlistName, trackId) => {
-  //   setPlaylists(prev => {
-  //     const userPlaylists = prev.find(item => item.userId == userId);
-  //     const specificList = userPlaylists?.lists?.filter(item => item.name === playlistName);
-  //     const removeTrack = specificList?.tracks?.filter(item => item != trackId);
-  //     const updatedList = {userId: userId, lists: removeTrack?.lists}
-
-  //     const restPlaylist = prev.filter(item => item.userId != userId)
-
-  //     console.log(updatedList, restPlaylist, removeTrack, userPlaylists, specificList)
-
-  //     return prev
-  //   })
-  // }
-
-  // const handleRemoveFromPlaylist = (userId, playlistName, trackId) => {
-  //   setPlaylists(prev => {
-  //     return prev.map(item => {
-  //       if (item.userId === userId) {
-  //         return item.lists?.map(list => {
-  //           if (list.name === playlistName) {
-  //             const newTracks = list?.tracks.filter(val => val != trackId);
-  //             list.tracks = newTracks;
-  //           }
-  //           return list
-  //         })
-  //       } else {
-  //         return item
-  //       }
-  //     })
-  //   })
-  // }
-
-  // const handleRemoveFromPlaylist = (userId, playlistName, trackId) => {
-  //   setPlaylists(prev => {
-  //     return prev.map(item => {
-  //       if (item.userId === userId) {
-  //         return item.lists?.map(list => {
-  //           if (list.name === playlistName) {
-  //             const newTracks = list?.tracks.filter(val => val != trackId);
-  //             list.tracks = newTracks;
-  //           }
-  //           console.log(list, item, "<><>", prev)
-  //           return list
-  //         })
-  //       }
-  //       return item
-  //     })
-  //   })
-  // }
-
   const handleRemoveFromPlaylist = (userId, playlistName, trackId) => {
     setPlaylists(prev => {
       return prev.map(item => {
@@ -102,68 +26,33 @@ export default function App({ Component, pageProps }) {
               const newTracks = list?.tracks.filter(val => val != trackId);
               list.tracks = newTracks;
             }
-            console.log(list, item, "<><>", prev)
+            // console.log(list, item, "<><>", prev)
           })
         }
-        console.log(prev, "after")
+        // console.log(prev, "after")
         return prev[0]
       })
-      // console.log(prev, "after")
-      // return prev[1]
     })
   }
-
-  // const handleAddToPlaylist = (userId, playlistName, trackId) => {
-  //   const userPlaylists = playlists.find(item => item.userId == userId)
-
-  //   const otherLists = userPlaylists?.lists.filter(item => item.name !== playlistName)
-
-  //   const specificList = userPlaylists?.lists.find(item => item.name === playlistName)
-
-  //   const checkIfExistAlready = specificList?.tracks?.includes(trackId)
-
-  //   console.log(specificList, "SPECIFIC!!", specificList.tracks, checkIfExistAlready)
-
-  //   if (checkIfExistAlready === false) {
-  //     specificList.tracks.push(trackId)
-  //   } else if (checkIfExistAlready === undefined) {
-  //     specificList.tracks = [trackId]
-  //   }
-  // }
 
   const handleAddToPlaylist = (userId, playlistName, trackId) => {
     setPlaylists(prev => {
       return prev.map(item => {
         if (item.userId === userId) {
           const specificList = item.lists.find(item => item.name === playlistName)
-          if(specificList === undefined) {
-            specificList.tracks = [trackId]
-          } else if (specificList !== -1) {
-            specificList.tracks.push(trackId)
+          if (specificList !== -1) {
+            const checkIfExistAlready = specificList?.tracks?.includes(trackId)
+            if(checkIfExistAlready == undefined) {
+              specificList.tracks = [trackId]
+            } else if (checkIfExistAlready === false) {
+              specificList.tracks.push(trackId)
+            }
           }
         }
-        console.log(prev, "after")
+        // console.log(prev, "after")
         return prev[0]
       })
-      // console.log(prev, "after")
-      // return prev[1]
     })
-
-    const userPlaylists = playlists.find(item => item.userId == userId)
-
-    const otherLists = userPlaylists?.lists.filter(item => item.name !== playlistName)
-
-    const specificList = userPlaylists?.lists.find(item => item.name === playlistName)
-
-    const checkIfExistAlready = specificList?.tracks?.includes(trackId)
-
-    console.log(specificList, "SPECIFIC!!", specificList.tracks, checkIfExistAlready)
-
-    if (checkIfExistAlready === false) {
-      specificList.tracks.push(trackId)
-    } else if (checkIfExistAlready === undefined) {
-      specificList.tracks = [trackId]
-    }
   }
 
   const handlePlaylists = (newData, userId) => {
@@ -185,19 +74,15 @@ export default function App({ Component, pageProps }) {
 
   const handleRelatedTracks = (data, trackId) => {
     data?.length ? setRelatedTracks(prev => ([...prev, { data: data, key: trackId }])) : null
-    // setRelatedTracks(prev => ([...prev, {[trackId]: data}]))
-    console.log(relatedTracks, "relatedTracks!!")
+    // console.log(relatedTracks, "relatedTracks!!")
   }
 
   const handleCountry = name => setCountry(name)
 
   const handleTopTracks = (data, countryCode) => {
-    // setTopTracks(data)
-    // setTopTracks({[countryCode]: data})
-    // setTopTracks(prev => ([...prev, {[countryCode]: data}]))
     setTopTracks(prev => ([...prev, { data, countryCode }]))
 
-    console.log(data, "<<>>")
+    // console.log(data, "<<>>")
   }
 
   const handleSearchData = (type, query, data) => {
