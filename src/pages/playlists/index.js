@@ -11,7 +11,7 @@ const UserPlaylists = () => {
 
   return (
     <main>
-        <h1>User Playlists</h1>
+        <h1 className='text-6xl bg-blue-200 mb-4'>User Playlists</h1>
         <ShowUserPlaylists data={foundPlaylists?.lists} />
     </main>
   )

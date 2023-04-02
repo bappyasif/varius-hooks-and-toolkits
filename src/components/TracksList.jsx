@@ -66,11 +66,15 @@ export const RenderTrackMinimalView = ({ track, fromSearch, fromPlaylist }) => {
         <article className={`${fromPlaylist ? "w-full" : "w-1/4"} relative`}>
             {
                 fromSearch
-                    ? <a target={"_blank"} className='text-xl' href={`${url}`}>{fromPlaylist ? "Listen To This Track" : "Click Here To Listen To This Track"}</a>
+                    ? <a target={"_blank"} className='text-xl bg-teal-200 px-4 rounded-md' href={`${url}`}>{fromPlaylist ? "Listen To This Track" : "Click Here To Listen To This Track"}</a>
                     : <Link className='text-xl' href={`/top-tracks/track-details/${key}`}>Click Here To See More Details</Link>
             }
             <img src={background || coverart} width={400} height={400} />
-            <p className='text-2xl break-words'>{title} -- {subtitle}</p>
+            <p className='text-2xl overflow-hidden text-ellipsis' style={{
+                lineHeight: "1em",
+                maxHeight: "2em",
+                lineClamp: 2
+            }}>{title} -- {subtitle}</p>
             {
                 !fromSearch
                     ? <button onClick={() => setShow(prev => !prev)} className='text-2xl bg-blue-200 px-4 py-1 rounded-md shadow-lg w-full'>Add to Playlist</button>

@@ -113,7 +113,42 @@ export default function App({ Component, pageProps }) {
     })
   }
 
+  // const handleAddToPlaylist = (userId, playlistName, trackId) => {
+  //   const userPlaylists = playlists.find(item => item.userId == userId)
+
+  //   const otherLists = userPlaylists?.lists.filter(item => item.name !== playlistName)
+
+  //   const specificList = userPlaylists?.lists.find(item => item.name === playlistName)
+
+  //   const checkIfExistAlready = specificList?.tracks?.includes(trackId)
+
+  //   console.log(specificList, "SPECIFIC!!", specificList.tracks, checkIfExistAlready)
+
+  //   if (checkIfExistAlready === false) {
+  //     specificList.tracks.push(trackId)
+  //   } else if (checkIfExistAlready === undefined) {
+  //     specificList.tracks = [trackId]
+  //   }
+  // }
+
   const handleAddToPlaylist = (userId, playlistName, trackId) => {
+    setPlaylists(prev => {
+      return prev.map(item => {
+        if (item.userId === userId) {
+          const specificList = item.lists.find(item => item.name === playlistName)
+          if(specificList === undefined) {
+            specificList.tracks = [trackId]
+          } else if (specificList !== -1) {
+            specificList.tracks.push(trackId)
+          }
+        }
+        console.log(prev, "after")
+        return prev[0]
+      })
+      // console.log(prev, "after")
+      // return prev[1]
+    })
+
     const userPlaylists = playlists.find(item => item.userId == userId)
 
     const otherLists = userPlaylists?.lists.filter(item => item.name !== playlistName)
