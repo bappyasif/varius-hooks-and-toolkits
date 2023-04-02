@@ -23,7 +23,7 @@ export function useFetchSearchData (url, query, type, handleSearch, decideRefetc
         onSuccess: data => {
             handleSearch()
             data?.data?.result?.hits && appCtx.handleSearchData(type, query, data?.data?.result?.hits)
-            console.log(data, "Search tracks - fetch succeeded")
+            console.log(data, "Search - fetch succeeded")
         }
     })
 

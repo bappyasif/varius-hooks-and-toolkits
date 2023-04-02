@@ -86,7 +86,10 @@ export default function App({ Component, pageProps }) {
   }
 
   const handleSearchData = (type, query, data) => {
-    setSearchedData(prev => [...prev, { type, query, data }])
+    const checkIfExistAlready = searchedData?.findIndex(item => item?.type === type && item.query === query && data?.length)
+    // console.log(checkIfExistAlready, "checkIfExistAlready!!><><")
+    setSearchedData(prev => checkIfExistAlready === -1 ? [...prev, { type, query, data }] : [...prev])
+    // setSearchedData(prev => [...prev, { type, query, data }])
   }
 
   const clientQuery = new QueryClient()

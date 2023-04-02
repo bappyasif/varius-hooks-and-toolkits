@@ -49,7 +49,7 @@ export const RenderTrackMinimalView = ({ track, fromSearch, fromPlaylist }) => {
             </div>
 
             <img src={background || coverart} width={400} height={400} />
-            <p className='text-2xl overflow-hidden text-ellipsis' style={{
+            <p className={`text-2xl overflow-hidden text-ellipsis ${fromSearch ? "text-center" : ""}`} style={{
                 lineHeight: "1em",
                 maxHeight: "2em",
                 lineClamp: 2
@@ -59,7 +59,7 @@ export const RenderTrackMinimalView = ({ track, fromSearch, fromPlaylist }) => {
                     ? <button onClick={() => setShow(prev => !prev)} className='text-2xl bg-blue-200 px-4 py-1 rounded-md shadow-lg w-full font-bold'>Add to Playlist</button>
                     : null
             }
-            <div className='absolute bottom-1 z-10'>
+            <div className='absolute bottom-11 z-10 w-full pr-2'>
                 {
                     show
                         ? <ShowPlaylists show={show} setShow={setShow} trackId={key} />
@@ -88,11 +88,11 @@ export const ShowPlaylists = ({ show, setShow, trackId }) => {
     const renderPlaylists = () => userFound?.lists?.map(item => <PlaylistsDropdowns key={item.name} item={item} setShow={setShow} trackId={trackId} />)
 
     return (
-        <div className='bg-blue-200'>
+        <div className='bg-blue-900'>
             {
                 createNew
                     ? <PlayListUserInput closeCreateNew={closeCreateNew} />
-                    : <button className='text-2xl' onClick={openCreateNew}>Create Playlist</button>
+                    : <button className='text-2xl text-slate-200 text-center w-full' onClick={openCreateNew}>Create Playlist</button>
             }
             {renderPlaylists()}
         </div>
