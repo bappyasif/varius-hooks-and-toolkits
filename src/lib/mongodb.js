@@ -2,7 +2,11 @@
 import { MongoClient } from 'mongodb'
 
 const uri = process.env.DB_URL
-const options = {}
+const options = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  // useCreateIndex: true,
+}
 
 let client
 let clientPromise
@@ -23,8 +27,19 @@ if (process.env.NODE_ENV === 'development') {
   // In production mode, it's best to not use a global variable.
   client = new MongoClient(uri, options)
   clientPromise = client.connect()
+  // clientPromise = client.connect()
+  // .then(() => console.log("Database connected!"))
+  // .catch(err => console.log(err));
 }
 
 // Export a module-scoped MongoClient promise. By doing this in a
 // separate module, the client can be shared across functions.
+
+clientPromise 
+  .then(() => console.log("Database connected!"))
+  .catch(err => console.log(err));
+
 export default clientPromise
+
+// export default clientPromise.then(() => console.log("Database connected!"))
+// .catch(err => console.log(err));
