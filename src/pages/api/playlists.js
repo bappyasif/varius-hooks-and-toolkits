@@ -1,24 +1,82 @@
 import "@/lib/mongodb";
 import playlist from "@/model/playlist"
+import userPlaylist from "@/model/userPlaylist";
 
 export default async function handler (req, res) {
 
     if(req.method === "POST") {
-        
-        const test = new playlist({
-            name: req.body.name,
-            // tracks: ["1", "2"]
-        });
+        console.log(req.body, "req.body")
+        const {name, userId} = req.body;
+
+        const test = new userPlaylist({
+            name: name, 
+            userId: userId
+        })
+
+        // const test = new playlist({
+        //     name: req.body.name,
+        //     userId: req.body.userId
+        //     // tracks: ["1", "2"]
+        // });
+
+        // const test = new playlist({
+        //     name: name,
+        //     userId: userId
+        // })
     
         test.save()
 
         return res.status(200).json({test})
+
+    } else if (req.method === "PUT") {
+        // const { userId, name, trackId} = req.body
+        // const userPlaylist = await userPlaylist.find({name: name})
+        
+        // if(userPlaylist?.tracks?.length === 0) {
+        //     userPlaylist.tracks.push(trackId)
+        // }
+
+        const { userId, name, trackId} = req.body
+        const userPlaylists = await userPlaylist.findOne({name: name, userId: userId})
+        
+        if(userPlaylists?.tracks?.length === undefined || userPlaylists?.tracks?.length === 0) {
+            // userPlaylists.tracks.push(trackId)
+            userPlaylists.tracks = [trackId]
+        } else if (userPlaylists?.tracks?.length) {
+            const chk = userPlaylists.tracks.findIndex(val => val == trackId)
+            if(chk === -1) {
+                userPlaylists.tracks.push(trackId)
+            }
+        }
+
+        userPlaylist.findByIdAndUpdate(userPlaylists._id, userPlaylists, {}).then(() => console.log("updated!!")).catch(err=>console.log(err))
+
+        console.log(name, trackId, "PUTPTI", userPlaylists, userPlaylists?.tracks)
     }
 
     // console.log(req.method, req.body, "!!WHTA!!", req.body?.name)
 
     res.status(200).json({msg: "'t is levend"})
 }
+
+// export default async function handler (req, res) {
+
+//     if(req.method === "POST") {
+        
+//         const test = new playlist({
+//             name: req.body.name,
+//             // tracks: ["1", "2"]
+//         });
+    
+//         test.save()
+
+//         return res.status(200).json({test})
+//     }
+
+//     // console.log(req.method, req.body, "!!WHTA!!", req.body?.name)
+
+//     res.status(200).json({msg: "'t is levend"})
+// }
 
 // export default async function handler (req, res) {
 //     // const test = new Playlist({

@@ -1,4 +1,5 @@
 import Playlist from "@/model/tracksPlaylist";
+import userPlaylist from "@/model/userPlaylist";
 import connectMongo from "@/utils/connectMongo";
 
 export default async function handler (req, res) {
@@ -13,14 +14,20 @@ export default async function handler (req, res) {
         //     tracks: ["1", "2"]
         // })
 
+        const test3 = new userPlaylist({
+            name: "test2",
+            userId: "user1"
+        })
+
         const test2 = new Playlist({
             name: "test",
             tracks: ["1", "2"]
         })
 
         test2.save()
+        test3.save()
         console.log("Created DB")
-        res.json({test2})
+        res.json({test2, test3})
     } catch (err) {
         console.log(err);
         res.json({err})

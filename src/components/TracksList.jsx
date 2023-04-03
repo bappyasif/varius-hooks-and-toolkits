@@ -130,7 +130,7 @@ const PlayListUserInput = ({ closeCreateNew }) => {
 
     const sendDataToDb = () => {
         // const response = internalApiRequest({url: "/playlists", method: "post", body: JSON.stringify({"name": "p1"}), headers: {"Content-Type": "application/json"}})
-        const response = internalApiRequest({url: "/playlists", method: "POST", data: JSON.stringify({name: text}), headers: {"Content-Type": "application/json"}})
+        const response = internalApiRequest({url: "/playlists", method: "POST", data: JSON.stringify({name: text, userId: "user1"}), headers: {"Content-Type": "application/json"}})
 
         response.then(value => console.log(value))
     }
@@ -166,9 +166,17 @@ const PlaylistsDropdowns = ({ item, setShow, trackId }) => {
 
     const { name } = item;
 
+    const updateDataInDb = () => {
+        const url = "/playlists";
+        const method = "PUT"
+        const data = JSON.stringify({name, trackId, userId: "user1"})
+        internalApiRequest({url, method, data,  headers: {"Content-Type": "application/json"}})
+    }
+
     const handleClick = () => {
         // const data = {name, }
         appCtx.handleAddToPlaylist("user1", name, trackId)
+        updateDataInDb();
         setShow(false)
     }
 
