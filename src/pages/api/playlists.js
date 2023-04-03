@@ -2,31 +2,52 @@ import "@/lib/mongodb";
 import playlist from "@/model/playlist"
 
 export default async function handler (req, res) {
-    // const test = new Playlist({
-    //     name: "test",
-    //     tracks: ["1", "2"]
-    // });
 
-    const test = new playlist({
-        name: "test22",
-        tracks: ["1", "2"]
-    });
+    if(req.method === "POST") {
+        
+        const test = new playlist({
+            name: req.body.name,
+            // tracks: ["1", "2"]
+        });
+    
+        test.save()
 
-    test.save()
+        return res.status(200).json({test})
+    }
 
-    // const test = Playlist.create({
-    //     name: "test",
-    //     tracks: ["1", "2"]
-    // });
+    // console.log(req.method, req.body, "!!WHTA!!", req.body?.name)
 
-    // ClientPromise.then(() => {
-    //     console.log("Database connected!")
-    //     // test.save().then((value) => console.log("item saved", value)).catch(err=>console.log(err))
-    // })
-    // .catch(err => console.log(err));
-
-    res.status(200).json({msg: "'t is levend", test})
+    res.status(200).json({msg: "'t is levend"})
 }
+
+// export default async function handler (req, res) {
+//     // const test = new Playlist({
+//     //     name: "test",
+//     //     tracks: ["1", "2"]
+//     // });
+
+//     console.log(req.method, req.body, "!!WHTA!!", req.body?.name)
+
+//     const test = new playlist({
+//         name: "test22",
+//         tracks: ["1", "2"]
+//     });
+
+//     test.save()
+
+//     // const test = Playlist.create({
+//     //     name: "test",
+//     //     tracks: ["1", "2"]
+//     // });
+
+//     // ClientPromise.then(() => {
+//     //     console.log("Database connected!")
+//     //     // test.save().then((value) => console.log("item saved", value)).catch(err=>console.log(err))
+//     // })
+//     // .catch(err => console.log(err));
+
+//     res.status(200).json({msg: "'t is levend", test})
+// }
 
 // export default async function handler (req, res) {
 //     const test = new Playlist({

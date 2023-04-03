@@ -12,3 +12,15 @@ export const shazamApiInterceptor = ({...options}) => {
 
     return client(options).then(onSuccess).catch(onError)
 }
+
+export const internalApiRequest = ({...options}) => {
+    const client = axios.create({baseURL: "http://localhost:3000/api"})
+    
+    // client.defaults.headers.common["Content-Type"] = "application/json";
+
+    const onSuccess = response => response;
+    
+    const onError = error => error
+    
+    return client(options).then(onSuccess).catch(onError)
+}

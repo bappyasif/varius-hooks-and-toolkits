@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import { AiOutlineCheck, AiOutlineReconciliation } from 'react-icons/ai';
 import { AppContext } from './appContext'
 import { useWhenClickedOutside } from '@/hooks';
+import { internalApiRequest } from '@/utils/interceptor';
 
 export const TracksList = ({ data, countryCode }) => {
     const [tracksData, setTracksData] = useState([]);
@@ -116,10 +117,29 @@ const PlayListUserInput = ({ closeCreateNew }) => {
 
     const handleText = evt => setText(evt.target.value)
 
+    // const sendDataToDb = async () => {
+    //     const response = await internalApiRequest({url: "/playlists", method: "post", body: {"name": "p1"}, headers: {"Content-Type": "application/json"}})
+    //     // const response = await fetch({url: "/playlists", method: "post", body: {"name": "p1"}})
+    //     // const response = await fetch("/playlists", {method: "post", body: {"name": "p1"}, headers: {"Content-Type": "application/json"}})
+    //     // const data = await response?.json();
+
+    //     // console.log(data, "DATADATADATADATA", response)
+
+    //     console.log("DATADATADATADATA", response)
+    // }
+
+    const sendDataToDb = () => {
+        // const response = internalApiRequest({url: "/playlists", method: "post", body: JSON.stringify({"name": "p1"}), headers: {"Content-Type": "application/json"}})
+        const response = internalApiRequest({url: "/playlists", method: "POST", data: JSON.stringify({name: text}), headers: {"Content-Type": "application/json"}})
+
+        response.then(value => console.log(value))
+    }
+
     const handleCreate = () => {
         console.log(text)
         const data = { name: text }
         appCtx?.handlePlaylists(data, "user1")
+        sendDataToDb()
         closeCreateNew()
     }
 
