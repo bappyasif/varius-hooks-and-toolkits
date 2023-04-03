@@ -1,5 +1,5 @@
 import "@/lib/mongodb";
-import Playlist from "@/model/playlist"
+import playlist from "@/model/playlist"
 
 export default async function handler (req, res) {
     // const test = new Playlist({
@@ -7,10 +7,17 @@ export default async function handler (req, res) {
     //     tracks: ["1", "2"]
     // });
 
-    const test = Playlist.create({
-        name: "test",
+    const test = new playlist({
+        name: "test22",
         tracks: ["1", "2"]
     });
+
+    test.save()
+
+    // const test = Playlist.create({
+    //     name: "test",
+    //     tracks: ["1", "2"]
+    // });
 
     // ClientPromise.then(() => {
     //     console.log("Database connected!")
