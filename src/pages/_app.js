@@ -17,6 +17,18 @@ export default function App({ Component, pageProps }) {
 
   const [playlists, setPlaylists] = useState([]);
 
+  const handleRemovePlaylist = (userId, playlistName) => {
+    const newList = playlists.map(item => {
+      if(item?.userId === userId) {
+        item.lists = item?.lists.filter(list => list.name !== playlistName)
+      }
+      return item
+    })
+
+    newList?.length && setPlaylists(newList);
+    console.log(newList, "NEWLIST!!")
+  }
+
   const handleRemoveFromPlaylist = (userId, playlistName, trackId) => {
     setPlaylists(prev => {
       return prev.map(item => {
@@ -99,7 +111,7 @@ export default function App({ Component, pageProps }) {
   const clientQuery = new QueryClient()
 
   return (
-    <AppContext.Provider value={{ handleInitialUserPlaylist, handleRemoveFromPlaylist, handleAddToPlaylist, handlePlaylists, playlists, handleSearchData, searchedData, handleTopTracks, topTracks, handleCountry, country, handleRelatedTracks, relatedTracks }}>
+    <AppContext.Provider value={{ handleRemovePlaylist, handleInitialUserPlaylist, handleRemoveFromPlaylist, handleAddToPlaylist, handlePlaylists, playlists, handleSearchData, searchedData, handleTopTracks, topTracks, handleCountry, country, handleRelatedTracks, relatedTracks }}>
       <QueryClientProvider client={clientQuery}>
         <div className='flex gap-9'>
           <Navbar />

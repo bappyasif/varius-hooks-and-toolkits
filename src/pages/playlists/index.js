@@ -36,7 +36,7 @@ const UserPlaylists = () => {
   console.log(appCtx?.playlists, foundPlaylists, data?.data)
 
   return (
-    <main>
+    <main className='w-full'>
       <h1 className='text-6xl bg-blue-200 mb-4'>User Playlists</h1>
       {/* <ShowUserPlaylists data={foundPlaylists?.lists} /> */}
       <ShowUserPlaylists data={foundPlaylists?.lists} />

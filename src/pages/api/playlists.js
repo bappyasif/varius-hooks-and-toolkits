@@ -85,19 +85,24 @@ export default async function handler (req, res) {
         // }).catch(err => console.log(err))
         console.log(req.method, req?.query, userId)
     } else if (req.method === "DELETE") {
-        const {userId, name, trackId} = req.body;
+        const {userId, name, trackId, delPlist} = req.body;
 
         console.log(req.method, req.body, req.query, userId, name, trackId)
         
-        userPlaylist.findOne({name: name}).then(doc => {
-            console.log(doc?.tracks)
-            const newList = doc?.tracks.filter(v => v != trackId)
-            doc.tracks = newList;
-            // doc?.tracks.filter(v => v != trackId)
-            // doc?.tracks = doc?.tracks.filter(v => v != trackId)
-            userPlaylist.findByIdAndUpdate(doc._id, doc, {})
-            .then(() => console.log("track deleted")).catch(()=> console.log("after delete update failed"))
-        }).catch(err => console.log(err))
+        if(delPlist) {
+            userPlaylist.findOneAndDelete({name: name})
+            .then(() => console.log("Playlist deleted....")).catch(err => console.log(err))
+        } else {
+            userPlaylist.findOne({name: name}).then(doc => {
+                console.log(doc?.tracks)
+                const newList = doc?.tracks.filter(v => v != trackId)
+                doc.tracks = newList;
+                // doc?.tracks.filter(v => v != trackId)
+                // doc?.tracks = doc?.tracks.filter(v => v != trackId)
+                userPlaylist.findByIdAndUpdate(doc._id, doc, {})
+                .then(() => console.log("track deleted")).catch(()=> console.log("after delete update failed"))
+            }).catch(err => console.log(err))
+        }
         
         res.status(200).json({msg: "'t is levend"})
     } else {
