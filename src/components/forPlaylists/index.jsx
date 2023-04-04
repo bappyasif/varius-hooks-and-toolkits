@@ -3,6 +3,7 @@ import { AppContext } from '../appContext'
 import { RenderTrackMinimalView } from '../TracksList'
 import { AiOutlineDelete, AiOutlineScissor } from 'react-icons/ai'
 import { internalApiRequest } from '@/utils/interceptor'
+import Link from 'next/link'
 
 export const ShowUserPlaylists = ({ data }) => {
   const renderLists = () => data?.map((item, idx) => <RenderPlaylist key={item.name + idx} item={item} />)
@@ -42,9 +43,15 @@ const RenderTracks = ({ tracks, name }) => {
 const RenderTrack = ({ keyId, name, tracks }) => {
   const appCtx = useContext(AppContext);
 
-  const foundTrack = appCtx?.topTracks[0]?.data.find(item => item.key == keyId)
+  // const foundTrack = appCtx?.topTracks[0]?.data.find(item => item.key == keyId)
 
-  // console.log(appCtx?.topTracks?.data, keyId, foundTrack)
+  let foundTrack = null
+
+  appCtx.topTracks?.forEach(lists => {
+    foundTrack = lists?.data.find(item => item.key == keyId)
+  })
+
+  console.log(appCtx?.topTracks?.data, keyId, foundTrack, appCtx?.topTracks)
 
   const deleteTrackFromDb = () => {
     const url = "/playlists";
@@ -66,9 +73,13 @@ const RenderTrack = ({ keyId, name, tracks }) => {
   }
 
   return (
-    <div className={`${tracks?.length >=2 ? "w-1/3" : "w-1/2"} bg-stone-200 rounded-md px-1`}>
-      <RenderTrackMinimalView track={foundTrack} fromSearch={true} fromPlaylist={true} />
-      <button onClick={handleRemoveTrack} className='text-lg font-bold flex gap-2 items-center bg-neutral-400 text-red-800 rounded-lg my-1 mt-6 w-full'><AiOutlineScissor size={"31px"} /> <span className='text-center w-full text-xl'>Remove From Playlist</span></button>
+    <div className={`${tracks?.length >= 2 ? "w-1/3" : "w-1/2"} bg-stone-200 rounded-md px-1`}>
+      {
+        foundTrack
+          ? <RenderTrackMinimalView track={foundTrack} fromSearch={true} fromPlaylist={true} />
+          : <Link className='bg-stone-200' href={"/top-tracks"}>Checkout Trending Music First, And Then Come Back Here To See This Track Detail, As These Are Sourced From Country's Top Tracks Lists!!</Link>
+      }
+      {foundTrack && <button onClick={handleRemoveTrack} className='text-lg font-bold flex gap-2 items-center bg-neutral-400 text-red-800 rounded-lg my-1 mt-6 w-full'><AiOutlineScissor size={"31px"} /> <span className='text-center w-full text-xl'>Remove From Playlist</span></button>}
     </div>
   )
 }
@@ -101,11 +112,11 @@ const RenderNameCard = ({ name, url }) => {
           <span>Delete Playlist</span>
         </button>
       </div>
-      <img 
-        className='w-full' 
-        src={url || "https://source.unsplash.com/random"} 
+      <img
+        className='w-full'
+        src={url || "https://source.unsplash.com/random"}
         // width={450} height={450} 
-        style={{maxHeight: "290px"}}
+        style={{ maxHeight: "290px" }}
       />
     </div>
   )
