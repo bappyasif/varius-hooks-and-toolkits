@@ -1,9 +1,10 @@
-import "@/lib/mongodb";
+import DBConnect from "@/lib/mongodb";
 import playlist from "@/model/playlist"
 import userPlaylist from "@/model/userPlaylist";
 
+// make sure database is connected otherwise this will face buffereing time error
 export default async function handler (req, res) {
-
+    // DBConnect()
     if(req.method === "POST") {
         console.log(req.body, "req.body")
         const {name, userId} = req.body;
@@ -52,11 +53,42 @@ export default async function handler (req, res) {
         userPlaylist.findByIdAndUpdate(userPlaylists._id, userPlaylists, {}).then(() => console.log("updated!!")).catch(err=>console.log(err))
 
         console.log(name, trackId, "PUTPTI", userPlaylists, userPlaylists?.tracks)
+    } else if(req.method === "GET") {
+        const {userId} = req.query;
+        // const lists = await userPlaylist.find({userId})
+        userPlaylist.find({userId: userId})
+        .then(results => {
+            const lists = results?.map(item => {
+                const {name, tracks} = item
+
+                return {name, tracks}
+
+                // return {lists: {name, tracks}}
+            })
+            console.log(lists, "resuylt!!")
+            return res.json({result: {userId, lists}, msg: "result modified!!"})
+            // console.log(results)
+        }).catch(err => console.log(err))
+
+        // userPlaylist.find({userId: userId})
+        // .then(results => {
+        //     const result = results?.map(item => {
+        //         const {userId, name, tracks} = item
+
+        //         return {userId, lists: {name, tracks}}
+        //     })
+        //     console.log(result, "resuylt!!")
+        //     return res.json({result, msg: "result modified!!"})
+        //     // console.log(results)
+        // }).catch(err => console.log(err))
+        console.log(req.method, req?.query, userId)
+    } else {
+        res.status(200).json({msg: "'t is levend"})
     }
 
     // console.log(req.method, req.body, "!!WHTA!!", req.body?.name)
 
-    res.status(200).json({msg: "'t is levend"})
+    // res.status(200).json({msg: "'t is levend"})
 }
 
 // export default async function handler (req, res) {

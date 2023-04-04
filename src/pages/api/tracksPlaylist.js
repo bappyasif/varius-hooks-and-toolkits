@@ -27,7 +27,9 @@ export default async function handler (req, res) {
         test2.save()
         test3.save()
         console.log("Created DB")
-        res.json({test2, test3})
+
+        const lists = await userPlaylist.find({userId: "user1"})
+        res.json({test2, test3, lists})
     } catch (err) {
         console.log(err);
         res.json({err})

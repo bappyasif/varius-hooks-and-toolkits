@@ -55,6 +55,10 @@ export default function App({ Component, pageProps }) {
     })
   }
 
+  const handleInitialUserPlaylist = (userPlaylistData) => {
+    setPlaylists([userPlaylistData])
+  }
+
   const handlePlaylists = (newData, userId) => {
     const userPlaylists = playlists?.find(item => item.userId == userId)
     const chk = userPlaylists?.lists.findIndex(item => item.name === newData?.name)
@@ -95,7 +99,7 @@ export default function App({ Component, pageProps }) {
   const clientQuery = new QueryClient()
 
   return (
-    <AppContext.Provider value={{ handleRemoveFromPlaylist, handleAddToPlaylist, handlePlaylists, playlists, handleSearchData, searchedData, handleTopTracks, topTracks, handleCountry, country, handleRelatedTracks, relatedTracks }}>
+    <AppContext.Provider value={{ handleInitialUserPlaylist, handleRemoveFromPlaylist, handleAddToPlaylist, handlePlaylists, playlists, handleSearchData, searchedData, handleTopTracks, topTracks, handleCountry, country, handleRelatedTracks, relatedTracks }}>
       <QueryClientProvider client={clientQuery}>
         <div className='flex gap-9'>
           <Navbar />
