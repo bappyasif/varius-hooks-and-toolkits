@@ -5,6 +5,8 @@ import userPlaylist from "@/model/userPlaylist";
 // make sure database is connected otherwise this will face buffereing time error
 export default async function handler (req, res) {
     // DBConnect()
+
+    // console.log(req.method, "METOD!!")
     if(req.method === "POST") {
         console.log(req.body, "req.body")
         const {name, userId} = req.body;
@@ -82,6 +84,22 @@ export default async function handler (req, res) {
         //     // console.log(results)
         // }).catch(err => console.log(err))
         console.log(req.method, req?.query, userId)
+    } else if (req.method === "DELETE") {
+        const {userId, name, trackId} = req.body;
+
+        console.log(req.method, req.body, req.query, userId, name, trackId)
+        
+        userPlaylist.findOne({name: name}).then(doc => {
+            console.log(doc?.tracks)
+            const newList = doc?.tracks.filter(v => v != trackId)
+            doc.tracks = newList;
+            // doc?.tracks.filter(v => v != trackId)
+            // doc?.tracks = doc?.tracks.filter(v => v != trackId)
+            userPlaylist.findByIdAndUpdate(doc._id, doc, {})
+            .then(() => console.log("track deleted")).catch(()=> console.log("after delete update failed"))
+        }).catch(err => console.log(err))
+        
+        res.status(200).json({msg: "'t is levend"})
     } else {
         res.status(200).json({msg: "'t is levend"})
     }

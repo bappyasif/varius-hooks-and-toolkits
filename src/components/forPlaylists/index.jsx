@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { AppContext } from '../appContext'
 import { RenderTrackMinimalView } from '../TracksList'
 import { AiOutlineScissor } from 'react-icons/ai'
+import { internalApiRequest } from '@/utils/interceptor'
 
 export const ShowUserPlaylists = ({ data }) => {
   const renderLists = () => data?.map((item, idx) => <RenderPlaylist key={item.name + idx} item={item} />)
@@ -41,10 +42,23 @@ const RenderTrack = ({ keyId, name }) => {
 
   // console.log(appCtx?.topTracks?.data, keyId, foundTrack)
 
+  const deleteTrackFromDb = () => {
+    const url ="/playlists";
+    const data = {userId: "user1", name: name, trackId: keyId};
+    // const params = {userId: "user1"}
+    const method = "DELETE"
+    return internalApiRequest({url, data, method})
+  }
+
   const handleRemoveTrack = () => {
     console.log(keyId, "!!delete!!")
     // appCtx?.topTracks[0]?.data.filter(item => item.key == keyId)
-    appCtx.handleRemoveFromPlaylist("user1", name, keyId)
+    deleteTrackFromDb().then(() => {
+      console.log("deleted successfully from db")
+      appCtx.handleRemoveFromPlaylist("user1", name, keyId)
+    }).catch(err => console.log(err))
+
+    // appCtx.handleRemoveFromPlaylist("user1", name, keyId)
   }
 
   return (
