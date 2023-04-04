@@ -44,8 +44,8 @@ export const RenderTrackMinimalView = ({ track, fromSearch, fromPlaylist }) => {
     const { background, coverart } = images
 
     return (
-        <article ref={ref} className={`${fromPlaylist ? "w-full" : "w-1/4"} flex flex-col justify-between relative bg-stone-200 p-1 rounded-lg`} style={{height: fromPlaylist ? "327px" : "472px"}}>
-            <div className='bg-teal-200 px-4 rounded-md text-xl font-bold text-center'>
+        <article ref={ref} className={`${fromPlaylist ? "w-full" : "w-1/4"} flex flex-col justify-between relative bg-stone-200 p-1 rounded-lg`} style={{height: fromPlaylist ? "317px" : !fromPlaylist && fromSearch ? "418px" : "472px"}}>
+            <div className='bg-teal-200 px-4 mb-1 rounded-md text-xl font-bold text-center'>
                 {
                     fromSearch
                         ? <a target={"_blank"} className='' href={`${url}`}>{fromPlaylist ? "Listen To This Track" : "Click To Listen To This Track"}</a>
@@ -53,7 +53,14 @@ export const RenderTrackMinimalView = ({ track, fromSearch, fromPlaylist }) => {
                 }
             </div>
 
-            <img src={background || coverart} width={400} height={400} />
+            <img
+                // className={fromPlaylist ? "h-full w-full" : "h-full"} 
+                src={background || coverart} 
+                style={{maxHeight: fromPlaylist ? "301px" : "324px"}}
+                // style={{maxHeight: !fromPlaylist && "324px"}}
+                // width={"100%"} 
+                // height={310} 
+            />
             <p className={`text-2xl overflow-hidden text-ellipsis ${fromSearch ? "text-center" : ""}`} style={{
                 lineHeight: "1em",
                 maxHeight: "2em",

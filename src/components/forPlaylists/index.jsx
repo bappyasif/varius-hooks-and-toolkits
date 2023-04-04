@@ -28,7 +28,7 @@ const RenderTracks = ({ tracks, name }) => {
   const renderItems = () => tracks?.map(item => <RenderTrack key={item} keyId={item} name={name} />)
 
   return (
-    <div className='flex gap-4 flex-wrap self-start'>
+    <div className='flex gap-4 flex-wrap self-start w-full'>
       {renderItems()}
     </div>
   )
@@ -48,9 +48,9 @@ const RenderTrack = ({ keyId, name }) => {
   }
 
   return (
-    <div className='w-1/3 bg-stone-200'>
+    <div className='w-1/3 bg-stone-200 rounded-md px-1'>
         <RenderTrackMinimalView track={foundTrack} fromSearch={true} fromPlaylist={true} />
-        <button onClick={handleRemoveTrack} className='text-lg font-bold flex gap-2 items-center bg-neutral-400 text-red-800 rounded-lg mt-4 w-full'><AiOutlineScissor size={"31px"} /> <span className='text-center w-full text-xl'>Remove From Playlist</span></button>
+        <button onClick={handleRemoveTrack} className='text-lg font-bold flex gap-2 items-center bg-neutral-400 text-red-800 rounded-lg my-1 mt-6 w-full'><AiOutlineScissor size={"31px"} /> <span className='text-center w-full text-xl'>Remove From Playlist</span></button>
     </div>
   )
 }
