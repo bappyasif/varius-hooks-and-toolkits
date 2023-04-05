@@ -4,6 +4,7 @@ import { RenderTrackMinimalView } from '../TracksList'
 import { AiOutlineDelete, AiOutlineScissor } from 'react-icons/ai'
 import { internalApiRequest } from '@/utils/interceptor'
 import Link from 'next/link'
+import { useSession } from 'next-auth/react'
 
 export const ShowUserPlaylists = ({ data }) => {
   const renderLists = () => data?.map((item, idx) => <RenderPlaylist key={item.name + idx} item={item} />)
@@ -42,6 +43,8 @@ const RenderTracks = ({ tracks, name }) => {
 
 const RenderTrack = ({ keyId, name, tracks }) => {
   const appCtx = useContext(AppContext);
+  const {data: session} = useSession()
+  const {id} = session?.user
 
   // const foundTrack = appCtx?.topTracks[0]?.data.find(item => item.key == keyId)
 
@@ -55,7 +58,8 @@ const RenderTrack = ({ keyId, name, tracks }) => {
 
   const deleteTrackFromDb = () => {
     const url = "/playlists";
-    const data = { userId: "user1", name: name, trackId: keyId };
+    // const data = { userId: "user1", name: name, trackId: keyId };
+    const data = { userId: id, name: name, trackId: keyId };
     // const params = {userId: "user1"}
     const method = "DELETE"
     return internalApiRequest({ url, data, method })
@@ -66,7 +70,8 @@ const RenderTrack = ({ keyId, name, tracks }) => {
     // appCtx?.topTracks[0]?.data.filter(item => item.key == keyId)
     deleteTrackFromDb().then(() => {
       console.log("deleted successfully from db")
-      appCtx.handleRemoveFromPlaylist("user1", name, keyId)
+      // appCtx.handleRemoveFromPlaylist("user1", name, keyId)
+      appCtx.handleRemoveFromPlaylist(id, name, keyId)
     }).catch(err => console.log(err))
 
     // appCtx.handleRemoveFromPlaylist("user1", name, keyId)
@@ -86,10 +91,13 @@ const RenderTrack = ({ keyId, name, tracks }) => {
 
 const RenderNameCard = ({ name, url }) => {
   const appCtx = useContext(AppContext);
+  const {data: session} = useSession()
+  const {id} = session?.user
 
   const deletePlaylistFromDb = () => {
     const url = "/playlists";
-    const data = { userId: "user1", name: name, delPlist: true };
+    const data = { userId: id, name: name, delPlist: true };
+    // const data = { userId: "user1", name: name, delPlist: true };
     // const params = {userId: "user1"}
     const method = "DELETE"
     return internalApiRequest({ url, data, method })
@@ -97,7 +105,8 @@ const RenderNameCard = ({ name, url }) => {
 
   const handleDelete = () => {
     deletePlaylistFromDb().then(() => {
-      appCtx.handleRemovePlaylist("user1", name)
+      appCtx.handleRemovePlaylist(id, name)
+      // appCtx.handleRemovePlaylist("user1", name)
     }).catch(err => console.log("error occured....", err))
     // appCtx.handleRemovePlaylist("user1", name)
   }

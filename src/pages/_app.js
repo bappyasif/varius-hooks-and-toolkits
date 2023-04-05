@@ -20,7 +20,7 @@ export default function App({ Component, pageProps }) {
 
   const handleRemovePlaylist = (userId, playlistName) => {
     const newList = playlists.map(item => {
-      if (item?.userId === userId) {
+      if (item?.userId == userId) {
         item.lists = item?.lists.filter(list => list.name !== playlistName)
       }
       return item
@@ -33,9 +33,9 @@ export default function App({ Component, pageProps }) {
   const handleRemoveFromPlaylist = (userId, playlistName, trackId) => {
     setPlaylists(prev => {
       return prev.map(item => {
-        if (item.userId === userId) {
+        if (item.userId == userId) {
           item.lists?.forEach(list => {
-            if (list.name === playlistName) {
+            if (list.name == playlistName) {
               const newTracks = list?.tracks.filter(val => val != trackId);
               list.tracks = newTracks;
             }

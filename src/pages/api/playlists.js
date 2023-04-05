@@ -1,10 +1,18 @@
-import DBConnect from "@/lib/mongodb";
+// import DBConnect from "@/lib/mongodb";
+import clientPromise from "@/lib/mongodb";
 import playlist from "@/model/playlist"
+import connectMongo from "../../utils/connectMongo"
 import userPlaylist from "@/model/userPlaylist";
 
 // make sure database is connected otherwise this will face buffereing time error
 export default async function handler (req, res) {
-    // DBConnect()
+    // DBConnect().then(() => console.log("db running")).catch(err => console.log(err))
+
+    // await clientPromise
+
+    // clientPromise.then(() => console.log("Database connected!")).catch(err => console.log(err));
+
+    await connectMongo();
 
     // console.log(req.method, "METOD!!")
     if(req.method === "POST") {
