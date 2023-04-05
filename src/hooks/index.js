@@ -1,7 +1,8 @@
 import { AppContext } from '@/components/appContext'
 import { internalApiRequest, shazamApiInterceptor } from '@/utils/interceptor'
 import { useQuery } from '@tanstack/react-query'
-import { useSession } from 'next-auth/react'
+import { signIn, useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
 import React, { useContext, useEffect } from 'react'
 
 const beginFetch = (options) => shazamApiInterceptor(options)
@@ -64,8 +65,9 @@ export function useWhenClickedOutside(ref, handler) {
 }
 
 export function useToFetchPlaylists () {
-    const {data: session} = useSession();
+    const {data: session, status} = useSession();
     const appCtx = useContext(AppContext);
+    const router = useRouter()
 
   const fetchingPlaylist = () => {
     const url = "/playlists";
@@ -82,7 +84,8 @@ export function useToFetchPlaylists () {
     queryKey: ["fetching playlist", `${session?.user?.id}`],
     queryFn: fetchingPlaylist,
     refetchOnWindowFocus: false,
-    enabled: appCtx?.playlists?.length == 0,
+    enabled: status === "authenticated" && appCtx?.playlists?.length == 0,
+    // enabled: appCtx?.playlists?.length == 0,
     // enabled: fetchPlaylists && appCtx?.playlists?.length == 0,
     // enabled: fetchPlaylists,
     onSuccess: data => {
@@ -92,6 +95,13 @@ export function useToFetchPlaylists () {
       // appCtx?.playlists?.length == 0 && data?.data?.result?.length && setFetchPlaylists(false)
     }
   })
-  
+
+  console.log(status, "STATYS!!")
+
+//   useEffect(() => {
+//     // status === "unauthenticated" ? signIn() : null
+//     status === "unauthenticated" ? router.push("/api/auth/signin") : null
+//   }, [])
+
   return {data}
 }

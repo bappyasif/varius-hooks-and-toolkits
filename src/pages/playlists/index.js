@@ -1,17 +1,20 @@
 import { AppContext } from '@/components/appContext'
 import { ShowUserPlaylists } from '@/components/forPlaylists';
 import { useToFetchPlaylists } from '@/hooks';
-import { internalApiRequest } from '@/utils/interceptor';
-import { useQuery } from '@tanstack/react-query';
-import { useSession } from 'next-auth/react';
-import React, { useContext, useState } from 'react'
+// import { internalApiRequest } from '@/utils/interceptor';
+// import { useQuery } from '@tanstack/react-query';
+import { signIn, useSession } from 'next-auth/react';
+// import { useRouter } from 'next/router';
+import React, { useContext, useEffect, useState } from 'react'
 
 const UserPlaylists = () => {
   // const [fetchPlaylists, setFetchPlaylists] = useState(true);
 
   const appCtx = useContext(AppContext);
 
-  const {data: session} = useSession();
+  // const router = useRouter()
+
+  const {data: session, status} = useSession();
 
   // const {data} = useToFetchPlaylists(fetchPlaylists, setFetchPlaylists)
   const {data} = useToFetchPlaylists()
@@ -43,7 +46,21 @@ const UserPlaylists = () => {
   // const foundPlaylists = appCtx?.playlists?.find(item => item?.userId == "user1" && item?.lists?.length)
   const foundPlaylists = appCtx?.playlists?.find(item => (item?.userId == session?.user?.id) && item?.lists?.length)
 
-  console.log(appCtx?.playlists, foundPlaylists, data?.data)
+  // console.log(appCtx?.playlists, foundPlaylists, data?.data, session)
+
+//   const handleSignin = (e) => {
+//     e.preventDefault()
+//     signIn()
+// }
+
+  useEffect(() => {
+    // status === "unauthenticated" ? signIn() : null
+    // status == "unauthenticated" || status == "loading" ? console.log("run this") : console.log("nmiet!!", status)
+    // status == "unauthenticated" ? router.push("/api/auth/signin") : null
+    // status == "unauthenticated" || status == "loading" ? router.push("/api/auth/signin") : null
+    // status == "unauthenticated" || status == "loading" ? signIn() : null
+    status == "unauthenticated" ? signIn() : null
+  }, [status])
 
   return (
     <main className='w-full'>
