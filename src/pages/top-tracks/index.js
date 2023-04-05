@@ -24,7 +24,7 @@ const TopTracksByCountry = () => {
     }, [status])
     
     return (
-        <main className='flex flex-col'>
+        <main className='flex flex-col text-4xl w-full'>
             <div>TopTracks</div>
             <SelectCountry handleCountryChange={handleCountryChange} />
         </main>
