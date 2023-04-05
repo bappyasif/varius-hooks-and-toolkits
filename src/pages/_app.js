@@ -51,8 +51,8 @@ export default function App({ Component, pageProps }) {
   const handleAddToPlaylist = (userId, playlistName, trackId) => {
     setPlaylists(prev => {
       return prev.map(item => {
-        if (item.userId === userId) {
-          const specificList = item.lists.find(item => item.name === playlistName)
+        if (item.userId == userId) {
+          const specificList = item.lists.find(item => item.name == playlistName)
           if (specificList !== -1) {
             const checkIfExistAlready = specificList?.tracks?.includes(trackId)
             if (checkIfExistAlready == undefined) {

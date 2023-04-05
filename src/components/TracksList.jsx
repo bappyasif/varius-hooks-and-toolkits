@@ -2,8 +2,9 @@ import Link from 'next/link';
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { AiOutlineCheck, AiOutlineReconciliation } from 'react-icons/ai';
 import { AppContext } from './appContext'
-import { useWhenClickedOutside } from '@/hooks';
+import { useToFetchPlaylists, useWhenClickedOutside } from '@/hooks';
 import { internalApiRequest } from '@/utils/interceptor';
+import { useSession } from 'next-auth/react';
 
 export const TracksList = ({ data, countryCode }) => {
     const [tracksData, setTracksData] = useState([]);
@@ -89,14 +90,22 @@ export const RenderTrackMinimalView = ({ track, fromSearch, fromPlaylist }) => {
 
 export const ShowPlaylists = ({ show, setShow, trackId }) => {
     const [createNew, setCreateNew] = useState(false);
+    // const [fetchPlaylists, setFetchPlaylists] = useState(true);
     const openCreateNew = () => setCreateNew(true);
     const closeCreateNew = () => setCreateNew(false);
     const appCtx = useContext(AppContext);
+    const {data: session} = useSession();
+
     // const ref = useRef()
     // useWhenClickedOutside(ref, () => setShow(false));
     // useWhenClickedOutside(ref, closeCreateNew);
 
-    const userFound = appCtx?.playlists?.find(item => item.userId == "user1")
+    // const {data} = useToFetchPlaylists(fetchPlaylists, setFetchPlaylists)
+    // useToFetchPlaylists(fetchPlaylists, setFetchPlaylists)
+    useToFetchPlaylists()
+
+    // const userFound = appCtx?.playlists?.find(item => item.userId == "user1")
+    const userFound = appCtx?.playlists?.find(item => item.userId == session?.user?.id)
 
     // console.log(appCtx.playlists, "appCtx.playlists", trackId)
 
@@ -116,6 +125,8 @@ export const ShowPlaylists = ({ show, setShow, trackId }) => {
 
 const PlayListUserInput = ({ closeCreateNew }) => {
     const [text, setText] = useState("")
+
+    const {data: session} = useSession()
 
     const appCtx = useContext(AppContext);
 
@@ -137,18 +148,28 @@ const PlayListUserInput = ({ closeCreateNew }) => {
 
     const sendDataToDb = () => {
         // const response = internalApiRequest({url: "/playlists", method: "post", body: JSON.stringify({"name": "p1"}), headers: {"Content-Type": "application/json"}})
-        const response = internalApiRequest({url: "/playlists", method: "POST", data: JSON.stringify({name: text, userId: "user1"}), headers: {"Content-Type": "application/json"}})
+        const {id} = session?.user
 
+        // const response = internalApiRequest({url: "/playlists", method: "POST", data: JSON.stringify({name: text, userId: "user1"}), headers: {"Content-Type": "application/json"}})
+
+        const response = internalApiRequest({url: "/playlists", method: "POST", data: JSON.stringify({name: text, userId: id}), headers: {"Content-Type": "application/json"}})
+        
         response.then(value => console.log(value))
     }
 
     const handleCreate = () => {
-        console.log(text)
+        // console.log(text)
+        const {id} = session?.user
         const data = { name: text }
-        appCtx?.handlePlaylists(data, "user1")
+
+        appCtx?.handlePlaylists(data, id)
+        // appCtx?.handlePlaylists(data, "user1")
+
         sendDataToDb()
         closeCreateNew()
     }
+
+    console.log(session, "SESSION!!")
 
     return (
         <div className=''>
@@ -171,25 +192,36 @@ const PlaylistsDropdowns = ({ item, setShow, trackId }) => {
 
     const appCtx = useContext(AppContext);
 
+    const {data: session} = useSession();
+
     const { name } = item;
 
     const updateDataInDb = () => {
         const url = "/playlists";
         const method = "PUT"
-        const data = JSON.stringify({name, trackId, userId: "user1"})
+        const data = JSON.stringify({name, trackId, userId: session?.user?.id})
+        // const data = JSON.stringify({name, trackId, userId: "user1"})
         internalApiRequest({url, method, data,  headers: {"Content-Type": "application/json"}})
     }
 
     const handleClick = () => {
         // const data = {name, }
-        appCtx.handleAddToPlaylist("user1", name, trackId)
+        // appCtx.handleAddToPlaylist("user1", name, trackId)
+        appCtx.handleAddToPlaylist(session?.user?.id, name, trackId)
         updateDataInDb();
         setShow(false)
     }
 
     const checkInWhichPlaylist = () => {
-        const filtered = appCtx.playlists?.filter(item => item.userId === "user1" && item?.lists?.length)
+        // const filtered = appCtx.playlists?.filter(item => item.userId === "user1" && item?.lists?.length)
+        const filtered = appCtx.playlists?.filter(item => item.userId == session?.user?.id && item?.lists?.length)
+        // const filtered = appCtx.playlists?.filter(item => {
+        //     console.log(item.userId == session?.user?.id && item?.lists?.length, item.userId, session?.user?.id, item.userId == session?.user?.id, item?.lists?.length)
+        //     return item.userId == session?.user?.id && item?.lists?.length
+        // })
+
         console.log(appCtx.playlists, filtered)
+        
         filtered[0]?.lists?.forEach(item => {
             if (item?.name == name && item?.tracks?.length) {
                 setAdded(item.tracks.includes(trackId))

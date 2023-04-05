@@ -72,7 +72,7 @@ const RenderShareInfo = ({ share, trackId }) => {
                 <img src={avatar || image} width={200} height={130} alt={subject} />
                 <h2 className='text-2xl bg-blue-200 rounded-md'>{subject}</h2>
             </div> */}
-            <div className='relative'>
+            <div className='relative' ref={ref}>
                 <img src={image} />
                 <div className='flex gap-1 flex-col text-xl'>
                     <a className='bg-blue-200 rounded-md' href={snapchat}>Open Track In SnapChat</a>
@@ -81,7 +81,7 @@ const RenderShareInfo = ({ share, trackId }) => {
                 </div>
                 
                 <button onClick={() => setShow(prev => !prev)} className='text-2xl bg-blue-200 px-4 py-1 rounded-md shadow-lg w-full my-1 text-left'>Add To Playlist</button>
-                <div className='absolute z-10 w-full' ref={ref}>
+                <div className='absolute z-10 w-full'>
                     {
                         show
                         ? <ShowPlaylists setShow={setShow} trackId={trackId} />

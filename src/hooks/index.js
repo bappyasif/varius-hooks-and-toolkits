@@ -1,6 +1,7 @@
 import { AppContext } from '@/components/appContext'
-import { shazamApiInterceptor } from '@/utils/interceptor'
+import { internalApiRequest, shazamApiInterceptor } from '@/utils/interceptor'
 import { useQuery } from '@tanstack/react-query'
+import { useSession } from 'next-auth/react'
 import React, { useContext, useEffect } from 'react'
 
 const beginFetch = (options) => shazamApiInterceptor(options)
@@ -60,4 +61,37 @@ export function useWhenClickedOutside(ref, handler) {
     //         return () => document.removeEventListener("mousedown", listener)
     //     }
     // }, [ref, handler])
+}
+
+export function useToFetchPlaylists () {
+    const {data: session} = useSession();
+    const appCtx = useContext(AppContext);
+
+  const fetchingPlaylist = () => {
+    const url = "/playlists";
+    const method = "GET";
+    // const data = {userId: "user1"};
+    // const params = {userId: "user1"};
+    const params = {userId: session?.user?.id};
+    // return internalApiRequest({url, method, data, params, headers: {"Content-Type": "application/json"}})
+    return internalApiRequest({url, method, params})
+  }
+
+  const {data} = useQuery({
+    // queryKey: ["fetching playlist", `user1`],
+    queryKey: ["fetching playlist", `${session?.user?.id}`],
+    queryFn: fetchingPlaylist,
+    refetchOnWindowFocus: false,
+    enabled: appCtx?.playlists?.length == 0,
+    // enabled: fetchPlaylists && appCtx?.playlists?.length == 0,
+    // enabled: fetchPlaylists,
+    onSuccess: data => {
+        console.log("fetched playlists!!")
+    //   data?.data?.result?.length && setFetchPlaylists(false)
+      appCtx.handleInitialUserPlaylist(data?.data?.result)
+      // appCtx?.playlists?.length == 0 && data?.data?.result?.length && setFetchPlaylists(false)
+    }
+  })
+  
+  return {data}
 }
