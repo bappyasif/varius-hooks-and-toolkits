@@ -5,6 +5,7 @@ import '@/styles/globals.css'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { useState } from 'react'
+import { SessionProvider } from "next-auth/react";
 
 export default function App({ Component, pageProps }) {
   const [topTracks, setTopTracks] = useState([]);
@@ -19,7 +20,7 @@ export default function App({ Component, pageProps }) {
 
   const handleRemovePlaylist = (userId, playlistName) => {
     const newList = playlists.map(item => {
-      if(item?.userId === userId) {
+      if (item?.userId === userId) {
         item.lists = item?.lists.filter(list => list.name !== playlistName)
       }
       return item
@@ -54,7 +55,7 @@ export default function App({ Component, pageProps }) {
           const specificList = item.lists.find(item => item.name === playlistName)
           if (specificList !== -1) {
             const checkIfExistAlready = specificList?.tracks?.includes(trackId)
-            if(checkIfExistAlready == undefined) {
+            if (checkIfExistAlready == undefined) {
               specificList.tracks = [trackId]
             } else if (checkIfExistAlready === false) {
               specificList.tracks.push(trackId)
@@ -111,15 +112,17 @@ export default function App({ Component, pageProps }) {
   const clientQuery = new QueryClient()
 
   return (
-    <AppContext.Provider value={{ handleRemovePlaylist, handleInitialUserPlaylist, handleRemoveFromPlaylist, handleAddToPlaylist, handlePlaylists, playlists, handleSearchData, searchedData, handleTopTracks, topTracks, handleCountry, country, handleRelatedTracks, relatedTracks }}>
-      <QueryClientProvider client={clientQuery}>
-        <div className='flex gap-9'>
-          <Navbar />
-          <Component {...pageProps} />
-        </div>
-        <Footer />
-        <ReactQueryDevtools />
-      </QueryClientProvider>
-    </AppContext.Provider>
+    <SessionProvider session={pageProps.session}>
+      <AppContext.Provider value={{ handleRemovePlaylist, handleInitialUserPlaylist, handleRemoveFromPlaylist, handleAddToPlaylist, handlePlaylists, playlists, handleSearchData, searchedData, handleTopTracks, topTracks, handleCountry, country, handleRelatedTracks, relatedTracks }}>
+        <QueryClientProvider client={clientQuery}>
+          <div className='flex gap-9'>
+            <Navbar />
+            <Component {...pageProps} />
+          </div>
+          <Footer />
+          <ReactQueryDevtools />
+        </QueryClientProvider>
+      </AppContext.Provider>
+    </SessionProvider>
   )
 }
