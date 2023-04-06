@@ -4,7 +4,7 @@ import { AiOutlineCheck, AiOutlineReconciliation } from 'react-icons/ai';
 import { AppContext } from './appContext'
 import { useToFetchPlaylists, useWhenClickedOutside } from '@/hooks';
 import { internalApiRequest } from '@/utils/interceptor';
-import { useSession } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 
 export const TracksList = ({ data, countryCode }) => {
     const [tracksData, setTracksData] = useState([]);
@@ -17,6 +17,12 @@ export const TracksList = ({ data, countryCode }) => {
             setTracksData(findCountryTopTracks.data)
         }
     }
+
+    const { status } = useSession();
+
+    useEffect(() => {
+        status === "unauthenticated" ? signIn() : null
+    }, [status])
 
     useEffect(() => {
         performAlreadyExistingTopTracksData()
@@ -45,7 +51,7 @@ export const RenderTrackMinimalView = ({ track, fromSearch, fromPlaylist }) => {
     const { background, coverart } = images
 
     return (
-        <article ref={ref} className={`${fromPlaylist ? "w-full" : "w-1/4"} flex flex-col justify-between relative bg-stone-200 p-1 rounded-lg`} style={{height: fromPlaylist ? "317px" : !fromPlaylist && fromSearch ? "418px" : "472px"}}>
+        <article ref={ref} className={`${fromPlaylist ? "w-full" : "w-1/4"} flex flex-col justify-between relative bg-stone-200 p-1 rounded-lg`} style={{ height: fromPlaylist ? "317px" : !fromPlaylist && fromSearch ? "418px" : "472px" }}>
             <div className='bg-teal-200 px-4 mb-1 rounded-md text-xl font-bold text-center'>
                 {
                     fromSearch
@@ -56,11 +62,11 @@ export const RenderTrackMinimalView = ({ track, fromSearch, fromPlaylist }) => {
 
             <img
                 // className={fromPlaylist ? "h-full w-full" : "h-full"} 
-                src={background || coverart} 
-                style={{maxHeight: fromPlaylist ? "301px" : "324px"}}
-                // style={{maxHeight: !fromPlaylist && "324px"}}
-                // width={"100%"} 
-                // height={310} 
+                src={background || coverart}
+                style={{ maxHeight: fromPlaylist ? "301px" : "324px" }}
+            // style={{maxHeight: !fromPlaylist && "324px"}}
+            // width={"100%"} 
+            // height={310} 
             />
             <p className={`text-2xl overflow-hidden text-ellipsis ${fromSearch ? "text-center" : ""}`} style={{
                 lineHeight: "1em",
@@ -94,7 +100,7 @@ export const ShowPlaylists = ({ show, setShow, trackId }) => {
     const openCreateNew = () => setCreateNew(true);
     const closeCreateNew = () => setCreateNew(false);
     const appCtx = useContext(AppContext);
-    const {data: session} = useSession();
+    const { data: session } = useSession();
 
     // const ref = useRef()
     // useWhenClickedOutside(ref, () => setShow(false));
@@ -126,7 +132,7 @@ export const ShowPlaylists = ({ show, setShow, trackId }) => {
 const PlayListUserInput = ({ closeCreateNew }) => {
     const [text, setText] = useState("")
 
-    const {data: session} = useSession()
+    const { data: session } = useSession()
 
     const appCtx = useContext(AppContext);
 
@@ -148,18 +154,18 @@ const PlayListUserInput = ({ closeCreateNew }) => {
 
     const sendDataToDb = () => {
         // const response = internalApiRequest({url: "/playlists", method: "post", body: JSON.stringify({"name": "p1"}), headers: {"Content-Type": "application/json"}})
-        const {id} = session?.user
+        const { id } = session?.user
 
         // const response = internalApiRequest({url: "/playlists", method: "POST", data: JSON.stringify({name: text, userId: "user1"}), headers: {"Content-Type": "application/json"}})
 
-        const response = internalApiRequest({url: "/playlists", method: "POST", data: JSON.stringify({name: text, userId: id}), headers: {"Content-Type": "application/json"}})
-        
+        const response = internalApiRequest({ url: "/playlists", method: "POST", data: JSON.stringify({ name: text, userId: id }), headers: { "Content-Type": "application/json" } })
+
         response.then(value => console.log(value))
     }
 
     const handleCreate = () => {
         // console.log(text)
-        const {id} = session?.user
+        const { id } = session?.user
         const data = { name: text }
 
         appCtx?.handlePlaylists(data, id)
@@ -192,16 +198,16 @@ const PlaylistsDropdowns = ({ item, setShow, trackId }) => {
 
     const appCtx = useContext(AppContext);
 
-    const {data: session} = useSession();
+    const { data: session } = useSession();
 
     const { name } = item;
 
     const updateDataInDb = () => {
         const url = "/playlists";
         const method = "PUT"
-        const data = JSON.stringify({name, trackId, userId: session?.user?.id})
+        const data = JSON.stringify({ name, trackId, userId: session?.user?.id })
         // const data = JSON.stringify({name, trackId, userId: "user1"})
-        internalApiRequest({url, method, data,  headers: {"Content-Type": "application/json"}})
+        internalApiRequest({ url, method, data, headers: { "Content-Type": "application/json" } })
     }
 
     const handleClick = () => {
@@ -221,7 +227,7 @@ const PlaylistsDropdowns = ({ item, setShow, trackId }) => {
         // })
 
         console.log(appCtx.playlists, filtered)
-        
+
         filtered[0]?.lists?.forEach(item => {
             if (item?.name == name && item?.tracks?.length) {
                 setAdded(item.tracks.includes(trackId))

@@ -5,12 +5,17 @@ import { AiOutlineDelete, AiOutlineScissor } from 'react-icons/ai'
 import { internalApiRequest } from '@/utils/interceptor'
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
+import { ShowWhenNoPlaylistIsFoundOrCreated } from '../forDashboard'
 
 export const ShowUserPlaylists = ({ data }) => {
   const renderLists = () => data?.map((item, idx) => <RenderPlaylist key={item.name + idx} item={item} />)
   return (
     <section className='flex flex-wrap gap-4 w-full'>
-      {renderLists()}
+      {
+        data?.length
+          ? renderLists()
+          : <ShowWhenNoPlaylistIsFoundOrCreated />
+      }
     </section>
   )
 }
@@ -43,8 +48,8 @@ const RenderTracks = ({ tracks, name }) => {
 
 const RenderTrack = ({ keyId, name, tracks }) => {
   const appCtx = useContext(AppContext);
-  const {data: session} = useSession()
-  const {id} = session?.user
+  const { data: session } = useSession()
+  const { id } = session?.user
 
   // const foundTrack = appCtx?.topTracks[0]?.data.find(item => item.key == keyId)
 
@@ -91,8 +96,8 @@ const RenderTrack = ({ keyId, name, tracks }) => {
 
 const RenderNameCard = ({ name, url }) => {
   const appCtx = useContext(AppContext);
-  const {data: session} = useSession()
-  const {id} = session?.user
+  const { data: session } = useSession()
+  const { id } = session?.user
 
   const deletePlaylistFromDb = () => {
     const url = "/playlists";

@@ -1,18 +1,45 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { AppContext } from '../appContext'
 import { countriesCodes } from "../../utils/data"
 import Link from 'next/link';
+import { signIn, useSession } from 'next-auth/react';
 
 export const TrendingLists = () => {
   const appCtx = useContext(AppContext);
+
+  const { data: session, status } = useSession();
+
+  useEffect(() => {
+    status === "unauthenticated" ? signIn() : null
+  }, [status])
+
   console.log(appCtx?.topTracks, "top tracks")
+  
   const renderCountriesListsViewed = () => appCtx?.topTracks.map(item => <CountryListsDetails key={item.countryCode} item={item} />)
 
   return (
     <section className='flex gap-4 justify-between px-4'>
       {/* <div>TrendingLists</div> */}
-      {renderCountriesListsViewed()}
+      {
+        appCtx?.topTracks?.length
+          ? renderCountriesListsViewed()
+          : <ShowWhenNoTrendingListVisited />
+      }
+      {/* {renderCountriesListsViewed()} */}
     </section>
+  )
+}
+
+const RenderTopTracksLink = () => {
+  return <span>lets change that from <Link className='bg-stone-200 px-4 rounded-full w-fit' href={"/top-tracks"}>here</Link></span>
+}
+
+const ShowWhenNoTrendingListVisited = () => {
+  return (
+    <div className='text-2xl'>
+      <p>you havent visited any trending songs list from any country yet</p>
+      <RenderTopTracksLink />
+    </div>
   )
 }
 
@@ -49,8 +76,22 @@ export const AlreadyExistingPlaylistsByThisUser = ({ session }) => {
   return (
     <section className='flex gap-4 flex-wrap text-2xl justify-between px-4'>
       {/* <h2>Lists</h2> */}
-      {renderLists()}
+      {/* {renderLists()} */}
+      {
+        foundPlaylists?.lists
+          ? renderLists()
+          : <ShowWhenNoPlaylistIsFoundOrCreated />
+      }
     </section>
+  )
+}
+
+export const ShowWhenNoPlaylistIsFoundOrCreated = () => {
+  return (
+    <div className='text-2xl'>
+      <p>you havent created any playlist from any trending lists yet</p>
+      <RenderTopTracksLink />
+    </div>
   )
 }
 
