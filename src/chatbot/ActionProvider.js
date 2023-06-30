@@ -1,25 +1,8 @@
 import React from 'react';
 
 const ActionProvider = ({ createChatBotMessage, setState, children }) => {
-    const handleHello = () => {
-        const botMsg = createChatBotMessage("Hello, nice to meet you :)")
-
-        setState(prev => ({
-            ...prev,
-            messages: [...prev.messages, botMsg]
-        }))
-    }
-
     const handleBegin = () => {
-        const botMsg = createChatBotMessage("Welcome to info system")
-        setState(prev => ({
-            ...prev,
-            messages: [...prev.messages, botMsg]
-        }))
-    }
-
-    const handleDogPicture = () => {
-        const botMsg = createChatBotMessage("Here is a nice dog picture for you!!", { widget: "dogPicture" })
+        const botMsg = createChatBotMessage("Got It!! System Started", {widget: "studentName"});
 
         setState(prev => ({
             ...prev,
@@ -27,8 +10,8 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
         }))
     }
 
-    const handleReady = () => {
-        const botMsg = createChatBotMessage("Welcome to Info Sysytem!!", { widget: "systemReady" })
+    const handleName = () => {
+        const botMsg = createChatBotMessage("You successfully entered your name, and now choose your age group", {widget: "studentAgeGroup"});
 
         setState(prev => ({
             ...prev,
@@ -36,8 +19,17 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
         }))
     }
 
-    const handleConfirm = () => {
-        const botMsg = createChatBotMessage("Noice, Info Sysytem Started!!", { widget: "confirmed" })
+    const handleAgeGroup = () => {
+        const botMsg = createChatBotMessage("You chosen your age group and now enter your age within that age group", {widget: "studentAge"});
+
+        setState(prev => ({
+            ...prev,
+            messages: [...prev.messages, botMsg]
+        }))
+    }
+
+    const handleStudentAge = () => {
+        const botMsg = createChatBotMessage("You have now successfuly enrolled into student info system. congratulations", {widget: "studentEnrolled"});
 
         setState(prev => ({
             ...prev,
@@ -50,11 +42,10 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
             {React.Children.map(children, (child) => {
                 return React.cloneElement(child, {
                     actions: {
-                        handleHello,
                         handleBegin,
-                        handleDogPicture,
-                        handleReady,
-                        handleConfirm
+                        handleName,
+                        handleAgeGroup,
+                        handleStudentAge
                     },
                 });
             })}
