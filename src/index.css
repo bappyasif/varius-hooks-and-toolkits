@@ -27,7 +27,7 @@ code {
 
 .container.chatbot {
   align-items: flex-end;
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
 
 button {
@@ -42,4 +42,64 @@ a {
 
 h1 {
   font-size: 69px;
+}
+
+
+/* customizing chatbot */
+.react-chatbot-kit-chat-container {
+  width: 470px !important;
+}
+
+.react-chatbot-kit-chat-inner-container {
+  background-color: darkgrey !important;
+}
+
+.react-chatbot-kit-chat-header {
+  background-color: burlywood !important;
+  font-size: x-large !important;
+}
+
+.action.btn {
+  width: fit-content;
+  align-self: center;
+}
+
+fieldset {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+fieldset label,
+fieldset input,
+fieldset p,
+select.age-group {
+  font-size: x-large !important;
+}
+
+select.age-group,
+fieldset input {
+  font-size: xx-large !important;
+}
+
+fieldset input {
+  width: 100%;
+}
+
+fieldset p {
+  font-size: large !important;
+  margin: 2px 0 !important;
+}
+
+.react-chatbot-kit-chat-message-container {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.react-chatbot-kit-chat-bot-message {
+  width: max-content !important;
+  margin-left: 9px !important;
+  font-size: 17px !important;
 }

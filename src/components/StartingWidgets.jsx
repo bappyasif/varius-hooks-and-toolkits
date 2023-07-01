@@ -7,7 +7,7 @@ export const BeginSystem = (props) => {
         props.actions.actions.handleBegin()
     }
     return (
-        <button onClick={handleClick}>Got It</button>
+        <button className='action btn' onClick={handleClick}>Got It</button>
     )
 }
 

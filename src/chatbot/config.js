@@ -2,6 +2,7 @@ import { createChatBotMessage } from 'react-chatbot-kit';
 import { BeginSystem, StudentName } from '../components/StartingWidgets';
 import { AgeGroup, StudentAge } from '../components/AgeRelatedWidgets';
 import { StudentEnrolled } from '../components/AfterEnrolledWidget';
+import { ChatbotAvatar } from '../components/ChatbotAvatar';
 // import { AgeGroup, BeginSystem, StudentAge, StudentEnrolled, StudentName } from '../components/AllWidgets';
 
 const botName = "StudentInfoSysBot"
@@ -31,6 +32,9 @@ const config = {
         widgetFunc: props => <StudentEnrolled {...props} />
     }
   ],
+  customComponents: {
+    botAvatar: props => <ChatbotAvatar {...props} />
+  },
   customStyles: {
     botMessageBox: {
       backgroundColor: '#376B7E',

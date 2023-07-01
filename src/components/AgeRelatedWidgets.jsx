@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { handleAge, handleGroup } from "../store";
+import { useEffect } from "react";
 
 export const AgeGroup = (props) => {
     const dispatch = useDispatch();
@@ -16,7 +17,7 @@ export const AgeGroup = (props) => {
     const renderOptions = () => options.map(val => <option key={val} value={val}>{val}</option>)
 
     return (
-        <select name="age group" id="ageGroup" value={ageGrp} onChange={handleAgeGroup}>
+        <select className="age-group" name="age group" id="ageGroup" value={ageGrp} onChange={handleAgeGroup}>
             <option value="-1">Choose Your Age Group</option>
             {renderOptions()}
         </select>
@@ -52,6 +53,10 @@ export const StudentAge = (props) => {
             }
         }
     }
+
+    useEffect(() => {
+        dispatch(handleAge(getMin()))
+    }, [])
 
     return (
         <fieldset>

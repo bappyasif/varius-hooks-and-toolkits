@@ -2,7 +2,7 @@ import React from 'react';
 
 const ActionProvider = ({ createChatBotMessage, setState, children }) => {
     const handleBegin = () => {
-        const botMsg = createChatBotMessage("Got It!! System Started", {widget: "studentName"});
+        const botMsg = createChatBotMessage("Got It!! System Started. Complete Prompts, Good luck :)", {widget: "studentName"});
 
         setState(prev => ({
             ...prev,
