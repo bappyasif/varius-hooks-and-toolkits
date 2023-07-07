@@ -1,20 +1,20 @@
-import React, { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { selectAllPosts, fetchPosts, getPostsError, getPostsStatus } from './postSlice'
-import { PostsExcerpt } from './PostsExcerpt'
+import { useSelector } from "react-redux";
+import { selectAllPosts, getPostsStatus, getPostsError } from "./postsSlice";
+import PostsExcerpt from "./PostsExcerpt";
 
-export const PostsList = () => {
-    const dispatch = useDispatch();
+const PostsList = () => {
+    // const dispatch = useDispatch();
 
     const posts = useSelector(selectAllPosts);
     const postStatus = useSelector(getPostsStatus);
     const error = useSelector(getPostsError);
 
-    useEffect(() => {
-        if (postStatus === 'idle') {
-            dispatch(fetchPosts())
-        }
-    }, [postStatus, dispatch])
+    // as we are directly fetching posts on app load from main.jsx with dispatch
+    // useEffect(() => {
+    //     if (postStatus === 'idle') {
+    //         dispatch(fetchPosts())
+    //     }
+    // }, [postStatus, dispatch])
 
     let content;
     if (postStatus === 'loading') {
@@ -28,8 +28,8 @@ export const PostsList = () => {
 
     return (
         <section>
-            <h2>Posts</h2>
             {content}
         </section>
     )
 }
+export default PostsList
