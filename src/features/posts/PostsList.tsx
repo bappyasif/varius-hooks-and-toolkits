@@ -1,0 +1,34 @@
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../hooks"
+import { fetchPosts } from "./fetchRequests";
+
+export const PostsList = () => {
+    const begin = useAppSelector(state => state.posts.fetchNow);
+    const posts = useAppSelector(state => state.posts.posts);
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        // begin && fetchPosts()
+        // begin && dispatch(loadPosts(fetchPosts()))
+        begin && dispatch(fetchPosts())
+    }, [begin])
+
+    const renderPosts = (
+        <div>
+            {posts.map(item => (
+                <article key={item.id}>
+                    <p>User ID: {item.userId}</p>
+                    <h2>{item.title}</h2>
+                    <p>{item.body.substring(0, 69)}....</p>
+                </article>
+            ))}
+        </div>
+    )
+
+    return (
+        <div>
+            <h2>PostsList -- {posts.length}</h2>
+            {renderPosts}
+        </div>
+    )
+}
