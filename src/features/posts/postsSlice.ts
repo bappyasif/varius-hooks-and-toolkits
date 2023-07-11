@@ -32,7 +32,12 @@ const postsSlice = createSlice({
         },
         loadPosts: (state, action) => {
             state.posts = action.payload
+            // .sort((a:PostType,b:PostType) => a.userId > b.userId)
             state.fetchNow = false
+        },
+        addPost: (state, action) => {
+            state.posts = state.posts.concat(action.payload)
+            state.posts = state.posts.sort((a:PostType, b:PostType) => a.userId > b.userId ? 1 : a.userId < b.userId ? -1 : 0)
         }
     },
     extraReducers(builder) {
@@ -43,7 +48,7 @@ const postsSlice = createSlice({
     },
 });
 
-export const { beginFetching, loadPosts } = postsSlice.actions
+export const { beginFetching, loadPosts, addPost } = postsSlice.actions
 
 const PostsReducer = postsSlice.reducer;
 

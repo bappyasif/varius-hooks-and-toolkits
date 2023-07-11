@@ -3,6 +3,7 @@ import CounterReducer from "../features/counterSlice";
 import { TypedUseSelectorHook } from "react-redux";
 import UsersReducer from "../features/users/usersSlice";
 import PostsReducer from "../features/posts/postsSlice";
+import PostsUsersReducer from "../features/postsUsers/postsUsersSlice";
 // import { TypedUseSelectorHook, useDispatch } from "react-redux";
 // import { useSelector } from "react-redux";
 
@@ -10,7 +11,8 @@ const store = configureStore({
     reducer: {
         counter: CounterReducer,
         users: UsersReducer,
-        posts: PostsReducer
+        posts: PostsReducer,
+        postsUsers: PostsUsersReducer
     }
 })
 
