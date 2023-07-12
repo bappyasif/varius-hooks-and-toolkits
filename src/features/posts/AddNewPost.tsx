@@ -11,7 +11,8 @@ export const AddNewPost = () => {
     const userPostsOnly = (userId:number) => posts.filter(item => item.userId === Number(userId))
 
     const handleAdd = (data: PostType) => {
-        data.id = userPostsOnly(data.userId).length + 1
+        // data.id = userPostsOnly(data.userId).length + 1
+        data.id = posts.length + userPostsOnly(data.userId).length + 1
         dispatch(addPost(data))
         // data.userId = 
         // console.log(data, "post Data!!", foundUser(data.userId))
@@ -42,7 +43,7 @@ const PostForm = ({ handleAdd }: FormType) => {
         const body = formData.get("Body") as string
         const userId = Number(formData.get("name"))
         // const postData = { title, id: uuid(), userId, body }
-        const postData = { title, id: 11, userId, body }
+        const postData = { title, id: 11, userId, body, up: 0, down: 0 }
         handleAdd(postData)
         console.log(formData.get("name"), "fiormData", formData.getAll("name"))
         ref.current.reset()
