@@ -1,9 +1,20 @@
 import { configureStore } from "@reduxjs/toolkit";
 import SliceReducer from "../features/slices";
+import IngredientsReducer from "../features/ingredients/ingredientSlice";
+import CategoryReducer from "../features/category/categorySlice";
+import CuisineReducer from "../features/area/areaSlices";
+import RandomMealReducer from "../features/randoms/randomMealsSlice";
+import MealsReducer from "../features/meals/mealsSlice";
 
 const store = configureStore({
     reducer: {
-        counter: SliceReducer
+        // [index:string]: Reducer<InitType>,
+        counter: SliceReducer,
+        cuisine: CuisineReducer,
+        category: CategoryReducer,
+        ingredient: IngredientsReducer,
+        randomMeal: RandomMealReducer,
+        meal: MealsReducer
     }
 })
 

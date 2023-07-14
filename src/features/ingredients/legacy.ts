@@ -1,4 +1,4 @@
-type IngredientsType = {
+type IngredientsType1 = {
     Chicken: number
     Salmon: number
     Beef: number
@@ -573,7 +573,7 @@ type IngredientsType = {
     Buckwheat: number
 }
 
-const initStateForIngredients : IngredientsType = {
+const initStateForIngredients : IngredientsType1 = {
     Chicken: 0,
     Salmon: 0,
     Beef: 0,
