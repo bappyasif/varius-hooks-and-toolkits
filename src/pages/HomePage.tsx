@@ -3,7 +3,7 @@ import { increment } from "../features/slices";
 import { useAppDispatch, useAppSelector } from "../hooks"
 import { useToGetCategories } from "../hooks/forComponents";
 import { fetchCategories } from "../data_fetching";
-import { CategoriesList } from "../features/category/CategoriesList";
+import { CategoriesList } from "../features/categories/CategoriesList";
 import { CuisinesList } from "../features/area/CuisinesList";
 
 export const HomePage = () => {

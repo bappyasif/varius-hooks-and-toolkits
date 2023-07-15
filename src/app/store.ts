@@ -5,12 +5,14 @@ import CategoryReducer from "../features/category/categorySlice";
 import CuisineReducer from "../features/area/areaSlices";
 import RandomMealReducer from "../features/randoms/randomMealsSlice";
 import MealsReducer from "../features/meals/mealsSlice";
+import CategoriesReducer from "../features/categories/categoriesSlice";
 
 const store = configureStore({
     reducer: {
         // [index:string]: Reducer<InitType>,
         counter: SliceReducer,
         cuisine: CuisineReducer,
+        categories: CategoriesReducer,
         category: CategoryReducer,
         ingredient: IngredientsReducer,
         randomMeal: RandomMealReducer,

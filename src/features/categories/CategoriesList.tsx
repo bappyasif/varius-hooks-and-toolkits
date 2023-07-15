@@ -1,6 +1,7 @@
+import { Link } from "react-router-dom";
 import { useAppDispatch } from "../../hooks"
 import { useToGetCategories } from "../../hooks/forComponents"
-import { increaseCategoryItemCount } from "./categorySlice";
+import { increaseCategoryItemCount } from "./categoriesSlice";
 
 // type CategoryApiListType = {
 //     strCategory: string,
@@ -22,7 +23,9 @@ export const CategoriesList = () => {
             const { id, imgSrc, name } = item
             return (
                 <div key={id} className="w-1/4 flex flex-col gap-4" onClick={() => handleClicked(`${id}`)}>
-                    <h2 className="text-center text-4xl">{name}</h2>
+                    <h2 className="text-center text-4xl">
+                        <Link to={`categories/${name}`}>{name}</Link>
+                    </h2>
                     <img src={`${imgSrc}`} alt={`${name}`} />
                 </div>
             )

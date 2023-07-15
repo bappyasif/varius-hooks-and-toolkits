@@ -2,6 +2,8 @@ import { Route, Routes } from "react-router-dom"
 import { Footer } from "./components/Footer"
 import { Header } from "./components/Header"
 import { HomePage } from "./pages/HomePage"
+import { CategoryViewPage } from "./features/category/CategoryViewPage"
+// import { CategoryViewPage } from "./pages/CategoryViewPage"
 
 function App() {
   return (
@@ -12,7 +14,9 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="/categories">
             <Route index element={"categories view"} />
-            <Route path=":categoryId" element={"category view"} />
+            {/* <Route path=":categoryId" element={"category view"} /> */}
+            {/* <Route path=":categoryName" element={<CategoryViewPage />} /> */}
+            <Route path=":categoryName" element={<CategoryViewPage />} />
           </Route>
           <Route path="/cuisines">
             <Route index element={"cuisines view"} />
