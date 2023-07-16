@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 // import { useAppDispatch } from "../hooks"
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
@@ -25,10 +25,12 @@ export const CategoryViewPage = () => {
         meals.map(item => {
             const { id, mealImg, mealName } = item;
             return (
-                <div key={id}>
-                    <h2>{mealName}</h2>
-                    <img className="w-48" src={mealImg} alt={mealName} />
-                </div>
+                <Link to={`/meals/${id}`} key={id}>
+                    <div >
+                        <h2>{mealName}</h2>
+                        <img className="w-48" src={mealImg} alt={mealName} />
+                    </div>
+                </Link>
             )
         })
     )

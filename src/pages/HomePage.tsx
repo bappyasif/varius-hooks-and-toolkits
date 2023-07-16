@@ -19,7 +19,7 @@ export const HomePage = () => {
 
   return (
     <div>
-      <h1>Home -- {count} -- { categories.length}</h1>
+      <h1>Home -- {count} -- { categories?.length}</h1>
       <CategoriesList />
       <CuisinesList />
       <button onClick={() => dispatch(increment())}>Increment</button>

@@ -1,14 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { fetchFilterByCategory } from "../../data_fetching"
 
-type CategoryMealItemType = {
+export type MealItemType = {
     id: string,
     mealName: string,
     mealImg: string
 }
 
 type CategoryMealsType = {
-    meals: CategoryMealItemType[]
+    meals: MealItemType[]
 }
 
 const initialStateForCategoryMeals: CategoryMealsType = {

@@ -1,7 +1,7 @@
 import { useAppSelector } from "."
 
 export const useToGetCategories = () => {
-    const list = useAppSelector(state => state.category.list);
+    const list = useAppSelector(state => state.categories.list);
     console.log(list, "catgories!!")
     // return {categories: categories}
     return list

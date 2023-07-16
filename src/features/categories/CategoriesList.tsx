@@ -19,7 +19,7 @@ export const CategoriesList = () => {
     }
 
     const renderCategories = (
-        categories.map((item) => {
+        categories?.map((item) => {
             const { id, imgSrc, name } = item
             return (
                 <div key={id} className="w-1/4 flex flex-col gap-4" onClick={() => handleClicked(`${id}`)}>

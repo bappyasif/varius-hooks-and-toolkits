@@ -32,3 +32,17 @@ export const fetchFilterByCategory = createAsyncThunk("fetchMealsByCategory", as
     const response = await fetch(CATEGORY_URL);
     return response.json()
 })
+
+export const fetchMealDetails = createAsyncThunk("fetchMealById", async (mealId:string) => {
+    const MEAL_URL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`
+    console.log(mealId, MEAL_URL)
+    const response = await fetch(MEAL_URL);
+    return response.json()
+})
+
+export const fetchCuisineMeals = createAsyncThunk("fetchCuisineMeals", async (cuisineName: string) => {
+    const CUISINE_MEALS_URL = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${cuisineName}`
+    
+    const response = await fetch(CUISINE_MEALS_URL);
+    return response.json()
+})

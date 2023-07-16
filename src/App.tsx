@@ -3,6 +3,8 @@ import { Footer } from "./components/Footer"
 import { Header } from "./components/Header"
 import { HomePage } from "./pages/HomePage"
 import { CategoryViewPage } from "./features/category/CategoryViewPage"
+import { MealDetails } from "./features/meals/MealDetails"
+import { CuisineMeals } from "./features/area/CuisineMeals"
 // import { CategoryViewPage } from "./pages/CategoryViewPage"
 
 function App() {
@@ -20,11 +22,16 @@ function App() {
           </Route>
           <Route path="/cuisines">
             <Route index element={"cuisines view"} />
-            <Route path=":cuisineId" element={"cuisine view"} />
+            <Route path=":cuisineName" element={<CuisineMeals />} />
+            {/* <Route path=":cuisineName/meals" element={<CuisineMeals />} /> */}
           </Route>
           <Route path="/ingredients">
             <Route index element={"ingredients view"} />
             <Route path=":ingredientId" element={"ingredient view"} />
+          </Route>
+          <Route path="meals">
+            <Route index element={"Meals Route"} />
+            <Route path=":mealId" element={<MealDetails />} />
           </Route>
         </Routes>
         <Footer />

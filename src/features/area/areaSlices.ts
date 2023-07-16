@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { fetchCuisines } from "../../data_fetching"
+import { fetchCuisineMeals, fetchCuisines } from "../../data_fetching"
+import { MealItemType } from "../category/categorySlice"
 
 type AreaType = {
     American: number,
@@ -72,8 +73,17 @@ type CuisinesListType = {
     list: CuisineNameType[]
 }
 
-const initialStateForCuisines: CuisinesListType = {
-    list: []
+type InitialStateForCuisinesType = {
+    list: CuisineNameType[],
+    meals: MealItemType[]
+}
+
+// const initialStateForCuisines: CuisinesListType = {
+//     list: []
+// }
+const initialStateForCuisines: InitialStateForCuisinesType = {
+    list: [],
+    meals: []
 }
 
 const areaSlice = createSlice({
@@ -99,6 +109,18 @@ const areaSlice = createSlice({
                     count: 0
                 }
             })
+        }),
+        builder.addCase(fetchCuisineMeals.fulfilled, (state, action) => {
+            state.meals = action.payload.meals.map((item:any) => {
+                const mealItem : MealItemType = {
+                    id: item.idMeal,
+                    mealImg: item.strMealThumb,
+                    mealName: item.strMeal
+                }
+
+                return mealItem
+            })
+            console.log(action.payload, "meals cuisines")
         })
     }
 });
