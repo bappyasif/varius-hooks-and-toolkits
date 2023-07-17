@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { fetchMealDetails } from "../../data_fetching"
 
-type IAMType = {
+export type IAMType = {
     text: string
 }
 
@@ -71,9 +71,9 @@ const mealsSlice = createSlice({
                 for(let key in item) {
                     console.log(["Ingredient"].includes(key), ["Measure"].includes(key))
                     if(key.includes("Ingredient") && item[key]) {
-                        ingredients.push(item[key])
+                        ingredients.push({text: item[key]})
                     } else if(key.includes("Measure") && item[key]) {
-                        measures.push(item[key])
+                        measures.push({text: item[key]})
                     }
                 }
                 console.log(meal, "ITEM", ingredients, measures)

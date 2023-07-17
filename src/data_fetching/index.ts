@@ -46,3 +46,21 @@ export const fetchCuisineMeals = createAsyncThunk("fetchCuisineMeals", async (cu
     const response = await fetch(CUISINE_MEALS_URL);
     return response.json()
 })
+
+export const fetchIngredients = createAsyncThunk("fetchIngredients", async () => {
+    const INGREDIENTS_URL = "https://www.themealdb.com/api/json/v1/1/list.php?i=list"
+    const response = await fetch(INGREDIENTS_URL);
+    return response.json()
+});
+
+export const fetchMealsByIngredient = createAsyncThunk("fetchMealsByIngredient", async (name: string) => {
+    const INGREDIENT_URL = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${name}`
+    const response = await fetch(INGREDIENT_URL);
+    return response.json()
+})
+
+export const fetchOneRandomMeal = createAsyncThunk("fetchRandomMeal", async () => {
+    const RANDOM_MEAL_URL = `https://www.themealdb.com/api/json/v1/1/random.php`
+    const response = await fetch(RANDOM_MEAL_URL);
+    return response.json()
+})

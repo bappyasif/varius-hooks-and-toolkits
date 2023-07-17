@@ -1,4 +1,6 @@
-import { useAppSelector } from "."
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "."
+import { useParams } from "react-router-dom";
 
 export const useToGetCategories = () => {
     const list = useAppSelector(state => state.categories.list);
@@ -23,3 +25,12 @@ export const useToGetCuisines = () => {
 //         }  
 //     })
 // }
+
+export const useToDispatchFetching = (fetchFunc: any) => { 
+    const { name, id } = useParams()   
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(fetchFunc(name || id))
+    }, [])
+}

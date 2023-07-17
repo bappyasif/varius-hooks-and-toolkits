@@ -5,6 +5,8 @@ import { HomePage } from "./pages/HomePage"
 import { CategoryViewPage } from "./features/category/CategoryViewPage"
 import { MealDetails } from "./features/meals/MealDetails"
 import { CuisineMeals } from "./features/area/CuisineMeals"
+import { IngredientMeals } from "./features/ingredients/IngredientMeals"
+import { CategoriesList } from "./features/categories/CategoriesList"
 // import { CategoryViewPage } from "./pages/CategoryViewPage"
 
 function App() {
@@ -15,23 +17,23 @@ function App() {
         <Routes>
           <Route index element={<HomePage />} />
           <Route path="/categories">
-            <Route index element={"categories view"} />
+            <Route index element={<CategoriesList />} />
             {/* <Route path=":categoryId" element={"category view"} /> */}
             {/* <Route path=":categoryName" element={<CategoryViewPage />} /> */}
-            <Route path=":categoryName" element={<CategoryViewPage />} />
+            <Route path=":name" element={<CategoryViewPage />} />
           </Route>
           <Route path="/cuisines">
             <Route index element={"cuisines view"} />
-            <Route path=":cuisineName" element={<CuisineMeals />} />
+            <Route path=":name" element={<CuisineMeals />} />
             {/* <Route path=":cuisineName/meals" element={<CuisineMeals />} /> */}
           </Route>
           <Route path="/ingredients">
             <Route index element={"ingredients view"} />
-            <Route path=":ingredientId" element={"ingredient view"} />
+            <Route path=":name" element={<IngredientMeals />} />
           </Route>
           <Route path="meals">
             <Route index element={"Meals Route"} />
-            <Route path=":mealId" element={<MealDetails />} />
+            <Route path=":id" element={<MealDetails />} />
           </Route>
         </Routes>
         <Footer />

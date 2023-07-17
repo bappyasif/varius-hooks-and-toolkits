@@ -35,13 +35,13 @@ import { fetchCategories, fetchFilterByCategory } from "../../data_fetching";
 //     Vegetarian: 0
 // }
 
-type CategoryItemType = {
+export type CategoryItemType = {
     // [index: string]: number
-    count: number,
+    count?: number,
     id: string,
     imgSrc: string,
     name: string,
-    description: string
+    description?: string
 }
 
 type CategoriesType = {
@@ -74,8 +74,8 @@ const categorySlice = createSlice({
         increaseCategoryItemCount: (state, action) => {
             state.list = state.list.map((item) => {
                 if(item.id === action.payload) {
-                    // item.count = item.count ? item.count + 1 : 1
-                    item.count += 1
+                    item.count = item.count ? item.count + 1 : 1
+                    // item.count += 1
                 }
                 return item
             })

@@ -1,18 +1,19 @@
-import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../hooks"
+import { useAppSelector } from "../../hooks"
 import { fetchCuisineMeals } from "../../data_fetching";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useToDispatchFetching } from "../../hooks/forComponents";
 
 export const CuisineMeals = () => {
-    const { cuisineName } = useParams()
+    // const { name } = useParams()
     
-    const dispatch = useAppDispatch();
+    // const dispatch = useAppDispatch();
+    useToDispatchFetching(fetchCuisineMeals)
 
     const meals = useAppSelector(state => state.cuisine.meals)
     
-    useEffect(() => {
-        dispatch(fetchCuisineMeals(cuisineName || ""))
-    }, [cuisineName])
+    // useEffect(() => {
+    //     dispatch(fetchCuisineMeals(name || ""))
+    // }, [name])
 
     const renderMeals = (
         meals.map(item => {
@@ -30,7 +31,7 @@ export const CuisineMeals = () => {
 
     return (
         <div>
-            <h1>CuisineMeals -- {meals.length} -- {cuisineName}</h1>
+            <h1>CuisineMeals -- {meals.length}</h1>
             <div className="flex flex-wrap gap-8">{renderMeals}</div>
         </div>
     )
