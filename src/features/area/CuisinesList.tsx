@@ -21,7 +21,7 @@ export const CuisinesList = () => {
     cuisines.map(item => {
       const { name } = item;
       return (
-        <button onClick={() => handleClick(name)} key={name} className="w-1/6 text-4xl">{name}</button>
+        <button onClick={() => handleClick(name)} key={name} className="w-1/6 text-4xl">{name} {item.count}</button>
       )
     })
   )

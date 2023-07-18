@@ -7,6 +7,8 @@ import { CategoriesList, FirstEightList } from "../features/categories/Categorie
 import { CuisinesList } from "../features/area/CuisinesList";
 import { IngredientsList } from "../features/ingredients/IngredientsList";
 import { RandomMeal } from "../features/randoms/RandomMeal";
+import { MostPopularCategory } from "../features/categories/MostPopularCategory";
+import { MostPopularCuisine } from "../features/area/MostPopularCuisine";
 
 export const HomePage = () => {
   const count = useAppSelector(state => state.counter.count)
@@ -15,14 +17,16 @@ export const HomePage = () => {
 
   const categories = useToGetCategories();
   
-  useEffect(() => {
-    dispatch(fetchCategories())
-  }, [])
+  // useEffect(() => {
+  //   dispatch(fetchCategories())
+  // }, [])
 
   return (
     <div>
       <h1>Home -- {count} -- { categories?.length}</h1>
       {/* <CategoriesList /> */}
+      <MostPopularCategory />
+      <MostPopularCuisine />
       <RandomMeal />
       <FirstEightList />
       <CuisinesList />

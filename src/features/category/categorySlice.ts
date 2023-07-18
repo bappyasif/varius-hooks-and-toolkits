@@ -28,7 +28,8 @@ const categoryMealsSlice = createSlice({
                 return {
                     id: item.idMeal,
                     mealName: item.strMeal,
-                    mealImg: item.strMealThumb
+                    mealImg: item.strMealThumb,
+                    count: 0
                 }
             })
         })

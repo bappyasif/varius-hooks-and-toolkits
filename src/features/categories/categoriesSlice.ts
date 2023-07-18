@@ -37,14 +37,14 @@ import { fetchCategories, fetchFilterByCategory } from "../../data_fetching";
 
 export type CategoryItemType = {
     // [index: string]: number
-    count?: number,
+    count: number,
     id: string,
     imgSrc: string,
     name: string,
     description?: string
 }
 
-type CategoriesType = {
+export type CategoriesType = {
     list: CategoryItemType[]
 }
 

@@ -69,7 +69,7 @@ type CuisineNameType = {
     count: number
 }
 
-type CuisinesListType = {
+export type CuisinesListType = {
     list: CuisineNameType[]
 }
 

@@ -13,7 +13,7 @@ export const CategoriesList = () => {
     const categories = useToGetCategories()
 
     const renderCategories = (
-        categories?.map((item) => <RenderCategoryMeal id={item.id} imgSrc={item.imgSrc} name={item.name} key={item.id + item.name} />)
+        categories?.map((item) => <RenderCategoryMeal count={item.count} id={item.id} imgSrc={item.imgSrc} name={item.name} key={item.id + item.name} />)
     )
 
     return (
@@ -25,7 +25,7 @@ export const CategoriesList = () => {
 }
 
 const RenderCategoryMeal = ({...item}:CategoryItemType) => {
-    const { id, imgSrc, name } = item
+    const { id, imgSrc, name, count } = item
     
     const dispatch = useAppDispatch();
 
@@ -35,7 +35,8 @@ const RenderCategoryMeal = ({...item}:CategoryItemType) => {
     return (
         <div key={id} className="w-1/4 flex flex-col gap-4" onClick={() => handleClicked(`${id}`)}>
             <h2 className="text-center text-4xl">
-                <Link to={`categories/${name}`}>{name}</Link>
+                <Link to={`categories/${name}`}>{name} - {count}</Link>
+                {/* <div>{name} - {count}</div> */}
             </h2>
             <img src={`${imgSrc}`} alt={`${name}`} />
         </div>
@@ -46,7 +47,7 @@ export const FirstEightList = () => {
     const categories = useToGetCategories()
 
     const renderCategories = (
-        categories?.map((item, idx) => idx < 8 && <RenderCategoryMeal id={item.id} imgSrc={item.imgSrc} name={item.name} key={item.id + item.name} />)
+        categories?.map((item, idx) => idx < 8 && <RenderCategoryMeal id={item.id} imgSrc={item.imgSrc} name={item.name} key={item.id + item.name} count={item.count} />)
     )
 
     return (
