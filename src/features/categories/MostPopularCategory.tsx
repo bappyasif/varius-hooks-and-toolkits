@@ -1,29 +1,43 @@
-import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useAppSelector } from "../../hooks"
-import { useToGetHighestCountedList } from "../../hooks/forComponents";
+import { useToGetHighestCount, useToGetRandomItem } from "../../hooks/forComponents";
+import { CategoriesType, CategoryItemType } from "./categoriesSlice";
 // import { CategoryItemType } from "./categoriesSlice";
 
 export const MostPopularCategory = () => {
   const categories = useAppSelector(state => state.categories.list);
-  let highestCount = 0;
-  categories.forEach(item => item.count > highestCount ? highestCount = item.count : null)
-  // const sorted = categories.sort((a:CategoryItemType, b:CategoryItemType) => a.name > b.name ? 1 : -1)
-  // const sorted = categories.sort((a, b) => a.name > b.name ? 1 : a.count === b.count ? 0 : -1)
-  // const highestCount = sorted.length && sorted[0]?.count
-  const filteredList = categories.filter(item => item.count === highestCount)
 
-  const [rando, setRando] = useState<number>(0)
+  const { highestCount } = useToGetHighestCount({ data: categories })
 
-  useEffect(() => {
-    if(filteredList.length) {
-      setRando(Math.round(Math.random() * filteredList.length))
-    }
-  }, [filteredList, rando])
+  const { item } = useToGetRandomItem({ data: categories }, highestCount)
 
   // re-think this custom hook
   // const {filteredList, rando} = useToGetHighestCountedList(categories)
 
+  console.log(item, "CATEGORY RANDO")
+
+  let name = ""
+
+    if(item) {
+        name = item.name
+    }
+
   return (
-    <div>MostPopulatCategory - {categories.length} -- {highestCount} -- {filteredList.length} -- {rando} -- {filteredList[rando]?.name}</div>
+    <div>
+      MostPopulatCategory - {categories.length} -- {highestCount} -- {name}
+      <RenderCategory list={categories} name={name} />
+    </div>
+  )
+}
+
+const RenderCategory = ({list, name}: {list:CategoryItemType[], name: string}) => {
+  const findCategory = list.find(item => item.name === name)
+
+  // const {imgSrc} = findCategory
+  return (
+    <Link to={`/categories/${name}`}>
+      <h2>{name}</h2>
+      <img src={findCategory?.imgSrc} alt={name} />
+    </Link>
   )
 }

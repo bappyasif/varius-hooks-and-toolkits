@@ -64,7 +64,7 @@ const initialState: AreaType = {
     Unknown: 0
 }
 
-type CuisineNameType = {
+export type CuisineNameType = {
     name: string,
     count: number
 }

@@ -1,25 +1,26 @@
-import { useEffect, useState } from "react";
-import { useToGetCuisines, useToGetHighestCountedList } from "../../hooks/forComponents"
+import { Link } from "react-router-dom"
+import { useToGetCuisines, useToGetHighestCount, useToGetRandomItem } from "../../hooks/forComponents"
 
 export const MostPopularCuisine = () => {
     const cuisines = useToGetCuisines()
-    let highestCount = 0;
 
-    cuisines.forEach(item => item.count > highestCount ? highestCount = item.count : null)
-    
-    const filteredList = cuisines.filter(item => item.count === highestCount)
+    const { highestCount } = useToGetHighestCount({ data: cuisines })
 
-    const [rando, setRando] = useState<number>(0)
+    const { item } = useToGetRandomItem({ data: cuisines }, highestCount)
 
-    useEffect(() => {
-        if (filteredList.length) {
-            setRando(Math.round(Math.random() * filteredList.length))
-        }
-    }, [filteredList, rando])
+    console.log(item, "CUISINE RANDO")
 
-    // re-think this custom hook
-    // const {filteredList, rando} = useToGetHighestCountedList(cuisines)
+    let name = ""
+
+    if(item) {
+        name = item.name
+    }
+
     return (
-        <div>MostPopularCuisine -- {rando} -- {filteredList[rando]?.name}</div>
+        <div>
+            MostPopularCuisine
+            {/* <Link to={`cuisines/${filteredList[rando]?.name}`}>{filteredList[rando].name}</Link> */}
+            {name ? <Link to={`cuisines/${name}`}>{name}</Link> : null}
+        </div>
     )
 }

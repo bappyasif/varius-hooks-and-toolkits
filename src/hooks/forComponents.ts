@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "."
 import { useParams } from "react-router-dom";
 import { fetchCategories, fetchCuisines } from "../data_fetching";
-import { CategoriesType } from "../features/categories/categoriesSlice";
-import { CuisinesListType } from "../features/area/areaSlices";
+import { CategoriesType, CategoryItemType } from "../features/categories/categoriesSlice";
+import { CuisineNameType, CuisinesListType } from "../features/area/areaSlices";
 
 export const useToGetCategories = () => {
     const list = useAppSelector(state => state.categories.list);
@@ -48,13 +48,44 @@ export const useToDispatchFetching = (fetchFunc: any) => {
     }, [])
 }
 
+type DataType = {
+    data: (CuisineNameType | CategoryItemType)[]
+    // data: CuisineNameType[]
+}
+
+export const useToGetHighestCount = (list: DataType) => {
+    let highestCount = 0;
+
+    list.data.forEach(item => item.count > highestCount ? highestCount = item.count : null)
+
+    // useEffect(() => {
+    //     list.data.forEach(item => item.count > highestCount ? highestCount = item.count : null)
+    // }, [list.data])
+
+    return { highestCount }
+}
+
+export const useToGetRandomItem = (list: DataType, highestCount:number) => {
+    const filteredList = list.data.filter(item => item.count === highestCount)
+
+  const [rando, setRando] = useState<number>(0)
+
+  useEffect(() => {
+    if(filteredList.length && !rando) {
+      setRando(Math.round(Math.random() * filteredList.length))
+    }
+  }, [rando])
+
+  return {item: filteredList[rando]}
+}
+
 export const useToGetHighestCountedList = (data: CuisinesListType | CategoriesType) => {
     // const cuisines = useToGetCuisines()
 
     let highestCount = 0;
 
     data.list.forEach(item => item.count > highestCount ? highestCount = item.count : null)
-    
+
     const filteredList = data.list.filter(item => item.count === highestCount)
 
     const [rando, setRando] = useState<number>(0)
@@ -65,5 +96,5 @@ export const useToGetHighestCountedList = (data: CuisinesListType | CategoriesTy
         }
     }, [filteredList, rando])
 
-    return { rando, filteredList}
+    return { rando, filteredList }
 }
