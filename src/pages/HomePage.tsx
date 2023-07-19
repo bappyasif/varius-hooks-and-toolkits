@@ -9,6 +9,7 @@ import { IngredientsList } from "../features/ingredients/IngredientsList";
 import { RandomMeal } from "../features/randoms/RandomMeal";
 import { MostPopularCategory } from "../features/categories/MostPopularCategory";
 import { MostPopularCuisine } from "../features/area/MostPopularCuisine";
+import { MostPopularIngredients } from "../features/ingredients/MostPopularIngredients";
 
 export const HomePage = () => {
   const count = useAppSelector(state => state.counter.count)
@@ -27,6 +28,7 @@ export const HomePage = () => {
       {/* <CategoriesList /> */}
       <MostPopularCategory />
       <MostPopularCuisine />
+      <MostPopularIngredients />
       <RandomMeal />
       <FirstEightList />
       <CuisinesList />

@@ -1,9 +1,10 @@
-import { Link, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "../../hooks"
 import { fetchMealDetails } from "../../data_fetching";
 import { useEffect } from "react";
 import { IAMType } from "./mealsSlice";
 import { useToDispatchFetching } from "../../hooks/forComponents";
+import { increaseCountForIngredient } from "../ingredients/ingredientSlice";
 
 export const MealDetails = () => {
     // const { mealId } = useParams()
@@ -63,11 +64,20 @@ const RenderIngredientsAndMeasures = () => {
     
     console.log(measures, ingredients);
 
+    const dispatch = useAppDispatch();
+
+    const navigate = useNavigate()
+
+    const handleClick = (ingredientName: string) => {
+        dispatch(increaseCountForIngredient(ingredientName))
+        navigate(`/ingredients/${ingredientName}`)
+    }
+
     const content = (
         ingredients.map((item, idx) => {
             return (
                 <div key={item.text + idx}>
-                    <Link to={`/ingredients/${item.text}`}>{item.text}</Link> -- {measures[idx].text}
+                    <button onClick={() => handleClick(item.text)}>{item.text}</button> -- <span>{measures[idx].text}</span>
                 </div>
             )
         })

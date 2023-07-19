@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "."
 import { useParams } from "react-router-dom";
-import { fetchCategories, fetchCuisines } from "../data_fetching";
+import { fetchCategories, fetchCuisines, fetchIngredients } from "../data_fetching";
 import { CategoriesType, CategoryItemType } from "../features/categories/categoriesSlice";
 import { CuisineNameType, CuisinesListType } from "../features/area/areaSlices";
+import { IngredientsListType, IngredientsType, InitIngredientStateType } from "../features/ingredients/ingredientSlice";
 
 export const useToGetCategories = () => {
     const list = useAppSelector(state => state.categories.list);
@@ -27,6 +28,29 @@ export const useToGetCuisines = () => {
     return list
 }
 
+export const useToGetIngredients = () => {
+    const list = useAppSelector(state => state.ingredient.list)
+    const dispatch = useAppDispatch();
+    // return {categories: categories}
+    useEffect(() => {
+        list.length ? null : dispatch(fetchIngredients())
+    }, [])
+    return list
+}
+
+// export const fetchOnceOnAppLoad = (data: IngredientsListType) => {
+//     const dispatch = useAppDispatch();
+//     // return {categories: categories}
+//     useEffect(() => {
+//         data.list.length ? null : dispatch(fetchCuisines())
+//     }, [])
+// }
+
+// const fetchOnceOnAppLoad = (propKey: keyof InitIngredientStateType) => {
+//     // const list = useAppSelector(state => state[propKey].list)
+//     console.log(propKey)
+// }
+
 // const useToGetList = (sliceName: string) => {
 //     let list = useAppSelector(state => {
 //         if(sliceName === "cuisine") {
@@ -49,7 +73,8 @@ export const useToDispatchFetching = (fetchFunc: any) => {
 }
 
 type DataType = {
-    data: (CuisineNameType | CategoryItemType)[]
+    // data: (CuisineNameType | CategoryItemType | IngredientsType)[]
+    data: ( CuisineNameType | CategoryItemType )[]
     // data: CuisineNameType[]
 }
 
@@ -65,18 +90,20 @@ export const useToGetHighestCount = (list: DataType) => {
     return { highestCount }
 }
 
-export const useToGetRandomItem = (list: DataType, highestCount:number) => {
+export const useToGetRandomItem = (list: DataType, highestCount: number) => {
     const filteredList = list.data.filter(item => item.count === highestCount)
 
-  const [rando, setRando] = useState<number>(0)
+    const [rando, setRando] = useState<number>(0)
 
-  useEffect(() => {
-    if(filteredList.length && !rando) {
-      setRando(Math.round(Math.random() * filteredList.length))
-    }
-  }, [rando])
+    // console.log(list.data, "!!!!", filteredList.length, highestCount, filteredList[rando], )
 
-  return {item: filteredList[rando]}
+    useEffect(() => {
+        if (filteredList.length && !rando) {
+            setRando(Math.round(Math.random() * filteredList.length))
+        }
+    }, [rando])
+
+    return { item: filteredList[rando] }
 }
 
 export const useToGetHighestCountedList = (data: CuisinesListType | CategoriesType) => {
