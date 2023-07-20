@@ -20,7 +20,7 @@ export const MostPopularCuisine = () => {
         <div>
             MostPopularCuisine
             {/* <Link to={`cuisines/${filteredList[rando]?.name}`}>{filteredList[rando].name}</Link> */}
-            {name ? <Link to={`cuisines/${name}`}>{name}</Link> : null}
+            {name ? <Link to={`cuisines/${name || "Thai"}`}>{name || "Thai"}</Link> : null}
         </div>
     )
 }

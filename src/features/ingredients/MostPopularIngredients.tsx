@@ -10,12 +10,14 @@ export const MostPopularIngredients = () => {
 
     let name = ""
 
-    if(item) {
+    if (item) {
         name = item.name
     }
 
     console.log(item, "ITEM!!!!!")
     return (
-        <div>MostPopularIngredients - {name} -- {ingredients.length} - {highestCount}</div>
+        <div>
+            <h2>MostPopularIngredients - {name || "Chicken"} -- {ingredients.length} - {highestCount}</h2>
+        </div>
     )
 }

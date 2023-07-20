@@ -103,7 +103,7 @@ export const useToGetRandomItem = (list: DataType, highestCount: number) => {
         }
     }, [rando])
 
-    return { item: filteredList[rando] }
+    return { item: filteredList[rando], filteredList }
 }
 
 export const useToGetHighestCountedList = (data: CuisinesListType | CategoriesType) => {
