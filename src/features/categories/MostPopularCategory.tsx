@@ -1,43 +1,68 @@
-import { Link } from "react-router-dom";
-import { useAppSelector } from "../../hooks"
+import { useEffect, useState } from "react";
+import { useAppSelector } from "../../hooks";
 import { useToGetHighestCount, useToGetRandomItem } from "../../hooks/forComponents";
-import { CategoriesType, CategoryItemType } from "./categoriesSlice";
-// import { CategoryItemType } from "./categoriesSlice";
+import { CategoryItemType } from "./categoriesSlice";
 
 export const MostPopularCategory = () => {
-  const categories = useAppSelector(state => state.categories.list);
+  const categories = useAppSelector(state => state.categories.list)
 
-  const { highestCount } = useToGetHighestCount({ data: categories })
+  const { names } = useToGetFourRandomItems(categories)
 
-  const { item } = useToGetRandomItem({ data: categories }, highestCount)
+  const renderContent = (
+    names?.map(name => (
+      <h2 key={name}>{name}</h2>
+    ))
+  )
 
-  // re-think this custom hook
-  // const {filteredList, rando} = useToGetHighestCountedList(categories)
-
-  console.log(item, "CATEGORY RANDO")
-
-  let name = ""
-
-    if(item) {
-        name = item.name
-    }
+  console.log(names, "names!!")
 
   return (
     <div>
-      MostPopulatCategory - {categories.length} -- {highestCount} -- {name}
-      <RenderCategory list={categories} name={name} />
+      MostPopularCategory - {names.length}
+      <div className="flex gap-4">{renderContent}</div>
     </div>
   )
 }
 
-const RenderCategory = ({list, name}: {list:CategoryItemType[], name: string}) => {
-  const findCategory = list.find(item => item.name === name)
 
-  // const {imgSrc} = findCategory
-  return (
-    <Link to={`/categories/${name}`}>
-      <h2>{name}</h2>
-      <img src={findCategory?.imgSrc} alt={name} />
-    </Link>
-  )
+const useToGetFourRandomItems = (categories: CategoryItemType[]) => {
+  const [names, setNames] = useState<string[]>([]);
+
+  const { highestCount } = useToGetHighestCount({ data: categories })
+
+  const { item, filteredList } = useToGetRandomItem({ data: categories }, highestCount)
+
+  const chooseRandom = () => {
+    const rnd = Math.round(Math.random() * filteredList.length)
+    const chkExist = names.findIndex(name => name === filteredList[rnd]?.name)
+    if (chkExist === -1 && filteredList[rnd]?.name) {
+      setNames(prev => [...prev, filteredList[rnd]?.name])
+    }
+  }
+
+  const chck = (nm: string) => {
+    const chk = names.findIndex(name => name === nm)
+    if (chk === -1 && names[0] !== undefined && nm !== "Beef") {
+      setNames(prev => [...prev, item.name])
+    }
+  }
+
+  const removeDuplicate = () => {
+    const filtered = names.filter(function (item, pos) {
+      return names.indexOf(item) == pos;
+    })
+
+    setNames(filtered)
+  }
+
+  useEffect(() => {
+    item?.name !== undefined && chck(item.name)
+  }, [item])
+
+  useEffect(() => {
+    names.length < 4 && removeDuplicate()
+    filteredList.length && names.length < 4 && chooseRandom()
+  }, [names, filteredList])
+
+  return { names }
 }

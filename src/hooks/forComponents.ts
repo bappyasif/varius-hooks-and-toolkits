@@ -72,7 +72,7 @@ export const useToDispatchFetching = (fetchFunc: any) => {
     }, [])
 }
 
-type DataType = {
+export type DataType = {
     // data: (CuisineNameType | CategoryItemType | IngredientsType)[]
     data: ( CuisineNameType | CategoryItemType )[]
     // data: CuisineNameType[]
