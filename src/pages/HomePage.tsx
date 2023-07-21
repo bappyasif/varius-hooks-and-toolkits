@@ -27,12 +27,12 @@ export const HomePage = () => {
       <h1>Home -- {count} -- { categories?.length}</h1>
       {/* <CategoriesList /> */}
       <MostPopularCategory />
-      {/* <MostPopularCuisine />
-      <MostPopularIngredients /> */}
+      <MostPopularCuisine />
+      <MostPopularIngredients />
       <RandomMeal />
       {/* <FirstEightList />
-      <CuisinesList />
-      <IngredientsList /> */}
+      <CuisinesList /> */}
+      <IngredientsList />
       <button onClick={() => dispatch(increment())}>Increment</button>
     </div>
   )
