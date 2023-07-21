@@ -62,5 +62,6 @@ export const fetchMealsByIngredient = createAsyncThunk("fetchMealsByIngredient",
 export const fetchOneRandomMeal = createAsyncThunk("fetchRandomMeal", async () => {
     const RANDOM_MEAL_URL = `https://www.themealdb.com/api/json/v1/1/random.php`
     const response = await fetch(RANDOM_MEAL_URL);
+    // console.log(response.json(), "INGREIO RUNNNSNSNSNS")
     return response.json()
 })

@@ -7,6 +7,7 @@ import { MealDetails } from "./features/meals/MealDetails"
 import { CuisineMeals } from "./features/area/CuisineMeals"
 import { IngredientMeals } from "./features/ingredients/IngredientMeals"
 import { CategoriesList } from "./features/categories/CategoriesList"
+import { CuisinesList } from "./features/area/CuisinesList"
 // import { CategoryViewPage } from "./pages/CategoryViewPage"
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
             <Route path=":name" element={<CategoryViewPage />} />
           </Route>
           <Route path="/cuisines">
-            <Route index element={"cuisines view"} />
+            <Route index element={<CuisinesList />} />
             <Route path=":name" element={<CuisineMeals />} />
             {/* <Route path=":cuisineName/meals" element={<CuisineMeals />} /> */}
           </Route>

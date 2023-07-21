@@ -29,7 +29,7 @@ const randomMealSlice = createSlice({
 
     extraReducers: builder => {
         builder.addCase(fetchOneRandomMeal.fulfilled, (state, action) => {
-            console.log(action.payload, "ITEM!!")
+            // console.log(action.payload, "ITEM!!")
             action.payload.meals.map((item: any) => {
                 const meal: MealType = {
                     category: item.strCategory,

@@ -17,7 +17,7 @@ export const MostPopularCategory = () => {
 
   return (
     <div>
-      MostPopularCategory - {names.length}
+      <h2>MostPopularCategory</h2>
       <div className="flex gap-4">{renderContent}</div>
     </div>
   )

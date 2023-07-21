@@ -1,23 +1,30 @@
 import { Link } from "react-router-dom"
 import { fetchOneRandomMeal } from "../../data_fetching"
-import { useAppSelector } from "../../hooks"
-import { useToDispatchFetching } from "../../hooks/forComponents"
+import { useToDispatchFetching, useToGetAnRandomMeal } from "../../hooks/forComponents"
+import { useEffect, useState } from "react"
 
 export const RandomMeal = () => {
+    const [wait, setWait] = useState<boolean>(true)
+
     useToDispatchFetching(fetchOneRandomMeal)
-    const category = useAppSelector(state => state.randomMeal.category)
-    const cuisine = useAppSelector(state => state.randomMeal.cuisine)
-    const mealId = useAppSelector(state => state.randomMeal.mealId)
-    const mealName = useAppSelector(state => state.randomMeal.mealName)
-    const mealThumb = useAppSelector(state => state.randomMeal.mealThumb)
+
+    const { category, cuisine, mealId, mealName, mealThumb } = useToGetAnRandomMeal()
+
+    useEffect(() => {
+        const timer = setTimeout(() => setWait(false), 999)
+        return () => clearTimeout(timer)
+    }, [])
 
     const content = (
-        <Link to={`/meals/${mealId}`}>
-            <p>{category}</p>
-            <p>{cuisine}</p>
-            <h2>{mealName}</h2>
-            <img src={mealThumb} alt={mealName} />
-        </Link>
+        wait
+            ? null
+            :
+            <Link to={`/meals/${mealId}`}>
+                <p>{category}</p>
+                <p>{cuisine}</p>
+                <h2>{mealName}</h2>
+                <img src={mealThumb} alt={mealName} />
+            </Link>
     )
 
     return (
