@@ -16,9 +16,9 @@ export const MostPopularCuisine = () => {
 
     return (
         <div>
-            MostPopularCuisine
+            <h2 className="text-4xl">Most Popular Cuisines</h2>
 
-            <div className="flex gap-4">{renderContent}</div>
+            <div className="flex gap-4 text-2xl">{renderContent}</div>
         </div>
     )
 }

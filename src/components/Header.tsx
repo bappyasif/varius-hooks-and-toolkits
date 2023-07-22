@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 
 export const Header = () => {
     return (
-        <div>
+        <div className="w-full">
             <RenderNavs />
         </div>
     )
@@ -10,8 +10,11 @@ export const Header = () => {
 
 const RenderNavs = () => {
     return (
-        <div>
+        <div className="flex gap-x-16 justify-center text-4xl px-4">
             <Link to={"/"}>Home</Link>
+            <Link to={"/cuisines"}>Cuisines</Link>
+            <Link to={"/categories"}>Categories</Link>
+            <Link to={"/ingredients"}>Ingredients</Link>
         </div>
     )
 }

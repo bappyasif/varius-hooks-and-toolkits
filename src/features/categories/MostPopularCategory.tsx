@@ -13,12 +13,12 @@ export const MostPopularCategory = () => {
     ))
   )
 
-  console.log(names, "names!!")
+  // console.log(names, "names!!")
 
   return (
     <div>
-      <h2>MostPopularCategory</h2>
-      <div className="flex gap-4">{renderContent}</div>
+      <h2 className="text-4xl">Most Popular Categories</h2>
+      <div className="flex gap-4 text-2xl">{renderContent}</div>
     </div>
   )
 }

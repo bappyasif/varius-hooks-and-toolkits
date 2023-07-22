@@ -15,7 +15,7 @@ export const HomePage = () => {
   // const count = useAppSelector(state => state.counter.count)
 
   return (
-    <div>
+    <div className="flex flex-col gap-16">
       {/* <h1>Home</h1> */}
       {/* <CategoriesList /> */}
       <div className="flex justify-around">

@@ -24,16 +24,16 @@ export const CategoriesList = () => {
     )
 }
 
-const RenderCategoryMeal = ({...item}:CategoryItemType) => {
+const RenderCategoryMeal = ({ ...item }: CategoryItemType) => {
     const { id, imgSrc, name, count } = item
-    
+
     const dispatch = useAppDispatch();
 
     const handleClicked = (itemId: string) => {
         dispatch(increaseCategoryItemCount(itemId))
     }
     return (
-        <div key={id} className="w-1/4 flex flex-col gap-4" onClick={() => handleClicked(`${id}`)}>
+        <div key={id} className="w-96 h-96 aspect-square flex flex-col gap-4" onClick={() => handleClicked(`${id}`)}>
             <h2 className="text-center text-4xl">
                 <Link to={`categories/${name}`}>{name} - {count}</Link>
                 {/* <div>{name} - {count}</div> */}
@@ -51,9 +51,12 @@ export const FirstEightList = () => {
     )
 
     return (
-        <>
+        <div className="flex flex-col gap-8 w-5/6 mx-auto">
+            <div className="flex justify-between">
+                <h2 className="text-4xl">Categories</h2>
+                <Link className="text-2xl" to={"/categories"}>See All Available Categories</Link>
+            </div>
             <div className="flex gap-4 justify-around flex-wrap w-full">{renderCategories}</div>
-            <Link to={"/categories"}>Load More</Link>
-        </>
+        </div>
     )
 }

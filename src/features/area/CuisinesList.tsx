@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useAppDispatch } from "../../hooks"
 import { useToGetCuisines } from "../../hooks/forComponents"
 import { CuisineNameType, inCreaseCountForCuisine } from "./areaSlices"
@@ -14,16 +14,20 @@ export const CuisinesList = () => {
 }
 
 export const FirstNineCuisines = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const handleClick = () => navigate("/cuisines")
+  // const handleClick = () => navigate("/cuisines")
 
   return (
-    <>
-      <h2>CuisinesList</h2>
+    <div className="flex flex-col gap-8 w-5/6 mx-auto">
+      <div className="flex justify-between">
+        <h2 className="text-4xl">Cuisines</h2>
+        <Link className="text-2xl" to={"/cuisines"}>See All Available Cuisines</Link>
+      </div>
+      <h2></h2>
       <RenderCuisinesList fullList={false} />
-      <button onClick={handleClick}>See All</button>
-    </>
+      {/* <button onClick={handleClick}>See All</button> */}
+    </div>
   )
 }
 
@@ -47,9 +51,9 @@ const RenderCuisinesList = ({ fullList }: RenderType) => {
     cuisines.map((item, idx) => {
       const { name } = item;
       return (
-        (!fullList && idx < 9) || (fullList)
+        (!fullList && idx < 12) || (fullList)
           ?
-          <button onClick={() => handleClick(name)} key={name} className="w-1/6 text-4xl">{name} {item.count}</button>
+          <button onClick={() => handleClick(name)} key={name} className="w-80 text-4xl">{name} {item.count}</button>
           : null
       )
     })
