@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 import { useToGetCuisines, useToGetFourRandomItems } from "../../hooks/forComponents"
+import { useTranslation } from "react-i18next"
 
 export const MostPopularCuisine = () => {
     const cuisines = useToGetCuisines()
@@ -14,9 +15,11 @@ export const MostPopularCuisine = () => {
         })
     )
 
+    const {t} = useTranslation()
+
     return (
         <div>
-            <h2 className="text-4xl">Most Popular Cuisines</h2>
+            <h2 className="text-4xl">{t("Most Popular Cuisines")}</h2>
 
             <div className="flex gap-4 text-2xl">{renderContent}</div>
         </div>

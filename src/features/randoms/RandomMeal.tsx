@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { fetchOneRandomMeal } from "../../data_fetching"
 import { useToDispatchFetching, useToGetAnRandomMeal } from "../../hooks/forComponents"
 import { useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
 
 export const RandomMeal = () => {
     const [wait, setWait] = useState<boolean>(true)
@@ -35,9 +36,11 @@ export const RandomMeal = () => {
             </div>
     )
 
+    const {t} = useTranslation()
+
     return (
         <div className="flex flex-col items-center">
-            <h1>Random Meal</h1>
+            <h1>{t("Randomly Selected Food")}</h1>
             {/* <RenderMealBasicInfo /> */}
             {content}
         </div>

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import { useAppSelector } from "../../hooks"
 import { useToGetFourRandomItems } from "../../hooks/forComponents"
+import { useTranslation } from "react-i18next"
 
 export const MostPopularIngredients = () => {
     const ingredients = useAppSelector(state => state.ingredient.list)
@@ -15,9 +16,11 @@ export const MostPopularIngredients = () => {
         })
     )
 
+    const {t} = useTranslation()
+
     return (
         <div>
-            <h2 className="text-4xl">Most Popular Ingredients</h2>
+            <h2 className="text-4xl">{t("Most Popular Ingredients")}</h2>
             <div className="flex gap-4 text-2xl">{renderContent}</div>
         </div>
     )

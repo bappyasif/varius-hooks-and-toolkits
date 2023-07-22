@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useAppSelector } from "../../hooks";
 import { useToGetFourRandomItems } from "../../hooks/forComponents";
 import { Link } from "react-router-dom";
@@ -15,9 +16,11 @@ export const MostPopularCategory = () => {
 
   // console.log(names, "names!!")
 
+  const {t} = useTranslation()
+
   return (
     <div>
-      <h2 className="text-4xl">Most Popular Categories</h2>
+      <h2 className="text-4xl">{t("Most Popular Categories")}</h2>
       <div className="flex gap-4 text-2xl">{renderContent}</div>
     </div>
   )

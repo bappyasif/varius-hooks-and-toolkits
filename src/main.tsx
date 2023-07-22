@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
@@ -6,7 +6,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 import { Provider } from "react-redux"
 import store from './app/store.ts'
 import { fetchCategories, fetchCuisines, fetchIngredients } from './data_fetching/index.ts'
-
+import "./i18n"
 store.dispatch(fetchCuisines())
 store.dispatch(fetchCategories())
 store.dispatch(fetchIngredients())
@@ -14,12 +14,14 @@ store.dispatch(fetchIngredients())
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <Routes>
-          <Route path='/*' element={<App />} />
-        </Routes>
-      </BrowserRouter>
-    </Provider>
+    <Suspense fallback={<h1>Loading I18n</h1>}>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Routes>
+            <Route path='/*' element={<App />} />
+          </Routes>
+        </BrowserRouter>
+      </Provider>
+    </Suspense>
   </React.StrictMode>,
 )
