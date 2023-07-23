@@ -11,7 +11,7 @@ export const MostPopularIngredients = () => {
     const renderContent = (
         names.map(name => {
             return (
-                <Link to={`ingredients/${name || "Lime"}`}>{name || "Lime"}</Link>
+                <Link key={name} to={`/ingredients/${name || "Lime"}`}>{name || "Lime"}</Link>
             )
         })
     )

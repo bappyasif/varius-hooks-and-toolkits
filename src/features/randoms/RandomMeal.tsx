@@ -7,6 +7,8 @@ import { useTranslation } from "react-i18next"
 export const RandomMeal = () => {
     const [wait, setWait] = useState<boolean>(true)
 
+    const {t} = useTranslation()
+
     useToDispatchFetching(fetchOneRandomMeal)
 
     const { category, cuisine, mealId, mealName, mealThumb } = useToGetAnRandomMeal()
@@ -27,16 +29,17 @@ export const RandomMeal = () => {
             ? null
             :
             <div className="flex flex-col items-center">
-                <Link to={`/meals/${mealId}`} className="text-2xl">{mealName}</Link>
-                <img className="aspect-square w-96 h-96" src={mealThumb} alt={mealName} />
+                <Link to={`/meals/${mealId}`} className="text-2xl mx-auto">
+                    <p>{mealName}</p>
+                    <img className="aspect-square w-96 h-96" src={mealThumb} alt={mealName} />
+                </Link>
+                {/* <img className="aspect-square w-96 h-96" src={mealThumb} alt={mealName} /> */}
                 <div className="self-start">
-                    <button onClick={handleCategoryClick}>{category}</button>
-                    <button onClick={handleCuisineClick}>{cuisine}</button>
+                    <button onClick={handleCategoryClick}>{t(`${category}`)}</button>
+                    <button onClick={handleCuisineClick}>{t(`${cuisine}`)}</button>
                 </div>
             </div>
     )
-
-    const {t} = useTranslation()
 
     return (
         <div className="flex flex-col items-center">

@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useAppDispatch } from "../../hooks"
 import { useToGetCategories } from "../../hooks/forComponents"
 import { CategoryItemType, increaseCategoryItemCount } from "./categoriesSlice";
+import { useTranslation } from "react-i18next";
 
 // type CategoryApiListType = {
 //     strCategory: string,
@@ -16,9 +17,11 @@ export const CategoriesList = () => {
         categories?.map((item) => <RenderCategoryMeal count={item.count} id={item.id} imgSrc={item.imgSrc} name={item.name} key={item.id + item.name} />)
     )
 
+    const {t} = useTranslation()
+
     return (
         <div className="flex flex-col gap-6">
-            <h2 className="text-6xl">CategoriesList</h2>
+            <h2 className="text-6xl">{t("Categories")} {t("List")}</h2>
             <div className="flex gap-4 justify-around flex-wrap w-full">{renderCategories}</div>
         </div>
     )
@@ -32,10 +35,13 @@ const RenderCategoryMeal = ({ ...item }: CategoryItemType) => {
     const handleClicked = (itemId: string) => {
         dispatch(increaseCategoryItemCount(itemId))
     }
+    
+    const {t} = useTranslation()
+
     return (
         <div key={id} className="w-96 h-96 aspect-square flex flex-col gap-4" onClick={() => handleClicked(`${id}`)}>
             <h2 className="text-center text-4xl">
-                <Link to={`categories/${name}`}>{name} - {count}</Link>
+                <Link to={`/categories/${name}`}>{t(`${name}`)} - {count}</Link>
                 {/* <div>{name} - {count}</div> */}
             </h2>
             <img src={`${imgSrc}`} alt={`${name}`} />
@@ -50,11 +56,13 @@ export const FirstEightList = () => {
         categories?.map((item, idx) => idx < 8 && <RenderCategoryMeal id={item.id} imgSrc={item.imgSrc} name={item.name} key={item.id + item.name} count={item.count} />)
     )
 
+    const {t} = useTranslation()
+
     return (
         <div className="flex flex-col gap-8 w-5/6 mx-auto">
             <div className="flex justify-between">
-                <h2 className="text-4xl">Categories</h2>
-                <Link className="text-2xl" to={"/categories"}>See All Available Categories</Link>
+                <h2 className="text-4xl">{t(`Meal Categories`)}</h2>
+                <Link className="text-2xl" to={"/categories"}>{t("See All Available Categories")}</Link>
             </div>
             <div className="flex gap-4 justify-around flex-wrap w-full">{renderCategories}</div>
         </div>

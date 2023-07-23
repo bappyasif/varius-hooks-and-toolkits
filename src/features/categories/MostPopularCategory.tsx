@@ -10,7 +10,7 @@ export const MostPopularCategory = () => {
 
   const renderContent = (
     names?.map(name => (
-      <Link to={`categories/${name || "Beef"}`}>{name || "Beef"}</Link>
+      <Link to={`/categories/${name || "Beef"}`}>{name || "Beef"}</Link>
     ))
   )
 

@@ -15,7 +15,12 @@ export const IngredientMeals = () => {
         meals.map(item => <RenderMeal id={item.id} mealImg={item.mealImg} mealName={item.mealName} key={item.id} />)
     )
 
+    const {name} = useParams()
+
     return (
-        <div className="flex flex-wrap gap-8">{renderMeals}</div>
+        <div className="flex flex-col gap-y-8">
+            <h1>Meals Cooked With {name}</h1>
+            <div className="flex flex-wrap gap-8">{renderMeals}</div>
+        </div>
     )
 }

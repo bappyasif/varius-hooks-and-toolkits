@@ -1,7 +1,8 @@
 import { useAppSelector } from "../../hooks"
 import { fetchCuisineMeals } from "../../data_fetching";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useToDispatchFetching } from "../../hooks/forComponents";
+import { useTranslation } from "react-i18next";
 
 export const CuisineMeals = () => {
     // const { name } = useParams()
@@ -29,9 +30,12 @@ export const CuisineMeals = () => {
         })
     )
 
+    const {name} = useParams()
+    const {t} = useTranslation()
+    
     return (
         <div>
-            <h1>CuisineMeals -- {meals.length}</h1>
+            <h1>{t(`${name}`)} {t("Meals List")} -- {meals.length}</h1>
             <div className="flex flex-wrap gap-8">{renderMeals}</div>
         </div>
     )

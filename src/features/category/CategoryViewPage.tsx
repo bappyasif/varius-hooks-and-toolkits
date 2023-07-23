@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 // import { useAppDispatch } from "../hooks"
 import { useAppSelector } from "../../hooks";
 import { fetchFilterByCategory } from "../../data_fetching";
 import { MealItemType } from "./categorySlice";
 import { useToDispatchFetching } from "../../hooks/forComponents";
+import { useTranslation } from "react-i18next";
 // import { fetchFilterByCategory } from "../data_fetching";
 
 export const CategoryViewPage = () => {
@@ -19,9 +20,12 @@ export const CategoryViewPage = () => {
     //     // dispatch(fetchFilterByCategory())
     // }, [name])
 
+    const {name} = useParams()
+    const {t} = useTranslation()
+
     return (
         <div>
-            <h1>CategoryViewPage</h1>
+            <h1>{t(`${name}`)} : {t("Meals List")}</h1>
             <CategoryMeals />
         </div>
     )
