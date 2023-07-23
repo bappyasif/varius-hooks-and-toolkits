@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { IAMType } from "./mealsSlice";
 import { useToDispatchFetching } from "../../hooks/forComponents";
 import { increaseCountForIngredient } from "../ingredients/ingredientSlice";
+import { TranslateMealsDetails } from "./TranslateMealsDetails";
 
 export const MealDetails = () => {
     // const { mealId } = useParams()
@@ -47,12 +48,12 @@ export const RenderMealBasicInfo = () => {
 
     const renderTags = mealTags?.split(",").map(name => <span key={name}>{name}</span>)
 
-    const renderInstructions = (
-        <div className="flex flex-col items-center">
-            <h2 className="text-4xl">Instructions</h2>
-            <p className="text-2xl w-5/6">{instructions}</p>
-        </div>
-    )
+    // const renderInstructions = (
+    //     <div className="flex flex-col items-center">
+    //         <h2 className="text-4xl">Instructions</h2>
+    //         <p className="text-2xl w-5/6">{instructions}</p>
+    //     </div>
+    // )
 
     const content = (
         <div key={mealId} className="flex flex-col items-center gap-y-8">
@@ -72,7 +73,9 @@ export const RenderMealBasicInfo = () => {
 
             <RenderIngredientsAndMeasures />
 
-            {renderInstructions}
+            {/* {renderInstructions} */}
+            <TranslateMealsDetails qStr={instructions} />
+            {/* <TranslateMealsDetails qStr={instructions.split(".").join(" *")} /> */}
 
             <iframe width="720" height="315"
                 src={`${mealTube.replace("watch?v=", "embed/")}`}>
