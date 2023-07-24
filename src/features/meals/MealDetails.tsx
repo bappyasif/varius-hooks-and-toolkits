@@ -68,7 +68,7 @@ export const RenderMealBasicInfo = () => {
                     <button onClick={handleCategoryClick}>{category}</button>
                     <button onClick={handleCuisineClick}>{cuisine}</button>
                 </p>
-                <p className="flex gap-4">{renderTags}</p>
+                {/* <p className="flex gap-4">{renderTags}</p> */}
             </div>
 
             <RenderIngredientsAndMeasures />

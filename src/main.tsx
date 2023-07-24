@@ -6,7 +6,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 import { Provider } from "react-redux"
 import store from './app/store.ts'
 import { fetchCategories, fetchCuisines, fetchIngredients } from './data_fetching/index.ts'
-import "./i18n"
+import "./i18n.ts"
+// import { IntlProvider } from 'react-intl'
 store.dispatch(fetchCuisines())
 store.dispatch(fetchCategories())
 store.dispatch(fetchIngredients())
@@ -15,13 +16,15 @@ store.dispatch(fetchIngredients())
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Suspense fallback={<h1>Loading I18n</h1>}>
-      <Provider store={store}>
-        <BrowserRouter>
-          <Routes>
-            <Route path='/*' element={<App />} />
-          </Routes>
-        </BrowserRouter>
-      </Provider>
+      {/* <IntlProvider locale='en' defaultLocale="es"> */}
+        <Provider store={store}>
+          <BrowserRouter>
+            <Routes>
+              <Route path='/*' element={<App />} />
+            </Routes>
+          </BrowserRouter>
+        </Provider>
+      {/* </IntlProvider> */}
     </Suspense>
   </React.StrictMode>,
 )

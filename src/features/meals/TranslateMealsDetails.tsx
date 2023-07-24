@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react"
+// import { FormattedMessage, IntlProvider } from "react-intl";
+import { translateContent, translateOptions } from "../../utils/rapidApiTextTranslation";
+
 // import { translateContent, translateOptions } from "../../utils/rapidApiTextTranslation";
 // import { translateContent } from "../../utils/googleTranslateApi";
 // import { translateContent, translateOptions } from "../../utils/rapodApiGoogleTranslate"
@@ -6,85 +9,106 @@ import { useEffect, useState } from "react"
 export const TranslateMealsDetails = ({ qStr }: { qStr: string }) => {
     const [translate, setTranslate] = useState<boolean>(false);
     const [translatedText, setTranslatedText] = useState<string>("")
-
-    const dataUpdater = (data: string) => {
-        setTranslatedText(data || "")
-    }
+    const [translateBack, setTranslateBack] = useState<boolean>(false)
 
     const beginTranslation = async () => {
-        // translateContent()
-        // translateContent(qStr)
-        // translateContent(qStr, dataUpdater)
-        // translateContent().then((data:any) => {
-        //     // const formattedText = data.translatedText.split()
-        //     if (data?.translatedText) {
-        //         setTranslatedText(data.translatedText || "")
-        //     }
-        //     setTranslate(false);
-        // }).catch((err:any) => console.log(err.message))
+        translateContent().then((data: any) => {
+            // const formattedText = data.translatedText.split()
+            console.log(data, "DATATA", data.data.translatedText)
+            if (data.data?.translatedText) {
+                setTranslatedText(data.data.translatedText || "")
+                handleToggle()
+            }
+            setTranslate(false);
+            // setTranslateBack(false)
+        }).catch((err: any) => console.log(err.message))
 
-        const res = await fetch("https://libretranslate.com/translate", {
-            method: "POST",
-            body: JSON.stringify({
-                q: "Hello World!",
-                source: "en",
-                target: "es"
-            }),
-            headers: { "Content-Type": "application/json" }
-        });
+        // const res = await fetch("https://libretranslate.com/translate", {
+        //     method: "POST",
+        //     body: JSON.stringify({
+        //         q: "Hello World!",
+        //         source: "en",
+        //         target: "es"
+        //     }),
+        //     headers: { "Content-Type": "application/json" }
+        // });
 
-        console.log(await res.json(), "LIBREEEE");
+        // console.log(await res.json(), "LIBREEEE");
 
     }
 
     const configureOptions = () => {
-        // translateOptions.body = new URLSearchParams({
-        //     // q: 'Hello, world!',
-        //     q: qStr,
-        //     target: 'bn',
-        //     source: 'en'
-        // })
+        if (qStr.split(" ").length > 22) {
+            alert("please consider to use google transolator, using free tier translation service")
+        } else {
+            translateOptions.body = new URLSearchParams({
+                text: 'Hello, world!',
+                // text: qStr.split(".").join("*"),
+                target_language: 'bn',
+                source_language: 'en'
+            })
 
-        setTranslate(true)
+            setTranslate(true)
+            translatedText && handleToggle()
+        }
     }
 
     useEffect(() => {
-        translate && beginTranslation()
+        !translatedText && translate && beginTranslation()
     }, [translate])
 
     // useEffect(() => {
     //     configureOptions()
     // }, [])
 
-    // const renderInstructions = () => {
-    //     if (translatedText) {
-    //         return translatedText.split("।").map((text, idx) => <li key={idx}>{text}</li>)
-    //     } else {
-    //         return qStr.split("*").map((text, idx) => <li key={idx}>{text}</li>)
-    //     }
-    // }
+    const renderInstructions = () => {
+        if (translatedText.length && translateBack) {
+            return translatedText.split("*").map((text, idx) => text && <li key={idx}>{text}</li>)
+        } else {
+            return qStr.split(".").map((text, idx) => text && <li key={idx}>{text}</li>)
+        }
+    }
+
+    const handleToggle = () => setTranslateBack(prev => !prev)
 
 
     const content = (
         <div className="flex flex-col items-center">
             <div className="flex gap-4">
                 <h2 className="text-4xl">Instructions</h2>
-                <button onClick={configureOptions}>Translate Me</button>
+                {
+                    translatedText?.length && translateBack
+                        ? <button onClick={handleToggle}>To English</button>
+                        : <button onClick={configureOptions}>Translate Me</button>
+                }
             </div>
-            <p className="text-2xl w-5/6">{translatedText || qStr}</p>
+
+            {/* <FormattedMessage id="app.text"
+                defaultMessage="Edit <code>src/App.js</code> and save to reload. Now with {what}!"
+                description="Welcome header on app main page"
+                values={{
+                    what: 'react-intl',
+                    code: chunks => <code>{chunks}</code>
+                }}
+            /> */}
+
+            {/* <p className="text-2xl w-5/6">{translatedText || qStr}</p> */}
             {/* <ul className="text-2xl w-5/6">{renderInstructions}</ul> */}
-            {/* <ul className="text-2xl w-5/6">{renderInstructions()}</ul> */}
+            <ul className="text-2xl w-5/6 list-disc">{renderInstructions()}</ul>
         </div>
     )
+
+    console.log(translatedText, "TEXT!!!!")
 
     // console.log(translatedText.split("।").length, qStr.split(".").join("[]"))
     // console.log(translatedText, "TRANSLKA", qStr.split(".").join("*"))
 
     return (
         <div>
-            {/* <h2>TranslateMealsDetails - {translatedText}</h2> */}
-            {/* <button onClick={configureOptions}>Translate Me</button> */}
             {content}
+            {/* <IntlProvider locale='bn' defaultLocale="bn">
+                {content}
+            </IntlProvider> */}
         </div>
     )
 }
