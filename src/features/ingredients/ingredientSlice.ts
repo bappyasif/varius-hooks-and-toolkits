@@ -6,7 +6,8 @@ export type IngredientsType = {
     // [index: string]: number;
     id: string,
     name: string,
-    count: number
+    count: number,
+    description?: string
 }
 
 export type IngredientsListType = {
@@ -44,12 +45,13 @@ const ingredientSlices = createSlice({
                 const ingredient: IngredientsType = {
                     id: item.idIngredient,
                     name: item.strIngredient,
+                    description: item.strDescription,
                     count: 0
                 }
 
                 return ingredient
             })
-            console.log(action.payload, "ingredients!!")
+            console.log(action.payload, "payload ingredients!!")
         }),
             builder.addCase(fetchMealsByIngredient.fulfilled, (state, action) => {
                 state.meals = action.payload.meals.map((item: any) => {

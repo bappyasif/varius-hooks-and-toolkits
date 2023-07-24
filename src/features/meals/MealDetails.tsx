@@ -7,6 +7,7 @@ import { useToDispatchFetching } from "../../hooks/forComponents";
 import { increaseCountForIngredient } from "../ingredients/ingredientSlice";
 import { TranslateMealsDetails } from "./TranslateMealsDetails";
 import { useTranslation } from "react-i18next";
+import { RenderIngredientsAndMeasurements } from "./TranslateIngredientsAndMeasurements";
 
 export const MealDetails = () => {
     // const { mealId } = useParams()
@@ -67,6 +68,7 @@ export const RenderMealBasicInfo = () => {
                 {/* <p className="flex gap-4">{renderTags}</p> */}
             </div>
 
+            {/* <RenderIngredientsAndMeasurements /> */}
             <RenderIngredientsAndMeasures />
 
             {/* {renderInstructions} */}
@@ -117,7 +119,7 @@ const RenderIngredientsAndMeasures = () => {
         <div className="flex flex-col items-center gap-y-8">
             <div className="flex gap-4">
                 <h2 className="text-4xl">{t("Ingredients And Measurements")}</h2>
-                {btnElement}
+                {/* {btnElement} */}
             </div>
             <div className="flex gap-x-8 gap-y-4 flex-wrap justify-center w-5/6">
                 {content}

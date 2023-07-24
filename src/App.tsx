@@ -8,6 +8,7 @@ import { CuisineMeals } from "./features/area/CuisineMeals"
 import { IngredientMeals } from "./features/ingredients/IngredientMeals"
 import { CategoriesList } from "./features/categories/CategoriesList"
 import { CuisinesList } from "./features/area/CuisinesList"
+import { IngredientsList } from "./features/ingredients/IngredientsList"
 // import { CategoryViewPage } from "./pages/CategoryViewPage"
 
 function App() {
@@ -29,7 +30,7 @@ function App() {
             {/* <Route path=":cuisineName/meals" element={<CuisineMeals />} /> */}
           </Route>
           <Route path="/ingredients">
-            <Route index element={"ingredients view"} />
+            <Route index element={<IngredientsList />} />
             <Route path=":name" element={<IngredientMeals />} />
           </Route>
           <Route path="meals">
