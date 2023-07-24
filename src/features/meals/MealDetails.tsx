@@ -6,6 +6,7 @@ import { IAMType } from "./mealsSlice";
 import { useToDispatchFetching } from "../../hooks/forComponents";
 import { increaseCountForIngredient } from "../ingredients/ingredientSlice";
 import { TranslateMealsDetails } from "./TranslateMealsDetails";
+import { useTranslation } from "react-i18next";
 
 export const MealDetails = () => {
     // const { mealId } = useParams()
@@ -48,25 +49,20 @@ export const RenderMealBasicInfo = () => {
 
     const renderTags = mealTags?.split(",").map(name => <span key={name}>{name}</span>)
 
-    // const renderInstructions = (
-    //     <div className="flex flex-col items-center">
-    //         <h2 className="text-4xl">Instructions</h2>
-    //         <p className="text-2xl w-5/6">{instructions}</p>
-    //     </div>
-    // )
+    const { t } = useTranslation()
 
     const content = (
         <div key={mealId} className="flex flex-col items-center gap-y-8">
             <h1>{mealName}</h1>
 
-            <a target="_blank" href={mealSource}>Visit Source Website</a>
+            <a target="_blank" href={mealSource}>{t("Visit Source Website")}</a>
 
             <div className="mx-auto">
                 <img className="aspect-square h-96" src={mealThumb} alt={mealName} />
 
                 <p className="flex gap-4">
-                    <button onClick={handleCategoryClick}>{category}</button>
-                    <button onClick={handleCuisineClick}>{cuisine}</button>
+                    <button onClick={handleCategoryClick}>{t(`${category}`)}</button>
+                    <button onClick={handleCuisineClick}>{t(`${cuisine}`)}</button>
                 </p>
                 {/* <p className="flex gap-4">{renderTags}</p> */}
             </div>
@@ -109,9 +105,20 @@ const RenderIngredientsAndMeasures = () => {
         })
     )
 
+    const { t } = useTranslation()
+
+    const btnElement = (
+        <>
+            <button>{t("Translate Me")}</button>
+        </>
+    )
+
     return (
         <div className="flex flex-col items-center gap-y-8">
-            <h2 className="text-4xl">Ingredients and measurements</h2>
+            <div className="flex gap-4">
+                <h2 className="text-4xl">{t("Ingredients And Measurements")}</h2>
+                {btnElement}
+            </div>
             <div className="flex gap-x-8 gap-y-4 flex-wrap justify-center w-5/6">
                 {content}
             </div>

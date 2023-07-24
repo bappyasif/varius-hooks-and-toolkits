@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 // import { FormattedMessage, IntlProvider } from "react-intl";
 import { translateContent, translateOptions } from "../../utils/rapidApiTextTranslation";
-
+import i18next from 'i18next';
+import { useTranslation } from "react-i18next";
 // import { translateContent, translateOptions } from "../../utils/rapidApiTextTranslation";
 // import { translateContent } from "../../utils/googleTranslateApi";
 // import { translateContent, translateOptions } from "../../utils/rapodApiGoogleTranslate"
@@ -38,13 +39,13 @@ export const TranslateMealsDetails = ({ qStr }: { qStr: string }) => {
     }
 
     const configureOptions = () => {
-        if (qStr.split(" ").length > 22) {
+        if (qStr.split("").length > 200) {
             alert("please consider to use google transolator, using free tier translation service")
         } else {
             translateOptions.body = new URLSearchParams({
                 text: 'Hello, world!',
                 // text: qStr.split(".").join("*"),
-                target_language: 'bn',
+                target_language: i18next.language,
                 source_language: 'en'
             })
 
@@ -71,15 +72,16 @@ export const TranslateMealsDetails = ({ qStr }: { qStr: string }) => {
 
     const handleToggle = () => setTranslateBack(prev => !prev)
 
+    const {t} = useTranslation()
 
     const content = (
         <div className="flex flex-col items-center">
             <div className="flex gap-4">
-                <h2 className="text-4xl">Instructions</h2>
+                <h2 className="text-4xl">{t("Instructions")}</h2>
                 {
                     translatedText?.length && translateBack
-                        ? <button onClick={handleToggle}>To English</button>
-                        : <button onClick={configureOptions}>Translate Me</button>
+                        ? <button onClick={handleToggle}>{t("To English")}</button>
+                        : <button onClick={configureOptions}>{t("Translate Me")}</button>
                 }
             </div>
 

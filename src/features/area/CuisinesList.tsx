@@ -27,7 +27,8 @@ export const FirstNineCuisines = () => {
     <div className="flex flex-col gap-8 w-5/6 mx-auto">
       <div className="flex justify-between">
         <h2 className="text-4xl">{t("Meal Cuisines")}</h2>
-        <Link className="text-2xl" to={"/cuisines"}>{t("See All Available Cuisines")}</Link>
+        {/* <Link className="text-2xl" to={"/cuisines"}>{t("See All Available Cuisines")}</Link> */}
+        <Link className="text-2xl" to={"/cuisines"}>{t("See All")}</Link>
       </div>
       <h2></h2>
       <RenderCuisinesList fullList={false} />
