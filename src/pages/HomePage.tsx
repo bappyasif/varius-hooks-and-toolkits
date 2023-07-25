@@ -10,6 +10,7 @@ import { RandomMeal } from "../features/randoms/RandomMeal";
 import { MostPopularCategory } from "../features/categories/MostPopularCategory";
 import { MostPopularCuisine } from "../features/area/MostPopularCuisine";
 import { MostPopularIngredients } from "../features/ingredients/MostPopularIngredients";
+import { MostPopularMeals } from "../features/meals/MostPopularMeals";
 
 export const HomePage = () => {
   // const count = useAppSelector(state => state.counter.count)
@@ -21,9 +22,13 @@ export const HomePage = () => {
       <div className="flex justify-around">
         <MostPopularCategory />
         <MostPopularCuisine />
-        <MostPopularIngredients />
+        {/* <MostPopularIngredients /> */}
       </div>
       <RandomMeal />
+      <div className="flex justify-around">
+        <MostPopularIngredients />
+        <MostPopularMeals />
+      </div>
       <FirstEightList />
       <FirstNineCuisines />
       {/* <CuisinesList /> */}

@@ -59,6 +59,7 @@ const RenderNavs = () => {
             <Link to={"/cuisines"}>{t('Cuisines')}</Link>
             <Link to={"/categories"}>{t("Categories")}</Link>
             <Link to={"/ingredients"}>{t("Ingredients")}</Link>
+            <Link to={"/popularMeals"}>{t("Popular Meals")}</Link>
         </div>
     )
 }

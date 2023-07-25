@@ -49,17 +49,17 @@ export const RenderMeal = ({ ...item }: MealItemType) => {
     const dispatch = useAppDispatch();
 
     const clickHandler = () => {
-        dispatch(increaseMealCount({id, mealName, mealThumb: mealImg}))
-        console.log("DISPATCHED!!", {mealId:id, mealName, mealThumb: mealImg})
+        dispatch(increaseMealCount({id, name: mealName, imgSrc: mealImg}))
+        // console.log("DISPATCHED!!", {mealId:id, mealName, mealThumb: mealImg})
     }
 
-    const mealsViewed = useAppSelector(state => state.meal.mealsViewed);
+    // const mealsViewed = useAppSelector(state => state.meal.mealsViewed);
     
-    console.log("meals viewed....", mealsViewed)
+    // console.log("meals viewed....", mealsViewed)
 
     return (
         <Link onClick={clickHandler} to={`/meals/${id}`} key={id}>
-            <div >
+            <div>
                 <h2>{mealName}</h2>
                 <img className="w-48" src={mealImg} alt={mealName} />
             </div>

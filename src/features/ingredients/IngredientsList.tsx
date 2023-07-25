@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom"
 import { fetchIngredients } from "../../data_fetching"
-import { useAppSelector } from "../../hooks"
+import { useAppDispatch, useAppSelector } from "../../hooks"
 import { useToDispatchFetching, useToGetIngredients } from "../../hooks/forComponents"
+import { increaseCountForIngredient } from "./ingredientSlice"
 
 export const IngredientsList = () => {
   // useToDispatchFetching(fetchIngredients)
@@ -32,11 +33,19 @@ export const IngredientsList = () => {
 
 const RenderList = () => {
   const list = useToGetIngredients()
+  
+  const dispatch = useAppDispatch();
+
+  const handleClick = (ingredientName: string) => {
+    dispatch(increaseCountForIngredient(ingredientName))
+    // navigate(`/ingredients/${ingredientName}`)
+  }
+
   const content = (
     list.map(item => {
       return (
         <div key={item.id} className="w-60">
-          <Link to={`/ingredients/${item.name}`}>{item.name}</Link>
+          <Link onClick={() => handleClick(item.name)} to={`/ingredients/${item.name}`}>{item.name}</Link>
           {/* <p>{item.description}</p> */}
         </div>
       )

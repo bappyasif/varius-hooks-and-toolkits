@@ -30,7 +30,7 @@ export type forMealInitState = {
 //     lists: MealNameType[]
 // }
 
-type ViewedMealType = {
+export type ViewedMealType = {
     id: string,
     name: string,
     imgSrc: string,
@@ -60,7 +60,7 @@ const mealsSlice = createSlice({
     name: "meals",
     reducers: {
         increaseMealCount: (state, action) => {
-            const {id, mealName, mealThumb} = action.payload;
+            const {id, name, imgSrc} = action.payload;
 
             const foundItem = state.mealsViewed.findIndex(item => item.id === action.payload.id)
             
