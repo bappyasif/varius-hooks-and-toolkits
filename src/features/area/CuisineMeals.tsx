@@ -3,6 +3,7 @@ import { fetchCuisineMeals } from "../../data_fetching";
 import { Link, useParams } from "react-router-dom";
 import { useToDispatchFetching } from "../../hooks/forComponents";
 import { useTranslation } from "react-i18next";
+import { RenderMeal } from "../category/CategoryViewPage";
 
 export const CuisineMeals = () => {
     // const { name } = useParams()
@@ -17,17 +18,18 @@ export const CuisineMeals = () => {
     // }, [name])
 
     const renderMeals = (
-        meals.map(item => {
-            const { id, mealImg, mealName } = item;
-            return (
-                <Link to={`/meals/${id}`} key={id}>
-                    <div >
-                        <h2>{mealName}</h2>
-                        <img className="w-48" src={mealImg} alt={mealName} />
-                    </div>
-                </Link>
-            )
-        })
+        meals.map(item => <RenderMeal id={item.id} mealImg={item.mealImg} mealName={item.mealName} key={item.id} />)
+        // meals.map(item => {
+        //     const { id, mealImg, mealName } = item;
+        //     return (
+        //         <Link to={`/meals/${id}`} key={id}>
+        //             <div >
+        //                 <h2>{mealName}</h2>
+        //                 <img className="w-48" src={mealImg} alt={mealName} />
+        //             </div>
+        //         </Link>
+        //     )
+        // })
     )
 
     const {name} = useParams()

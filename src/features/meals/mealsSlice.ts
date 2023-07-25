@@ -15,7 +15,7 @@ export type MealInfoType = {
     mealSource: string,
     mealTags: string,
     mealTube: string,
-    instructions: string
+    instructions: string,
 }
 
 export type forMealInitState = {
@@ -23,11 +23,19 @@ export type forMealInitState = {
     ingredients: IAMType[],
     measures: IAMType[],
     // count: number
+    mealsViewed: ViewedMealType[]
 }
 
 // export type MealsType = {
 //     lists: MealNameType[]
 // }
+
+type ViewedMealType = {
+    id: string,
+    name: string,
+    imgSrc: string,
+    count: number
+}
 
 const initMealsState: forMealInitState = {
     // count: 0,
@@ -42,20 +50,36 @@ const initMealsState: forMealInitState = {
         mealTags: "",
         mealThumb: "",
         mealTube: "",
-        instructions: ""
-    }
+        instructions: "",
+    },
+    mealsViewed: []
 }
 
 const mealsSlice = createSlice({
     initialState: initMealsState,
     name: "meals",
     reducers: {
+        increaseMealCount: (state, action) => {
+            const {id, mealName, mealThumb} = action.payload;
 
+            const foundItem = state.mealsViewed.findIndex(item => item.id === action.payload.id)
+            
+            if(foundItem !== -1) {
+                state.mealsViewed = state.mealsViewed.map(item => {
+                    if(item.id === id) {
+                        item.count = item.count ? item.count + 1 : 1
+                    }
+                    return item
+                })
+            } else {
+                state.mealsViewed.push({...action.payload, count: 0})
+            }
+        }
     },
     extraReducers: builder => {
         builder.addCase(fetchMealDetails.fulfilled, (state, action) => {
             action.payload.meals.map((item: any) => {
-                const meal:MealInfoType = {
+                const meal: MealInfoType = {
                     category: item.strCategory,
                     cuisine: item.strArea,
                     mealId: item.idMeal,
@@ -66,14 +90,14 @@ const mealsSlice = createSlice({
                     mealTube: item.strYoutube,
                     instructions: item.strInstructions
                 }
-                let ingredients = [] 
-                let measures = [] 
-                for(let key in item) {
+                let ingredients = []
+                let measures = []
+                for (let key in item) {
                     console.log(["Ingredient"].includes(key), ["Measure"].includes(key))
-                    if(key.includes("Ingredient") && item[key]) {
-                        ingredients.push({text: item[key]})
-                    } else if(key.includes("Measure") && item[key]) {
-                        measures.push({text: item[key]})
+                    if (key.includes("Ingredient") && item[key]) {
+                        ingredients.push({ text: item[key] })
+                    } else if (key.includes("Measure") && item[key]) {
+                        measures.push({ text: item[key] })
                     }
                 }
                 console.log(meal, "ITEM", ingredients, measures)
@@ -91,6 +115,8 @@ const mealsSlice = createSlice({
         })
     }
 })
+
+export const { increaseMealCount } = mealsSlice.actions
 
 const MealsReducer = mealsSlice.reducer;
 
