@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useAppSelector } from "../../hooks";
-import { useToGetFourRandomItems } from "../../hooks/forComponents";
+import { useToGetFourPopularItems, useToGetFourRandomItems } from "../../hooks/forComponents";
 import { Link } from "react-router-dom";
 
 export const MostPopularCategory = () => {
@@ -8,9 +8,11 @@ export const MostPopularCategory = () => {
 
   const { names } = useToGetFourRandomItems(categories)
 
+  // const { names } = useToGetFourPopularItems(categories)
+
   const renderContent = (
     names?.map(name => (
-      <Link to={`/categories/${name || "Beef"}`}>{name || "Beef"}</Link>
+      <Link key={name} to={`/categories/${name || "Beef"}`}>{name || "Beef"}</Link>
     ))
   )
 

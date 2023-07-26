@@ -168,6 +168,147 @@ export const useToGetFourRandomItems = (categories: (CategoryItemType | CuisineN
     return { names }
 }
 
+export const useToGetFourPopularItems = (list: (CategoryItemType | CuisineNameType | IngredientsType)[]) => {
+    const [names, setNames] = useState<string[]>([]);
+
+    const { highestCount } = useToGetHighestCount({ data: list })
+
+    const [rnd, setRnd] = useState<number>(0)
+
+    const itemsWithHighestCount = list.filter(item => item.count === highestCount)
+
+    const itemsWithLesserCounts = list.filter(item => item.count < highestCount).sort((a,b) => a.count > b.count ? 1 : -1)
+
+    // const getItemsFromLessers = () => {
+    //     itemsWithLesserCounts.forEach((item, idx) => {
+    //         if(idx < 4) {
+    //             console.log("still empty", names.length, )
+
+    //         } else {
+    //             console.log("already full")
+    //         }
+    //         // if(names.length + idx < 4) {
+    //         //     // console.log("running", names.length + idx < 4, names.length + idx)
+    //         //     setNames(prev => [...prev, item.name])
+    //         // }
+    //     })
+        
+    //     // removeDuplicate()
+    // }
+
+    // const getItemsFromHighest = () => {
+    //     itemsWithHighestCount.forEach((item, idx) => {
+    //         // names.length < 4 && setNames(prev => [...prev, item.name])
+    //         // idx < 4 && setNames(prev => [...prev, item.name])
+    //         idx < 4 && console.log("running highest", names)
+    //     })
+    //     // removeDuplicate()
+    // }
+
+    const addOneToList = () => {
+        setNames(prev => [...prev, itemsWithHighestCount[names.length].name])
+        console.log("SHOULD NOT RUN TWICE")
+    }
+
+    useEffect(() => {
+        names.length > 0 && names.length < 4 && addOneToList()
+    }, [names])
+
+    useEffect(() => {
+        itemsWithHighestCount.length && console.log("Run Once", highestCount, names.length, itemsWithHighestCount)
+
+        itemsWithHighestCount.length && names.length === 0 && addOneToList
+
+        // itemsWithHighestCount.length && getItemsFromHighest()
+    }, [itemsWithHighestCount])
+
+    // useEffect(() => {
+    //     names.length > 0 && names.length < 4 && console.log("RUNNING 4 times!!!!")
+    // }, [names])
+
+    console.log(names.length, names, "NAMESSS")
+
+    return { names }
+}
+
+// export const useToGetFourPopularItems = (list: (CategoryItemType | CuisineNameType | IngredientsType)[]) => {
+//     const [names, setNames] = useState<string[]>([]);
+
+//     const { highestCount } = useToGetHighestCount({ data: list })
+
+//     const [rnd, setRnd] = useState<number>(0)
+
+//     const itemsWithHighestCount = list.filter(item => item.count === highestCount)
+
+//     const itemsWithLesserCounts = list.filter(item => item.count < highestCount).sort((a,b) => a.count > b.count ? 1 : -1)
+
+//     // const getItemsFromHighest = () => {
+//     //     itemsWithHighestCount.forEach((item, idx) => {
+//     //         // names.length < 4 && setNames(prev => [...prev, item.name])
+//     //         idx < 4 && setNames(prev => [...prev, item.name])
+//     //         idx < 4 && console.log("running highest", names)
+//     //     })
+//     //     // removeDuplicate()
+//     // }
+
+//     // const getItemsFromLessers = () => {
+//     //     itemsWithLesserCounts.forEach((item, idx) => {
+//     //         if(idx < 4) {
+//     //             console.log("still empty", names.length, )
+
+//     //         } else {
+//     //             console.log("already full")
+//     //         }
+//     //         // if(names.length + idx < 4) {
+//     //         //     // console.log("running", names.length + idx < 4, names.length + idx)
+//     //         //     setNames(prev => [...prev, item.name])
+//     //         // }
+//     //     })
+        
+//     //     // removeDuplicate()
+//     // }
+
+//     useEffect(() => {
+//         // highestCount !== -1 && getItemsFromHighest();
+//         // names.length > 0 && names.length < 4 && removeDuplicate();
+//         // names.length === 0 && highestCount !== -1 && getItemsFromHighest();
+//         // highestCount !== -1 && getItemsFromHighest();
+//     }, [])
+
+//     useEffect(() => {
+//         // names.length > 0 && names.length < 4 && getItemsFromLessers()
+//         // names.length === 0 && highestCount !== -1 && getItemsFromHighest();
+//         // names.length > 0 && names.length < 4 && removeDuplicate();
+//         names.length > 0 && names.length < 4 && console.log("RUNNING!!!!")
+//     }, [names])
+
+//     // const { item, filteredList } = useToGetRandomItem({ data: list }, highestCount)
+
+//     const removeDuplicate = () => {
+//         const filtered = names.filter(function (item, pos) {
+//             return names.indexOf(item) == pos;
+//         })
+
+//         setNames(filtered)
+//     }
+
+//     // const addNames = () => {
+//     //     if(names.length < 4) {
+//     //         if(item.name) {
+//     //             setNames(prev => [...prev, item.name])
+//     //         }
+//     //     }
+//     // }
+
+//     // useEffect(() => {
+//     //     item?.name && setNames(prev => [...prev, item.name])
+//     //     // names.length == 3 && removeDuplicate()
+//     //     // removeDuplicate()
+//     // }, [item])
+
+//     return { names }
+// }
+
 export const useToGetAnRandomMeal = () => {
     const category = useAppSelector(state => state.randomMeal.category)
     const cuisine = useAppSelector(state => state.randomMeal.cuisine)

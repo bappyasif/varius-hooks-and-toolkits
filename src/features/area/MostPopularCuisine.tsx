@@ -10,7 +10,7 @@ export const MostPopularCuisine = () => {
     const renderContent = (
         names.map(name => {
             return (
-                <Link to={`/cuisines/${name || "Thai"}`}>{name || "Thai"}</Link>
+                <Link key={name} to={`/cuisines/${name || "Thai"}`}>{name || "Thai"}</Link>
             )
         })
     )
