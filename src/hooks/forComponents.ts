@@ -321,19 +321,40 @@ export const useToGetFourPopularItems = (list: (CategoryItemType | CuisineNameTy
         }
     }
 
-    const removeDuplicate = () => {
+    const removeDuplicates = () => {
         const filtered = names.filter(function (item, pos) {
             return names.indexOf(item) == pos;
         })
 
-        setNames(filtered)
+        return filtered
+
+        // setNames(filtered)
     }
 
     const highestOnly = list.filter(item => item.count >= highestCount);
 
-    const allHighestToList = () => {
-        const rnd = Math.floor(Math.random() * highestOnly.length)
-        const currItem = highestOnly[rnd]
+    // const whenFewerHighestItems = () => {
+    //     highestOnly.forEach(item => {
+    //         setNames(prev => [...prev, item.name])
+    //         // const checkExists = names.findIndex(name => name === item.name)
+    //         // if (checkExists === -1 && item.name) {
+    //         //     console.log("adding name", item.name, item)
+    //         //     setNames(prev => [...prev, item.name])
+    //         // }
+    //     })
+    // }
+
+    const lesserCountsItems = list.filter(item => item.count < highestCount)
+
+    const whenFewerHighestItems = () => {
+        highestOnly.forEach(item => {
+            setNames(prev => [...prev, item.name])
+        })
+    }
+
+    const allHighestToList = (items: (CategoryItemType | CuisineNameType | IngredientsType)[]) => {
+        const rnd = Math.floor(Math.random() * items.length)
+        const currItem = items[rnd]
         const checkExists = names.findIndex(name => name === currItem.name)
         if (checkExists === -1 && currItem.name) {
             console.log("adding name", currItem.name, currItem)
@@ -341,13 +362,31 @@ export const useToGetFourPopularItems = (list: (CategoryItemType | CuisineNameTy
         }
     }
 
+    // const allHighestToList = () => {
+    //     const rnd = Math.floor(Math.random() * highestOnly.length)
+    //     const currItem = highestOnly[rnd]
+    //     const checkExists = names.findIndex(name => name === currItem.name)
+    //     if (checkExists === -1 && currItem.name) {
+    //         console.log("adding name", currItem.name, currItem)
+    //         setNames(prev => [...prev, currItem.name])
+    //     }
+    // }
+
     useEffect(() => {
-        highestCount !== undefined && names.length < 4 && allHighestToList()
+        // highestCount !== undefined && names.length < 4 && allHighestToList()
+        // lesserCountsItems.length === 0 && highestCount !== undefined && names.length < 4 && highestOnly.length > 5 && allHighestToList(highestOnly)
+        // lesserCountsItems.length === 0 && highestCount !== undefined && names.length < 4 && highestOnly.length < 5 && whenFewerHighestItems()
+        // lesserCountsItems.length && names.length < 4 && allHighestToList(lesserCountsItems)
+
+        highestCount !== undefined && names.length < 4 && highestOnly.length > 5 && allHighestToList(highestOnly)
+        highestCount !== undefined && names.length < 4 && highestOnly.length < 5 && whenFewerHighestItems()
+        highestOnly.length < 5 && lesserCountsItems.length && names.length < 5 && allHighestToList(lesserCountsItems)
+        // names.length > 0 && names.length < 4 && removeDuplicate()
     }, [highestCount, names])
 
-    console.log(names, "names!!!!", highestOnly)
+    console.log(names, "names!!!!", highestOnly, lesserCountsItems.length)
 
-    return { names }
+    return { names: removeDuplicates() }
 }
 
 export const useToGetAnRandomMeal = () => {
