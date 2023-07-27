@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom"
 import { useAppSelector } from "../../hooks"
-import { useToGetFourRandomItems } from "../../hooks/forComponents"
+import { useToGetFourPopularItems, useToGetFourRandomItems } from "../../hooks/forComponents"
 import { useTranslation } from "react-i18next"
 
 export const MostPopularIngredients = () => {
     const ingredients = useAppSelector(state => state.ingredient.list)
     // console.log(ingredients, "|INGREDIENTSSSS")
-    const {names} = useToGetFourRandomItems(ingredients)
+    // const {names} = useToGetFourRandomItems(ingredients)
+    // figure it out how!!
+    const {names} = useToGetFourPopularItems(ingredients)
 
     const renderContent = (
         names.map(name => {
