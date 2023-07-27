@@ -1,12 +1,13 @@
 import { useTranslation } from "react-i18next";
 import { useAppSelector } from "../../hooks";
-import { useToGetFourRandomItems } from "../../hooks/forComponents";
+import { useToGetFourPopularItems, useToGetFourRandomItems } from "../../hooks/forComponents";
 import { Link } from "react-router-dom";
 
 export const MostPopularCategory = () => {
   const categories = useAppSelector(state => state.categories.list)
 
-  const { names } = useToGetFourRandomItems(categories)
+  // const { names } = useToGetFourRandomItems(categories)
+  const {names} = useToGetFourPopularItems(categories)
 
   const renderContent = (
     names?.map(name => (

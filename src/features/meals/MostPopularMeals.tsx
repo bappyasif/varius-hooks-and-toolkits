@@ -28,7 +28,8 @@ export const MostPopularMeals = () => {
     return (
         <div>
             <h2 className="text-4xl">{t("Most Popular Meals")}</h2>
-            <div className="flex gap-4 text-2xl">{content}</div>
+            {/* <div className="flex gap-4 text-2xl">{content}</div> */}
+            <div className="flex gap-4 text-2xl">{meals.length ? content : <h2>No Items Been Viewed Yet....</h2>}</div>
         </div>
     )
 }

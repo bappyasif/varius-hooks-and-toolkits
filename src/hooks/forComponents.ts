@@ -299,27 +299,27 @@ export const useToGetFourPopularItems = (list: (CategoryItemType | CuisineNameTy
 
     const { highestCount } = useToGetHighestCount({ data: list })
 
-    const { item, filteredList } = useToGetRandomItem({ data: list }, highestCount)
+    // const { item, filteredList } = useToGetRandomItem({ data: list }, highestCount)
 
-    const test = list.filter(item => item.count < highestCount)
+    // const test = list.filter(item => item.count < highestCount)
 
-    const chooseRandom = () => {
-        console.log("CHOOSE RANDOM")
-        const rnd = Math.round(Math.random() * test.length)
-        const chkExist = names.findIndex(name => name === test[rnd]?.name)
-        console.log("CHOOSE RANDOM", rnd, chkExist)
-        if (chkExist === -1 && test[rnd]?.name && names.length < 4) {
-            setNames(prev => [...prev, filteredList[rnd]?.name])
-        }
-    }
+    // const chooseRandom = () => {
+    //     console.log("CHOOSE RANDOM")
+    //     const rnd = Math.round(Math.random() * test.length)
+    //     const chkExist = names.findIndex(name => name === test[rnd]?.name)
+    //     console.log("CHOOSE RANDOM", rnd, chkExist)
+    //     if (chkExist === -1 && test[rnd]?.name && names.length < 4) {
+    //         setNames(prev => [...prev, filteredList[rnd]?.name])
+    //     }
+    // }
 
-    const chck = (nm: string) => {
-        const chk = names.findIndex(name => name === nm)
-        console.log(chk, "check!!", names, nm, chk === -1 && nm !== "Beef" && nm !== undefined)
-        if (chk === -1 && nm !== "Beef" && nm !== undefined) {
-            setNames(prev => [...prev, nm])
-        }
-    }
+    // const chck = (nm: string) => {
+    //     const chk = names.findIndex(name => name === nm)
+    //     console.log(chk, "check!!", names, nm, chk === -1 && nm !== "Beef" && nm !== undefined)
+    //     if (chk === -1 && nm !== "Beef" && nm !== undefined) {
+    //         setNames(prev => [...prev, nm])
+    //     }
+    // }
 
     const removeDuplicates = () => {
         const filtered = names.filter(function (item, pos) {

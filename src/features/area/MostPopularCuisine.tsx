@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom"
-import { useToGetCuisines, useToGetFourRandomItems } from "../../hooks/forComponents"
+import { useToGetCuisines, useToGetFourPopularItems, useToGetFourRandomItems } from "../../hooks/forComponents"
 import { useTranslation } from "react-i18next"
 
 export const MostPopularCuisine = () => {
     const cuisines = useToGetCuisines()
 
-    const {names} = useToGetFourRandomItems(cuisines)
+    // const {names} = useToGetFourRandomItems(cuisines)
+    const { names } = useToGetFourPopularItems(cuisines)
 
     const renderContent = (
         names.map(name => {
@@ -15,7 +16,7 @@ export const MostPopularCuisine = () => {
         })
     )
 
-    const {t} = useTranslation()
+    const { t } = useTranslation()
 
     return (
         <div>
